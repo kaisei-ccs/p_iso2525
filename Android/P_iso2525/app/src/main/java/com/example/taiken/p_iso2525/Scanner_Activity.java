@@ -3,10 +3,17 @@ package com.example.taiken.p_iso2525;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.Size;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -28,7 +35,7 @@ public class Scanner_Activity extends  Activity {
     private SurfaceView mySurfaceView;//表面図
     private Camera myCamera;//カメラ
 
-    @Override
+    //Activity初期値
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mySurfaceView = new SurfaceView(this);
@@ -36,7 +43,7 @@ public class Scanner_Activity extends  Activity {
         setContentView(mySurfaceView);
     }
 
-    @Override
+    //Viewを再表示する
     protected void onResume() {
         super.onResume();
         SurfaceHolder holder = mySurfaceView.getHolder();
@@ -67,16 +74,20 @@ public class Scanner_Activity extends  Activity {
             parameters.setPreviewSize(width,height);
             //カメラ90回転
             myCamera.setDisplayOrientation(90);
+
             myCamera.setParameters(parameters);
             myCamera.startPreview();
+
         }
         @Override
+        //アクティビティを破棄した時
         public void surfaceDestroyed(SurfaceHolder holder) {
             // 破棄されたとき
             myCamera.release();
             myCamera = null;
         }
     };
+
 
     //クリックした場合オートフォーカス
     private OnClickListener onClickListener = new OnClickListener() {
@@ -85,6 +96,8 @@ public class Scanner_Activity extends  Activity {
             // オートフォーカス
             if (myCamera != null) {
                 myCamera.autoFocus(autoFocusCallback);
+
+
             }
         }
     };
@@ -122,13 +135,25 @@ public class Scanner_Activity extends  Activity {
                     (data, previewWidth, previewHeight, 0, 0, previewWidth, previewHeight, false);
             BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
+
             // バーコードを読み込む
             Reader reader = new MultiFormatReader();
             Result result = null;
+
+            //ビープ音を読み込む
+            MediaPlayer player = new MediaPlayer();
+
+            //第一引数　ストリームタイプ　第二引数　音量
+            ToneGenerator toneGenerator
+                    = new ToneGenerator(AudioManager.STREAM_SYSTEM, ToneGenerator.MAX_VOLUME);
             try {
                 result = reader.decode(bitmap);
+                //読み込んだQRコードをStringに変換
                 String text = result.getText();
-                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                //textを画面に表示
+                Toast.makeText(getApplicationContext(),text, Toast.LENGTH_LONG).show();
+                //標準的なビープ音
+                toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Not Found", Toast.LENGTH_SHORT).show();
             }

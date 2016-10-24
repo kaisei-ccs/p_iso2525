@@ -13,10 +13,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.taiken.p_iso2525.Scanner_Activity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
 </RelativeLayout>
