@@ -1,3 +1,4 @@
+package view;
 
 
 import java.io.IOException;
@@ -8,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Manager_Menu
+ * Servlet implementation class Sales_Log
  */
-@WebServlet("/Manager_Menu")
-public class Manager_Menu extends HttpServlet {
+@WebServlet("/Sales_Log")
+public class Sales_Log extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Manager_Menu() {
+    public Sales_Log() {
         super();
         // TODO Auto-generated constructor stub
     }

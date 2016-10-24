@@ -1,3 +1,4 @@
+package view;
 
 
 import java.io.IOException;
@@ -8,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Seller_Edit
+ * Servlet implementation class Print_EntrySheet
  */
-@WebServlet("/Seller_Edit")
-public class Seller_Edit extends HttpServlet {
+@WebServlet("/Print_EntrySheet")
+public class Print_EntrySheet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Seller_Edit() {
+    public Print_EntrySheet() {
         super();
         // TODO Auto-generated constructor stub
     }

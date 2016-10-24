@@ -1,3 +1,4 @@
+package view;
 
 
 import java.io.IOException;
@@ -8,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Print_EntrySheet
+ * Servlet implementation class Register
  */
-@WebServlet("/Print_EntrySheet")
-public class Print_EntrySheet extends HttpServlet {
+@WebServlet("/Register")
+public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Print_EntrySheet() {
+    public Register() {
         super();
         // TODO Auto-generated constructor stub
     }
