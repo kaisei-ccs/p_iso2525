@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 
 public class Frame extends JFrame implements WindowListener{
 
@@ -18,7 +17,6 @@ public class Frame extends JFrame implements WindowListener{
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 		Frame frame =new Frame();
-		frame.loadURL("http://www.kcom.ac.jp/");
 		frame.addWindowListener(frame);
 		frame.setVisible(true);
 	}
@@ -34,20 +32,12 @@ public class Frame extends JFrame implements WindowListener{
 
 		Platform.runLater(new Runnable() {
 			public void run() {
-				WebView view = new WebView();
-				engine = view.getEngine();
-				Scene scene = new Scene(view, 100, 200);
-				view.setMaxSize(scene.getWidth(), scene.getHeight());
-				view.maxWidthProperty().bind(scene.widthProperty());
-				view.maxHeightProperty().bind(scene.heightProperty());
+				Scene scene = new Scene(new Browser());
 				panel.setScene(scene);
+				panel.setSize(1366,760);
 				add(panel);
 			}
 		});
-	}
-
-	public void loadURL(String url){
-		engine.load(url);
 	}
 
 	public void windowOpened(WindowEvent e) {}
@@ -58,7 +48,6 @@ public class Frame extends JFrame implements WindowListener{
 
 	public void windowIconified(WindowEvent e) {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		System.out.println("a");
 	}
 
 	public void windowDeiconified(WindowEvent e) {}
