@@ -1,12 +1,22 @@
 package com.example.taiken.p_iso2525;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PreviewCallback;
@@ -15,6 +25,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.ToneGenerator;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -29,18 +40,20 @@ import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 
-public class Scanner_Activity extends  Activity {
+import static android.R.id.edit;
 
+public class Scanner_Activity extends  Activity {
 
     private SurfaceView mySurfaceView;//表面図
     private Camera myCamera;//カメラ
 
-    //Activity初期値
+    // Activity初期値
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mySurfaceView = new SurfaceView(this);
         mySurfaceView.setOnClickListener(onClickListener);
         setContentView(mySurfaceView);
+
     }
 
     //Viewを再表示する
@@ -49,9 +62,11 @@ public class Scanner_Activity extends  Activity {
         SurfaceHolder holder = mySurfaceView.getHolder();
         holder.addCallback(callback);
     }
+
+
+
     //表面ホルダーコールバック
     private SurfaceHolder.Callback callback = new SurfaceHolder.Callback() {
-        @Override
         //面作成
         public void surfaceCreated(SurfaceHolder holder) {
             // 生成されたとき
@@ -63,7 +78,7 @@ public class Scanner_Activity extends  Activity {
                 e.printStackTrace();
             }
         }
-        @Override
+
         //表面変更
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             // 変更されたとき
@@ -74,20 +89,18 @@ public class Scanner_Activity extends  Activity {
             parameters.setPreviewSize(width,height);
             //カメラ90回転
             myCamera.setDisplayOrientation(90);
-
             myCamera.setParameters(parameters);
             myCamera.startPreview();
-
         }
-        @Override
+
         //アクティビティを破棄した時
         public void surfaceDestroyed(SurfaceHolder holder) {
             // 破棄されたとき
             myCamera.release();
             myCamera = null;
         }
-    };
 
+    };
 
     //クリックした場合オートフォーカス
     private OnClickListener onClickListener = new OnClickListener() {
@@ -96,19 +109,20 @@ public class Scanner_Activity extends  Activity {
             // オートフォーカス
             if (myCamera != null) {
                 myCamera.autoFocus(autoFocusCallback);
-
-
             }
+
         }
     };
     // 読み込んだQRコードをプレビューに変換
     private AutoFocusCallback autoFocusCallback = new AutoFocusCallback() {
         @Override
         public void onAutoFocus(boolean success, Camera camera) {
+
             if (success) {
                 // 現在のプレビューをデータに変換
                 camera.setOneShotPreviewCallback(previewCallback);
             }
+
         }
     };
 
@@ -135,7 +149,6 @@ public class Scanner_Activity extends  Activity {
                     (data, previewWidth, previewHeight, 0, 0, previewWidth, previewHeight, false);
             BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
-
             // バーコードを読み込む
             Reader reader = new MultiFormatReader();
             Result result = null;
@@ -146,17 +159,23 @@ public class Scanner_Activity extends  Activity {
             //第一引数　ストリームタイプ　第二引数　音量
             ToneGenerator toneGenerator
                     = new ToneGenerator(AudioManager.STREAM_SYSTEM, ToneGenerator.MAX_VOLUME);
+
+
+
             try {
                 result = reader.decode(bitmap);
-                //読み込んだQRコードをStringに変換
+                //QRのデータをテキストに変更
                 String text = result.getText();
-                //textを画面に表示
                 Toast.makeText(getApplicationContext(),text, Toast.LENGTH_LONG).show();
                 //標準的なビープ音
                 toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
+
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Not Found", Toast.LENGTH_SHORT).show();
             }
+
+
+
         }
     };
 
