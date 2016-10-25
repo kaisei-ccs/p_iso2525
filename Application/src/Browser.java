@@ -16,10 +16,9 @@ public class Browser extends Region {
         //apply the styles
         getStyleClass().add("browser");
         // load the web page
-        webEngine.load("http://www.kcom.ac.jp/");
+        webEngine.load("http://localhost:8080/Web/Sales_Log.jsp");
         //add the web view to the scene
         getChildren().add(browser);
-
     }
     private Node createSpacer() {
         Region spacer = new Region();
