@@ -1,0 +1,42 @@
+@charset "UTF-8" ;
+
+body {
+	width: 100% ;
+	height: 5000px ;
+	padding: 0 ;
+}
+
+#popup-content {
+	width: 50% ;
+	height: 50% ;
+	width: 400px ;
+	height: 400px ;
+	margin: 0 ;
+	padding: 10px 20px ;
+	border: 2px solid #aaaaaa ;
+	background: #ffffff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#popup-overlay {
+	z-index: 1 ;
+	display: none ;
+	position: fixed ;
+	top: 0 ;
+	left: 0 ;
+	width: 100% ;
+	height: 120% ;
+	background-color: rgba( 0,0,0, 0.75 ) ;
+}
+
+.button-link {
+	color: #0000ff ;
+	text-decoration: underline ;
+}
+
+.button-link:hover {
+	cursor: pointer ;
+	color: #ff0000 ;
+}
