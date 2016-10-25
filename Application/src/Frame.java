@@ -54,6 +54,8 @@ public class Frame extends JFrame implements WindowListener{
 
 	public void windowActivated(WindowEvent e) {}
 
-	public void windowDeactivated(WindowEvent e) {}
+	public void windowDeactivated(WindowEvent e) {
+		this.requestFocusInWindow();
+	}
 
 }
