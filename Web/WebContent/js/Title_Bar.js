@@ -10,8 +10,9 @@ function button_url(str){
 }
 
 function title_set(str){
-	var form = document.createElement("From");
+	var form = document.createElement("form");
 	form.action = url;
+	form.method = "post";
 	document.body.appendChild(form);
 	var submit = document.createElement("input");
 	submit.type = "submit";

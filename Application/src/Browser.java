@@ -19,8 +19,6 @@ public class Browser extends Region {
         webEngine.load("http://localhost:8080/Web/Sales_Log.jsp");
         //add the web view to the scene
         getChildren().add(browser);
-        webEngine.setJavaScriptEnabled(true);
-
     }
     private Node createSpacer() {
         Region spacer = new Region();
