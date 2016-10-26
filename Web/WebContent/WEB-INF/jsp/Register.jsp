@@ -5,15 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>レジ</title>
+<script type="text/javascript" src="/Web/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="/Web/js/Title_Bar.js"></script>
 <link rel="stylesheet" type="text/css" href="/Web/css/Title_Bar.css">
 </head>
 <body>
-	<script>
-		button_name("メニュー");
-		button_url("/Web/Manager_Menu");
-		title_set("レジ");
-	</script>
+	<header>
+		<div id="title"></div>
+		<script>
+			button_name("メニュー");
+			button_url("/Web/Manager_Menu");
+			title_set("レジ");
+			load();
+		</script>
+	</header>
 	<p>
 		aaaaaaa float:left;
 	</p>
@@ -26,23 +31,23 @@
 			<TR><TD> 5-1</TD><td>5-2</td><TD> 5-3</TD><td>5-4</td></TR>
 		</TABLE>
 	</div>
-	
+
 
 	<input type = "button" style="position: absolute; left: 60%; top: 20%" name = Stop value = "会計中止" onClick = fauction(1)>
 	<input type = "button" style="position: absolute; left: 75%; top: 20%" name = Return value="返品" onClick = fauction(2)>
-	
+
 	<div>
 	合計金額<input type="text" name="TotalPrice"><br>
 	</div>
-	
+
 	<div>
 	預り金<input type="text" name="Charge"><br>
 	</div>
-	
+
 	<div>
 	<input type="button" name = Confirm value="確定" onClick = fauction(3)><br>
 	</div>
-	
+
 	<div>
 	おつり<input type="text" name="CashBack">
 	</div>
