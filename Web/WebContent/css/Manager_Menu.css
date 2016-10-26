@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+article {
+	font-size: 0;
+	padding: 2%;
+}
+
+article section {
+	font-size: 32rem;
+	width: calc(100% / 3);
+	display: inline-block;
+	vertical-align: top;
+}
+
+ul {
+	list-style-type: none;
+
+}
+
+li {
+	text-align: center;
+	border: solid 1px #aaaaaa;
+	margin: 4% 2%;
+}
