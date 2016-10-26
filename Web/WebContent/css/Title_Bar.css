@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 
-#sid {
+.sid {
 	float:left;
 	width:10%;
 	height:46px;
@@ -10,7 +10,7 @@
 	border: solid;
 }
 
-#pid {
+.pid {
 	width:90%;
 	height:40px;
 	font-size:35px;
@@ -19,6 +19,6 @@
 	text-align:center;
 	border: solid;
 }
-#clear {
+.clear {
 	clear:both
 }

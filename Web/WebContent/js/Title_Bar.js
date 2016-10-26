@@ -7,19 +7,19 @@ function load(){
 
 function button_name(str){
 	$(function() {
-		$("#sid").text(str);
+		$(".sid").text(str);
 	});
 }
 
 function button_url(str){
 	$(function() {
-	    $("#aid").removeattr("href");
-	    $("#aid").attr("href", str);
+	    $(".aid").removeattr("href");
+	    $(".aid").attr("href", str);
 	});
 }
 
 function title_set(str){
 	$(function() {
-		$("#pid").text(str);
+		$(".pid").text(str);
 	});
 }
