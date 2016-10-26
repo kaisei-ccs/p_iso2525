@@ -15,11 +15,8 @@ public class Account extends BaseActiveRecord{
 	private String pw;
 	private int permission;
 
-	private DB_Interface dbi;
-
 	public Account(){
 		super();
-		dbi = DB_Interface.getInstance();
 		aID				= 0;
 		host			= "";
 		pw				= "";
@@ -28,7 +25,6 @@ public class Account extends BaseActiveRecord{
 
 	public Account(int aID,String host,String pw,int permission){
 		super();
-		dbi = DB_Interface.getInstance();
 		this.aID			= aID;
 		this.host			= host;
 		this.pw				= pw;
@@ -62,7 +58,7 @@ public class Account extends BaseActiveRecord{
 
 	//保存処理
 	public boolean save(){
-		Connection con = dbi.getConnection();
+		Connection con = DB_Interface.getInstance().getConnection();
 		PreparedStatement ps = null;
 		String sql;
 
@@ -96,12 +92,14 @@ public class Account extends BaseActiveRecord{
 			}
 		}
 
+		setIsExistData();
 		return true;
+
 	}
 
 	//削除処理
 	public void delete(){
-		Connection con = dbi.getConnection();
+		Connection con = DB_Interface.getInstance().getConnection();
 		PreparedStatement ps = null;
 		String sql;
 
@@ -125,8 +123,8 @@ public class Account extends BaseActiveRecord{
 		}
 	}
 
-	private ArrayList<Account> executeSelectQuery(String sql){
-		Connection con = dbi.getConnection();
+	private static ArrayList<Account> executeSelectQuery(String sql){
+		Connection con = DB_Interface.getInstance().getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -165,19 +163,19 @@ public class Account extends BaseActiveRecord{
 	}
 
 	//取得
-	public ArrayList<Account> fetchAll(){
+	public static ArrayList<Account> fetchAll(){
 		return executeSelectQuery("select * from ACCOUNT");
 	}
-	public ArrayList<Account> findById(int aID){
+	public static ArrayList<Account> findById(int aID){
 		return executeSelectQuery("select * from ACCOUNT where A_ID=" + aID);
 	}
-	public ArrayList<Account> findByHost(String host){
+	public static ArrayList<Account> findByHost(String host){
 		return executeSelectQuery("select * from ACCOUNT where HOST=" + host);
 	}
-	public ArrayList<Account> findByPW(String pw){
+	public static ArrayList<Account> findByPW(String pw){
 		return executeSelectQuery("select * from ACCOUNT where PW=" + pw);
 	}
-	public ArrayList<Account> findByPermission(int permission){
+	public static ArrayList<Account> findByPermission(int permission){
 		return executeSelectQuery("select * from ACCOUNT where PERMISSION=" + permission);
 	}
 

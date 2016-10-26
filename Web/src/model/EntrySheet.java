@@ -13,16 +13,12 @@ public class EntrySheet extends BaseActiveRecord{
 	private final int esID;
 	private final int sID;
 
-	private DB_Interface dbi;
-
 	public EntrySheet(){
-		dbi = DB_Interface.getInstance();
 		esID	= 0;
 		sID		= 0;
 	}
 
 	public EntrySheet(int esID,int sID){
-		dbi = DB_Interface.getInstance();
 		this.esID	= esID;
 		this.sID	= sID;
 	}
@@ -38,7 +34,7 @@ public class EntrySheet extends BaseActiveRecord{
 
 	//保存処理
 	public boolean save(){
-		Connection con = dbi.getConnection();
+		Connection con = DB_Interface.getInstance().getConnection();
 		PreparedStatement ps = null;
 		String sql;
 
@@ -66,12 +62,14 @@ public class EntrySheet extends BaseActiveRecord{
 			}
 		}
 
+		setIsExistData();
 		return true;
+
 	}
 
 	//削除処理
 	public void delete(){
-		Connection con = dbi.getConnection();
+		Connection con = DB_Interface.getInstance().getConnection();
 		PreparedStatement ps = null;
 		String sql;
 
@@ -95,8 +93,8 @@ public class EntrySheet extends BaseActiveRecord{
 		}
 	}
 
-	private ArrayList<EntrySheet> executeSelectQuery(String sql){
-		Connection con = dbi.getConnection();
+	private static ArrayList<EntrySheet> executeSelectQuery(String sql){
+		Connection con = DB_Interface.getInstance().getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -109,8 +107,8 @@ public class EntrySheet extends BaseActiveRecord{
 
 			while(rs.next()){
 				EntrySheet tmp = new EntrySheet(
-						rs.getInt("esID"),
-						rs.getInt("sID")
+						rs.getInt("ES_ID"),
+						rs.getInt("S_ID")
 						);
 				tmp.setIsExistData();
 				retList.add(tmp);
@@ -133,13 +131,13 @@ public class EntrySheet extends BaseActiveRecord{
 	}
 
 	//取得
-	public ArrayList<EntrySheet> fetchAll(){
+	public static ArrayList<EntrySheet> fetchAll(){
 		return executeSelectQuery("select * from ENTRYSHEET");
 	}
-	public ArrayList<EntrySheet> findByESID(int esID){
+	public static ArrayList<EntrySheet> findByESID(int esID){
 		return executeSelectQuery("select * from ENTRYSHEET where ES_ID=" + esID);
 	}
-	public ArrayList<EntrySheet> findBySID(int sID){
+	public static ArrayList<EntrySheet> findBySID(int sID){
 		return executeSelectQuery("select * from ENTRYSHEET where S_ID=" + sID);
 	}
 
