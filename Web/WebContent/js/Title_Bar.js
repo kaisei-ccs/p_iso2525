@@ -2,7 +2,7 @@ var name;
 var url;
 
 function load(){
-	$("#title").load("/Web/include/titleber.html");
+	$("#title").load("/Web/include/titlebar.html");
 }
 
 function button_name(str){
