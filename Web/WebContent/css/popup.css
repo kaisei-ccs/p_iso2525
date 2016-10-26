@@ -7,10 +7,6 @@ body {
 }
 
 #popup-content {
-	width: 50% ;
-	height: 50% ;
-	width: 400px ;
-	height: 400px ;
 	margin: 0 ;
 	padding: 10px 20px ;
 	border: 2px solid #aaaaaa ;
@@ -39,4 +35,25 @@ body {
 .button-link:hover {
 	cursor: pointer ;
 	color: #ff0000 ;
+}
+
+.dialog {
+    width: 300px;
+    height: 100px;
+    display: table-cell;
+    text-align: center;
+}
+
+.ok-button {
+	font-size: 20px;
+	width: 80px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.no-button {
+	font-size: 20px;
+	width: 80px;
+	text-align: center;
+	vertical-align: middle;
 }

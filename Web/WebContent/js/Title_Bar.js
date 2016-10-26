@@ -1,29 +1,25 @@
 var name;
 var url;
 
+function load(){
+	$("#title").load("/Web/include/titleber.html");
+}
+
 function button_name(str){
-	name = str;
+	$(function() {
+		$(".sid").text(str);
+	});
 }
 
 function button_url(str){
-	url = str;
+	$(function() {
+	    $(".aid").removeattr("href");
+	    $(".aid").attr("href", str);
+	});
 }
 
 function title_set(str){
-	var form = document.createElement("form");
-	form.action = url;
-	form.method = "post";
-	document.body.appendChild(form);
-	var submit = document.createElement("input");
-	submit.type = "submit";
-	submit.id = "sid";
-	submit.value = name;
-	form.appendChild(submit);
-	var elmP = document.createElement("p");
-	elmP.id = "pid";
-	elmP.innerHTML = str;
-	form.appendChild(elmP);
-	var div = document.createElement("div");
-	div.id = "clear";
-	form.appendChild(div);
+	$(function() {
+		$(".pid").text(str);
+	});
 }
