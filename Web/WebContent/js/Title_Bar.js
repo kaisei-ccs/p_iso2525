@@ -13,7 +13,6 @@ function button_name(str){
 
 function button_url(str){
 	$(function() {
-	    $(".aid").removeattr("href");
 	    $(".aid").attr("href", str);
 	});
 }
