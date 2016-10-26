@@ -1,18 +1,26 @@
 @CHARSET "UTF-8";
 
+body {
+	margin:0px;
+}
+
 #sid {
 	float:left;
 	width:10%;
-	height:40px;
+	height:46px;
 	margin:0px;
+	padding: 0px;
+	border: solid;
 }
 
 #pid {
 	width:90%;
 	height:40px;
-	font-size:40px;
-	margin:0px;
+	font-size:35px;
+	margin: 0px;
+	margin-left: 10%;
 	text-align:center;
+	border: solid;
 }
 #clear {
 	clear:both
