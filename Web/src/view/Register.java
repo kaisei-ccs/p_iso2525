@@ -1,6 +1,4 @@
 package view;
-
-
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -19,13 +17,13 @@ public class Register extends HttpServlet {
 	int width = 100;
 	int height = 100;
 	private static final long serialVersionUID = 1L;
-       
+
         public Register() {
         	super();
 
 		}
 
-	
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("aaaaa");
@@ -36,7 +34,7 @@ public class Register extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		//doGet(req,res);
+		doGet(req,res);
 	}
 
 }
