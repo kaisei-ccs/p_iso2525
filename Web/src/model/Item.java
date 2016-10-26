@@ -20,10 +20,7 @@ public class Item extends BaseActiveRecord{
 	private int price;
 	private boolean printFlg;
 
-	private DB_Interface dbi;
-
 	public Item(){
-		dbi = DB_Interface.getInstance();
 		esID		= 0;
 		iNO			= 0;
 		name		= "";
@@ -36,7 +33,6 @@ public class Item extends BaseActiveRecord{
 	}
 
 	public Item(int esID,int iNO,String name,int sPrice,int ePrice,int quantity,boolean retFlg, int price,boolean printFlg) {
-		dbi = DB_Interface.getInstance();
 		this.esID		= esID;
 		this.iNO		= iNO;
 		this.name		= name;
@@ -111,7 +107,7 @@ public class Item extends BaseActiveRecord{
 
 	//保存処理
 	public boolean save(){
-		Connection con = dbi.getConnection();
+		Connection con = DB_Interface.getInstance().getConnection();
 		PreparedStatement ps = null;
 		String sql;
 
@@ -158,12 +154,14 @@ public class Item extends BaseActiveRecord{
 			}
 		}
 
+		setIsExistData();
 		return true;
+
 	}
 
 	//削除処理
 	public void delete(){
-		Connection con = dbi.getConnection();
+		Connection con = DB_Interface.getInstance().getConnection();
 		PreparedStatement ps = null;
 		String sql;
 
@@ -189,8 +187,8 @@ public class Item extends BaseActiveRecord{
 		}
 	}
 
-	private ArrayList<Item> executeSelectQuery(String sql){
-		Connection con = dbi.getConnection();
+	private static ArrayList<Item> executeSelectQuery(String sql){
+		Connection con = DB_Interface.getInstance().getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -203,15 +201,15 @@ public class Item extends BaseActiveRecord{
 
 			while(rs.next()){
 				Item tmp = new Item(
-						esID,
-						iNO,
-						name,
-						sPrice,
-						ePrice,
-						quantity,
-						retFlg,
-						price,
-						printFlg);
+						rs.getInt("ES_ID"),
+						rs.getInt("I_NO"),
+						rs.getString("NAME"),
+						rs.getInt("S_PRICE"),
+						rs.getInt("E_PRICE"),
+						rs.getInt("QUANTITY"),
+						rs.getBoolean("RETFLG"),
+						rs.getInt("PRICE"),
+						rs.getBoolean("PRINTFLG"));
 				tmp.setIsExistData();
 				retList.add(tmp);
 			}
@@ -233,34 +231,34 @@ public class Item extends BaseActiveRecord{
 	}
 
 	//取得
-	public ArrayList<Item> fetchAll(){
+	public static ArrayList<Item> fetchAll(){
 		return executeSelectQuery("select * from ITEM");
 	}
-	public ArrayList<Item> findByESID(int esID){
+	public static ArrayList<Item> findByESID(int esID){
 		return executeSelectQuery("select * from ITEM where ES_ID=" + esID);
 	}
-	public ArrayList<Item> findByIID(int iNO){
+	public static ArrayList<Item> findByIID(int iNO){
 		return executeSelectQuery("select * from ITEM where I_NO=" + iNO);
 	}
-	public ArrayList<Item> findByName(String name){
+	public static ArrayList<Item> findByName(String name){
 		return executeSelectQuery("select * from ITEM where NAME=" + name);
 	}
-	public ArrayList<Item> findBySPrice(int sPrice){
+	public static ArrayList<Item> findBySPrice(int sPrice){
 		return executeSelectQuery("select * from ITEM where S_PRICE=" + sPrice);
 	}
-	public ArrayList<Item> findByEPrice(int ePrice){
+	public static ArrayList<Item> findByEPrice(int ePrice){
 		return executeSelectQuery("select * from ITEM where E_PRICE=" + ePrice);
 	}
-	public ArrayList<Item> findByQuantity(int quantity){
+	public static ArrayList<Item> findByQuantity(int quantity){
 		return executeSelectQuery("select * from ITEM where QUANTITY=" + quantity);
 	}
-	public ArrayList<Item> findByRetFlg(boolean retFlg){
+	public static ArrayList<Item> findByRetFlg(boolean retFlg){
 		return executeSelectQuery("select * from ITEM where RETFLG=" + retFlg);
 	}
-	public ArrayList<Item> findByPrice(int price){
+	public static ArrayList<Item> findByPrice(int price){
 		return executeSelectQuery("select * from ITEM where PRICE=" + price);
 	}
-	public ArrayList<Item> findByPrintFlg(boolean printFlg){
+	public static ArrayList<Item> findByPrintFlg(boolean printFlg){
 		return executeSelectQuery("select * from ITEM where PRINTFLG=" + printFlg);
 	}
 
