@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+
+article {
+	font-size: 0;
+	padding: 2%;
+}
+
+article section {
+	font-size: 32rem;
+	width: calc(100% / 3);
+	display: inline-block;
+	vertical-align: top;
+}
+
+ul {
+	list-style-type: none;
+
+}
+
+li {
+	text-align: center;
+	border: solid 1px #aaaaaa;
+	margin: 4% 2%;
+	background-color: #eeeeee;
+}
+
+li:hover {
+	background-color: #87cefa;
+}
+
+li a {
+	display: block;
+	text-decoration: none;
+	color: #4169e1;
+}
+li a:hover {
+	color: white;
+}
+}
