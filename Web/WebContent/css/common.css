@@ -11,6 +11,9 @@
             box-sizing: border-box;
 }
 
+html, body {
+	height: 100%;
+}
 html {
 	font-size: 6.25%;
 }
@@ -19,4 +22,35 @@ body {
 	font-size: 24rem;
 }
 
+header {
+	border: solid 1px black;
+	height: 52px;
+}
+header dl {
+	height: 100%;
+	padding: 5px;
+	overflow: hidden;
+}
+header dt {
+	width: 85%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 32rem;
+	padding: 2px 0px;
+	float: right;
+}
+header dd {
+	width: 15%;
+	height: 100%;
+	text-align: center;
+	border: solid 1px #aaaaaa;
+	background-color: #eeeeee;
+}
+header dd a {
+	width: 100%;
+	display: block;
+	text-decoration: none;
+	color: #4169e1;
+	text-align: center;
+}
 .hidden { display: none; }
