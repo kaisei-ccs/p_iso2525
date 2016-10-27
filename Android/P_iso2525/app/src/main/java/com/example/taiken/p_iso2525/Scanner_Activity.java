@@ -1,32 +1,18 @@
 package com.example.taiken.p_iso2525;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
 import android.app.Activity;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PreviewCallback;
-import android.hardware.Camera.Size;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.ToneGenerator;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.util.Log;
+import android.os.Vibrator;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -40,19 +26,30 @@ import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 
-import static android.R.id.edit;
-
-public class Scanner_Activity extends  Activity {
+public class Scanner_Activity extends  Activity implements BarcodePostTask.BarcodePostCallback{
 
     private SurfaceView mySurfaceView;//表面図
     private Camera myCamera;//カメラ
+    private Scanner_Activity sa;
+    private URL url = null;
+    String text;
 
     // Activity初期値
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mySurfaceView = new SurfaceView(this);
         mySurfaceView.setOnClickListener(onClickListener);
+
         setContentView(mySurfaceView);
+        sa = this;
+        // 接続先のURLを指定
+        try {
+            //自分の端末
+            url = new URL("http://192.168.1.127:8080/Web/Scan");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return;
+        }
 
     }
 
@@ -153,30 +150,39 @@ public class Scanner_Activity extends  Activity {
             Reader reader = new MultiFormatReader();
             Result result = null;
 
-            //ビープ音を読み込む
-            MediaPlayer player = new MediaPlayer();
-
             //第一引数　ストリームタイプ　第二引数　音量
             ToneGenerator toneGenerator
                     = new ToneGenerator(AudioManager.STREAM_SYSTEM, ToneGenerator.MAX_VOLUME);
-
+            //ビープ音を読み込む
+            MediaPlayer player = new MediaPlayer();
 
 
             try {
                 result = reader.decode(bitmap);
                 //QRのデータをテキストに変更
-                String text = result.getText();
+                text = result.getText();
                 Toast.makeText(getApplicationContext(),text, Toast.LENGTH_LONG).show();
                 //標準的なビープ音
                 toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
-
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Not Found", Toast.LENGTH_SHORT).show();
+                //Android デバイスを振動させる
+                Vibrator v = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+                v.vibrate(300);
+                Toast.makeText(getApplicationContext(), "読み取り失敗", Toast.LENGTH_SHORT).show();
+
             }
 
 
 
+            //serverのデータを表示
+            new BarcodePostTask(url,text,sa).execute();
+
         }
     };
 
+
+    @Override
+    public void Post(String returnData) {
+        Toast.makeText(getApplicationContext(),returnData, Toast.LENGTH_LONG).show();
+    }
 }

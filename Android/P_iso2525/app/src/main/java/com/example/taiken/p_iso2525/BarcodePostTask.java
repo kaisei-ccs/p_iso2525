@@ -1,4 +1,4 @@
-package com.example.taiken.myapplication;
+package com.example.taiken.p_iso2525;
 
 import android.os.AsyncTask;
 import android.telecom.Call;
@@ -16,10 +16,10 @@ import java.net.URL;
 public class BarcodePostTask extends AsyncTask<String, Integer, String> {
 
     public interface BarcodePostCallback{
-        void Post(String returnData);
+        void Post(String returnData);//serverからきたデータ
     }
 
-    private String postData;
+    private String postData;//serverへ送るデータ
     private BarcodePostCallback callback;
     private URL apServer;
 
@@ -40,7 +40,7 @@ public class BarcodePostTask extends AsyncTask<String, Integer, String> {
             con.setRequestProperty("Content-Type", "text/html; charset=utf-8");
             OutputStream os = con.getOutputStream();
             PrintStream ps = new PrintStream(os);
-            ps.print("aa");
+            ps.print(postData);
             ps.close();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
