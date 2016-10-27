@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+
+/* 印刷サイズ */
+@page {
+	size: A4;
+}
+
+/* 印刷範囲の設定 */
+@media print{
+	.noprint{
+		display:none;
+	}
+}
+
+/* プレビュー用のスタイル */
+@media screen {
+	body {
+    	background: #eeeeee;
+    }
+    .sheet {
+    	/* プレビューのサイズ */
+		width: 210mm;
+		height: 296mm;*/ 1mm余裕をもたせる */
+		page-break-after: always;
+		background: white; /* 背景を白く */
+		box-shadow: 0 .5mm 2mm rgba(0,0,0,.3); /* ドロップシャドウ */
+		margin: 5mm;
+  }
+}
