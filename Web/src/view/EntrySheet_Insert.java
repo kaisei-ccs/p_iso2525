@@ -1,6 +1,8 @@
+package view;
 
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Seller_Insert
+ * Servlet implementation class EntrySheet_Insert
  */
-@WebServlet("/Seller_Insert")
-public class Seller_Insert extends HttpServlet {
+@WebServlet("/EntrySheet_Insert")
+public class EntrySheet_Insert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Seller_Insert() {
+    public EntrySheet_Insert() {
         super();
         // TODO Auto-generated constructor stub
     }
