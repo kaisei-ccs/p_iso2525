@@ -261,6 +261,8 @@ public class Item extends BaseActiveRecord{
 	public static ArrayList<Item> findByPrintFlg(boolean printFlg){
 		return executeSelectQuery("select * from ITEM where PRINTFLG=" + printFlg);
 	}
-
+	public static ArrayList<Item> findByBarcodeData(int esID,int iNO){
+		return executeSelectQuery("select * from ITEM where es_ID=" + esID + "AND I_NO =" + iNO);
+	}
 
 }
