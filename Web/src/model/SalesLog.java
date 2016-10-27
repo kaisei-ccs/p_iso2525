@@ -1,14 +1,22 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
 
-public class SalesLog {
-	private int tID;
+import common.BaseActiveRecord;
+import common.DB_Interface;
+
+public class SalesLog extends BaseActiveRecord{
+	private final int tID;
 	private Date tDate;
 	private Time tTime;
 	private int total;
-	private int chsrge;
+	private int charge;
 	private int cashBack;
 
 	public SalesLog(){
@@ -16,7 +24,7 @@ public class SalesLog {
 		tDate		= null;
 		tTime		= null;
 		total		= 0;
-		chsrge		= 0;
+		charge		= 0;
 		cashBack	= 0;
 	}
 
@@ -25,15 +33,12 @@ public class SalesLog {
 		this.tDate		= tDate;
 		this.tTime		= tTime;
 		this.total		= total;
-		this.chsrge		= chsrge;
+		this.charge		= chsrge;
 		this.cashBack	= cashBack;
 	}
 
 	public int getTID(){
 		return tID;
-	}
-	public void setTID(int tID){
-		this.tID = tID;
 	}
 
 	public Date getTDate(){
@@ -57,11 +62,11 @@ public class SalesLog {
 		this.total = total;
 	}
 
-	public int getChsrge(){
-		return chsrge;
+	public int getCharge(){
+		return charge;
 	}
-	public void setChsrge(int chsrge){
-		this.chsrge = chsrge;
+	public void setCharge(int chsrge){
+		this.charge = chsrge;
 	}
 
 	public int getCashBack(){
@@ -70,4 +75,143 @@ public class SalesLog {
 	public void setCashBack(int cashBack){
 		this.cashBack = cashBack;
 	}
+
+	//保存処理
+	public boolean save(){
+		Connection con = DB_Interface.getInstance().getConnection();
+		PreparedStatement ps = null;
+		String sql;
+
+		try{
+			if(false == getIsExistData()){
+				sql = "insert into SALESLOG values(?,?,?,?,?,?)";
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, tID);
+				ps.setDate(2, tDate);
+				ps.setTime(3, tTime);
+				ps.setInt(4, total);
+				ps.setInt(5, charge);
+				ps.setInt(6, cashBack);
+
+			}else{
+				sql = "update SALESLOG set T_DATE=?, T_TIME=?, TOTAL=?, CHARGE=?, CASHBACK=? where T_ID=?";
+				ps = con.prepareStatement(sql);
+				ps.setDate(1, tDate);
+				ps.setTime(2, tTime);
+				ps.setInt(3, total);
+				ps.setInt(4, charge);
+				ps.setInt(5, cashBack);
+				ps.setInt(6, tID);
+
+			}
+
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}finally{
+			if(ps != null){
+				try{
+					ps.close();
+				}catch (SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+
+		setIsExistData();
+		return true;
+
+	}
+
+	//削除処理
+	public void delete(){
+		Connection con = DB_Interface.getInstance().getConnection();
+		PreparedStatement ps = null;
+		String sql;
+
+
+		try{
+			sql = "delete from SALESLOG where T_ID=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, tID);
+
+
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally{
+			if(ps != null){
+				try{
+					ps.close();
+				}catch (SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private static ArrayList<SalesLog> executeSelectQuery(String sql){
+		Connection con = DB_Interface.getInstance().getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		ArrayList<SalesLog> retList = new ArrayList<SalesLog>();
+
+		try{
+			ps = con.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+
+			while(rs.next()){
+				SalesLog tmp = new SalesLog(
+						rs.getInt("T_ID"),
+						rs.getDate("T_DATE"),
+						rs.getTime("T_TIME"),
+						rs.getInt("TOTAL"),
+						rs.getInt("CHARGE"),
+						rs.getInt("CASHBACK"));
+				tmp.setIsExistData();
+				retList.add(tmp);
+				}
+
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally{
+			if(ps != null){
+				try{
+					ps.close();
+				}catch (SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return retList;
+	}
+
+	//取得
+	public static ArrayList<SalesLog> fetchAll(){
+		return executeSelectQuery("select * from SALESLOG");
+	}
+	public static ArrayList<SalesLog> findByTID(int tID){
+		return executeSelectQuery("select * from SALESLOG where T_ID=" + tID);
+	}
+	public static ArrayList<SalesLog> findByTDate(Date tDate){
+		return executeSelectQuery("select * from SALESLOG where T_DATE=" + tDate);
+	}
+	public static ArrayList<SalesLog> findByTTime(Time tTime){
+		return executeSelectQuery("select * from SALESLOG where T_TIME=" + tTime);
+	}
+	public static ArrayList<SalesLog> findByTotal(int total){
+		return executeSelectQuery("select * from SALESLOG where TOTAL=" + total);
+	}
+	public static ArrayList<SalesLog> findByChsrge(int chsrge){
+		return executeSelectQuery("select * from SALESLOG where CHSRGE=" + chsrge);
+	}
+	public static ArrayList<SalesLog> findByCashBack(int cashBack){
+		return executeSelectQuery("select * from SALESLOG where CASHBACK=" + cashBack);
+	}
+
+
 }

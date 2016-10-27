@@ -1,19 +1,30 @@
 package model;
 
-public class Account {
-	private int aID;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import common.BaseActiveRecord;
+import common.DB_Interface;
+
+public class Account extends BaseActiveRecord{
+	private final int aID;
 	private String host;
 	private String pw;
 	private int permission;
 
 	public Account(){
-		aID			= 0;
+		super();
+		aID				= 0;
 		host			= "";
 		pw				= "";
 		permission		= 0;
 	}
 
 	public Account(int aID,String host,String pw,int permission){
+		super();
 		this.aID			= aID;
 		this.host			= host;
 		this.pw				= pw;
@@ -22,9 +33,6 @@ public class Account {
 
 	public int getAID(){
 		return aID;
-	}
-	public void setAID(int aID){
-		this.aID = aID;
 	}
 
 	public String getHost(){
@@ -48,6 +56,128 @@ public class Account {
 		this.permission = permission;
 	}
 
+	//保存処理
+	public boolean save(){
+		Connection con = DB_Interface.getInstance().getConnection();
+		PreparedStatement ps = null;
+		String sql;
+
+		try{
+			if(false == getIsExistData()){
+				sql = "insert into ACCOUNT values(?,?,?)";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, host);
+				ps.setString(2, pw);
+				ps.setInt(3, permission);
+			}else{
+				sql = "update ACCOUNT set HOST=?, PW=?, PERMISSION=? where A_ID=?";
+				ps = con.prepareStatement(sql);
+				ps.setInt(4, aID);
+				ps.setString(1, host);
+				ps.setString(2, pw);
+				ps.setInt(3, permission);
+			}
+
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}finally{
+			if(ps != null){
+				try{
+					ps.close();
+				}catch (SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+
+		setIsExistData();
+		return true;
+
+	}
+
+	//削除処理
+	public void delete(){
+		Connection con = DB_Interface.getInstance().getConnection();
+		PreparedStatement ps = null;
+		String sql;
+
+
+		try{
+			sql = "delete from ACCOUNT where A_ID=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, aID);
+
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally{
+			if(ps != null){
+				try{
+					ps.close();
+				}catch (SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private static ArrayList<Account> executeSelectQuery(String sql){
+		Connection con = DB_Interface.getInstance().getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		ArrayList<Account> retList = new ArrayList<Account>();
+
+		try{
+			ps = con.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+
+			while(rs.next()){
+				Account tmp = new Account(
+						rs.getInt("A_ID"),
+						rs.getString("HOST"),
+						rs.getString("PW"),
+						rs.getInt("PERMISSION")
+						);
+				tmp.setIsExistData();
+				retList.add(tmp);
+			}
+
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally{
+			if(ps != null){
+				try{
+					ps.close();
+				}catch (SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+
+
+		return retList;
+	}
+
+	//取得
+	public static ArrayList<Account> fetchAll(){
+		return executeSelectQuery("select * from ACCOUNT");
+	}
+	public static ArrayList<Account> findById(int aID){
+		return executeSelectQuery("select * from ACCOUNT where A_ID=" + aID);
+	}
+	public static ArrayList<Account> findByHost(String host){
+		return executeSelectQuery("select * from ACCOUNT where HOST=" + host);
+	}
+	public static ArrayList<Account> findByPW(String pw){
+		return executeSelectQuery("select * from ACCOUNT where PW=" + pw);
+	}
+	public static ArrayList<Account> findByPermission(int permission){
+		return executeSelectQuery("select * from ACCOUNT where PERMISSION=" + permission);
+	}
 
 
 }
