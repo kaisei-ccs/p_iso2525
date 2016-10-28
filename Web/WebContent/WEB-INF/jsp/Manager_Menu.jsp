@@ -12,7 +12,7 @@
 
 <%-- タイトルバーを出力 --%>
 <jsp:include page="Title_Bar.jsp">
-    <jsp:param name="title" value="Manager_Menu" />
+    <jsp:param name="caller" value="Manager_Menu" />
 </jsp:include>
 
 <article>

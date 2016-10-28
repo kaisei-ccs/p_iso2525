@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <header>
 <%
-	String caller = request.getParameter("title");
+	String caller = request.getParameter("caller");
 	String title = "";
 	switch (caller) {
 		case "Seller_Insert":
