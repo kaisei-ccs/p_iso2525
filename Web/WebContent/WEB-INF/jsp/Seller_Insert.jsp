@@ -14,7 +14,7 @@
 <jsp:include page="Title_Bar.jsp">
     <jsp:param name="caller" value="Seller_Insert" />
 </jsp:include>
-<div>あああああ</div>
+
 <script type="text/javascript">
 var counter = 0;
 function AddTableRows(){
