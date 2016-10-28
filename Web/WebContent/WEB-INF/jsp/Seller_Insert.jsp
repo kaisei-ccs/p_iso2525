@@ -19,7 +19,7 @@
 <script type="text/javascript">
 var counter = 0;
 function AddTableRows(){
-	// カウンタを回す
+
 	counter++;
 
 	var table1 = document.getElementById("table1");
@@ -28,8 +28,7 @@ function AddTableRows(){
 	var cell2 = row1.insertCell(1);
 	var cell3 = row1.insertCell(2);
 
-	// class の付与は UserAgent によって
-	// 挙動が違うっぽいので念のため両方の方法で
+
 	cell1.setAttribute("class","ID");
 	cell2.setAttribute("class","name");
 	cell3.setAttribute("class","kana");
