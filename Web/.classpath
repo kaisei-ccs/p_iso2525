@@ -14,5 +14,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/sqljdbc42.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/core-3.2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javase-3.2.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
