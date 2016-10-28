@@ -37,10 +37,10 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
     // Activity初期値
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mySurfaceView = new SurfaceView(this);
+        setContentView(R.layout.activity_scanner_);
+        mySurfaceView = (SurfaceView) findViewById(R.id.camera);
         mySurfaceView.setOnClickListener(onClickListener);
 
-        setContentView(mySurfaceView);
         sa = this;
         // 接続先のURLを指定
         try {
@@ -68,6 +68,11 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
         public void surfaceCreated(SurfaceHolder holder) {
             // 生成されたとき
             myCamera = Camera.open();
+            Camera.Parameters parameters = myCamera.getParameters();
+            List<Camera.Size> previewSizes = parameters.getSupportedPreviewSizes();
+            Camera.Size previewSize = previewSizes.get(0);
+            // width, heightを変更する
+            parameters.setPreviewSize(previewSize.width,previewSize.height);
             try {
                 // プレビューをセットする
                 myCamera.setPreviewDisplay(holder);
