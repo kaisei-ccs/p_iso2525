@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+
+section {
+	padding: 2%;
+	overflow: hidden;
+}
+div.left {
+	float: left;
+	width: 60%;
+}
+div.right {
+	float: right;
+	width: 38%;
+}
+
+TABLE {
+	width: 100%;
+	border: solid 1px black;
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+table th {
+	font-weight: normal;
+	font-size: 60%;
+	text-align: center;
+	width: 15%;
+}
+table th:nth-of-type(3) {
+	width: 55%;
+}
+table th,
+table td {
+	border: solid 1px black;
+}
+table tr:nth-child(odd){
+	background: #f8f8ff;
+}
+table tr:first-child {
+	background: #aaaaaa;
+	color: white;
+}
+
+dl.total {
+	width: 100%;
+	overflow: hidden;
+}
+dl.total dt {
+	clear: both;
+	float: left;
+	width: 30%;
+}
+
+dl.total dd {
+	float: left;
+	width: 70%;
+}
+
+input[type="button"]{
+	width: 100px;
+}
+input[type="text"] {
+	width: 100%;
+}
