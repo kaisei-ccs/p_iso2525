@@ -41,8 +41,9 @@
 	}
 
 %>
-<dl>
-<dt><%= title %></dt>
-<dd class="btn"><a href="<%= retPath %>"><%= retTitle %></a></dd>
-</dl>
+
+<ul>
+<li class="btn"><a href="<%= retPath %>"><%= retTitle %></a></li>
+<li><%= title %></li>
+</ul>
 </header>

@@ -11,6 +11,9 @@
             box-sizing: border-box;
 }
 
+/*******************************
+ * 共通タグ
+ *******************************/
 html, body {
 	height: 100%;
 }
@@ -20,37 +23,50 @@ html {
 
 body {
 	font-size: 24rem;
+	background-color: #ffffe0;
+}
+ul {
+	list-style-type: none;
 }
 
+a { text-decoration: none; }
+/*******************************
+ * ヘッダー
+ *******************************/
 header {
-	border: solid 1px black;
-	height: 52px;
+	background-color:#e6e6fa;
+	border-top: solid 1px black;
+	border-bottom: solid 1px black;
+	margin-bottom: 5%;
+	margin-top: 0.5%;
 }
-header dl {
-	height: 100%;
-	padding: 5px;
-	overflow: hidden;
-}
-header dt {
-	width: 85%;
-	text-align: center;
-	font-weight: bold;
-	font-size: 32rem;
-	padding: 2px 0px;
-	float: right;
-}
-header dd {
-	width: 15%;
-	height: 100%;
-	text-align: center;
-	border: solid 1px #aaaaaa;
-	background-color: #eeeeee;
-}
-header dd a {
+
+header ul {
+	display: table;
 	width: 100%;
-	display: block;
-	text-decoration: none;
-	color: #4169e1;
+	border-spacing: 4rem;
+
+}
+header ul li {
+	display: table-cell;
+	vertical-align: middle;
 	text-align: center;
 }
+header ul li:nth-child(1){
+	width: 15%;
+	background-color: #b0c4de;
+	border: solid 1px #4169e1;
+}
+header ul li:nth-child(2){
+	width: 85%;
+	font-weight: bold;
+}
+header li a {
+	display: block;
+	color: #191970;
+}
+
+/*******************************
+ * 共通クラス
+ *******************************/
 .hidden { display: none; }
