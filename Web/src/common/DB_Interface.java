@@ -14,20 +14,22 @@ public class DB_Interface {
 
 	//DB
 	private Connection con;
-	
+
 	private DB_Interface(){
 		String dbName = null;
 		String dbUser = null;
 		String dbPass = null;
+		String dbAddress = null;
 
 		//プロパティから接続DB情報取得
 		InputStream is = getClass().getClassLoader().getResourceAsStream("db.properties");
 		Properties prop = new Properties();
 		try{
 			prop.load(is);
-			dbName = prop.getProperty("db.name");
-			dbUser = prop.getProperty("db.user");
-			dbPass = prop.getProperty("db.pass");
+			dbName		= prop.getProperty("db.name");
+			dbUser		= prop.getProperty("db.user");
+			dbPass		= prop.getProperty("db.pass");
+			dbAddress	= prop.getProperty("db.address");
 		}catch (IOException e){
 			e.printStackTrace();
 		}finally{
@@ -40,27 +42,27 @@ public class DB_Interface {
 			}
 		}
 
-		
+
 		//SQLServerに接続
 		try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			con = DriverManager.getConnection(
-					"jdbc:sqlserver://localhost\\SQLEXPRESS;database="+ dbName +";",
+					"jdbc:sqlserver://" + dbAddress + ":1433;database="+ dbName +";",
 					dbUser,dbPass);
 		}catch (SQLException e){
 			e.printStackTrace();
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static DB_Interface getInstance(){
 		return DBI;
 	}
-	
+
 	public Connection getConnection(){
 		return con;
 	}
-	
+
 }
