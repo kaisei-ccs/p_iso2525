@@ -28,12 +28,12 @@ public class SalesLog extends BaseActiveRecord{
 		cashBack	= 0;
 	}
 
-	public SalesLog(int tID,Date tDate,Time tTime,int total,int chsrge,int cashBack){
+	public SalesLog(int tID,Date tDate,Time tTime,int total,int charge,int cashBack){
 		this.tID		= tID;
 		this.tDate		= tDate;
 		this.tTime		= tTime;
 		this.total		= total;
-		this.charge		= chsrge;
+		this.charge		= charge;
 		this.cashBack	= cashBack;
 	}
 
