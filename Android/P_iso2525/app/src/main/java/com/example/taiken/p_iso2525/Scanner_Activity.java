@@ -1,14 +1,18 @@
 package com.example.taiken.p_iso2525;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import android.app.Activity;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PreviewCallback;
-import android.hardware.Camera.Size;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.ToneGenerator;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Vibrator;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -22,29 +26,44 @@ import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 
-public class Scanner_Activity extends  Activity {
-
+public class Scanner_Activity extends  Activity implements BarcodePostTask.BarcodePostCallback{
 
     private SurfaceView mySurfaceView;//表面図
     private Camera myCamera;//カメラ
+    private Scanner_Activity sa;
+    private URL url = null;
+    String text;
 
-    @Override
+    // Activity初期値
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mySurfaceView = new SurfaceView(this);
         mySurfaceView.setOnClickListener(onClickListener);
+
         setContentView(mySurfaceView);
+        sa = this;
+        // 接続先のURLを指定
+        try {
+            //自分の端末
+            url = new URL("http://192.168.1.127:8080/Web/Scan");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return;
+        }
+
     }
 
-    @Override
+    //Viewを再表示する
     protected void onResume() {
         super.onResume();
         SurfaceHolder holder = mySurfaceView.getHolder();
         holder.addCallback(callback);
     }
+
+
+
     //表面ホルダーコールバック
     private SurfaceHolder.Callback callback = new SurfaceHolder.Callback() {
-        @Override
         //面作成
         public void surfaceCreated(SurfaceHolder holder) {
             // 生成されたとき
@@ -56,7 +75,7 @@ public class Scanner_Activity extends  Activity {
                 e.printStackTrace();
             }
         }
-        @Override
+
         //表面変更
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             // 変更されたとき
@@ -70,12 +89,14 @@ public class Scanner_Activity extends  Activity {
             myCamera.setParameters(parameters);
             myCamera.startPreview();
         }
-        @Override
+
+        //アクティビティを破棄した時
         public void surfaceDestroyed(SurfaceHolder holder) {
             // 破棄されたとき
             myCamera.release();
             myCamera = null;
         }
+
     };
 
     //クリックした場合オートフォーカス
@@ -86,16 +107,19 @@ public class Scanner_Activity extends  Activity {
             if (myCamera != null) {
                 myCamera.autoFocus(autoFocusCallback);
             }
+
         }
     };
     // 読み込んだQRコードをプレビューに変換
     private AutoFocusCallback autoFocusCallback = new AutoFocusCallback() {
         @Override
         public void onAutoFocus(boolean success, Camera camera) {
+
             if (success) {
                 // 現在のプレビューをデータに変換
                 camera.setOneShotPreviewCallback(previewCallback);
             }
+
         }
     };
 
@@ -125,14 +149,40 @@ public class Scanner_Activity extends  Activity {
             // バーコードを読み込む
             Reader reader = new MultiFormatReader();
             Result result = null;
+
+            //第一引数　ストリームタイプ　第二引数　音量
+            ToneGenerator toneGenerator
+                    = new ToneGenerator(AudioManager.STREAM_SYSTEM, ToneGenerator.MAX_VOLUME);
+            //ビープ音を読み込む
+            MediaPlayer player = new MediaPlayer();
+
+
             try {
                 result = reader.decode(bitmap);
-                String text = result.getText();
-                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                //QRのデータをテキストに変更
+                text = result.getText();
+                Toast.makeText(getApplicationContext(),text, Toast.LENGTH_LONG).show();
+                //標準的なビープ音
+                toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Not Found", Toast.LENGTH_SHORT).show();
+                //Android デバイスを振動させる
+                Vibrator v = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+                v.vibrate(300);
+                Toast.makeText(getApplicationContext(), "読み取り失敗", Toast.LENGTH_SHORT).show();
+
             }
+
+
+
+            //serverのデータを表示
+            new BarcodePostTask(url,text,sa).execute();
+
         }
     };
 
+
+    @Override
+    public void Post(String returnData) {
+        Toast.makeText(getApplicationContext(),returnData, Toast.LENGTH_LONG).show();
+    }
 }

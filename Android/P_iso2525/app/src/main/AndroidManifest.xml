@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.taiken.p_iso2525">
+
     <!-- カメラのパーミッションを許可 -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- インターネットを使用するためのパーミッションを許可 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- ネットワークの接続状態を確認するためのパーミッションを許可-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- バイブレーションを許可-->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
