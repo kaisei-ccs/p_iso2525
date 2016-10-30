@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Point;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PreviewCallback;
@@ -60,7 +61,26 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
         holder.addCallback(callback);
     }
 
+    //画面サイズを設定
+    private void setCamera(Camera camera){
+        Camera.Parameters parameters = camera.getParameters();
+        List<Camera.Size> previewSizes = parameters.getSupportedPreviewSizes();
+        Camera.Size previewSize = previewSizes.get(0);
+        Point point = new Point(mySurfaceView.getWidth(), mySurfaceView.getHeight());
 
+/*        for(Camera.Size size : previewSizes){
+            if(size.width > point.x || size.height > point.y){
+                previewSize = size;
+                break;
+            }
+        }
+        mySurfaceView.layout(0,0,previewSize.width,previewSize.height);
+        mySurfaceView.setScaleX(previewSize.width);
+        mySurfaceView.setScaleY(previewSize.height);
+*/        // width, heightを変更する
+        parameters.setPreviewSize(previewSize.width, previewSize.height);
+        camera.setParameters(parameters);
+    }
 
     //表面ホルダーコールバック
     private SurfaceHolder.Callback callback = new SurfaceHolder.Callback() {
@@ -68,11 +88,8 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
         public void surfaceCreated(SurfaceHolder holder) {
             // 生成されたとき
             myCamera = Camera.open();
-            Camera.Parameters parameters = myCamera.getParameters();
-            List<Camera.Size> previewSizes = parameters.getSupportedPreviewSizes();
-            Camera.Size previewSize = previewSizes.get(0);
-            // width, heightを変更する
-            parameters.setPreviewSize(previewSize.width,previewSize.height);
+            setCamera(myCamera);
+
             try {
                 // プレビューをセットする
                 myCamera.setPreviewDisplay(holder);
@@ -83,15 +100,9 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
 
         //表面変更
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            // 変更されたとき
-            Camera.Parameters parameters = myCamera.getParameters();
-            List<Camera.Size> previewSizes = parameters.getSupportedPreviewSizes();
-            Camera.Size previewSize = previewSizes.get(0);
-            // width, heightを変更する
-            parameters.setPreviewSize(width,height);
+            setCamera(myCamera);
             //カメラ90回転
             myCamera.setDisplayOrientation(90);
-            myCamera.setParameters(parameters);
             myCamera.startPreview();
         }
 
