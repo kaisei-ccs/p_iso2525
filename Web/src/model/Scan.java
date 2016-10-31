@@ -81,7 +81,7 @@ public class Scan extends BaseActiveRecord{
 
 
 		try{
-			sql = "delete from SCAN where IS_ID=?, I_NO=?";
+			sql = "delete from SCAN where ES_ID=? and I_NO=?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, esID);
 			ps.setInt(2, iNO);

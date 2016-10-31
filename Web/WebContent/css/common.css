@@ -12,41 +12,54 @@
 }
 
 /*******************************
+ * フォントサイズ
+ *******************************/
+html	{ font-size: 6.25%; }
+body,
+input	{ font-size: 18rem; }
+header	{ font-size: 24rem; }
+
+/*******************************
+ * マージン
+ *******************************/
+ header,
+ article,
+ section { margin-bottom: 20rem; }
+
+/*******************************
  * 共通タグ
  *******************************/
 html, body {
 	height: 100%;
 }
-html {
-	font-size: 6.25%;
-}
 
 body {
-	font-size: 24rem;
 	background-color: #ffffe0;
 }
 ul {
 	list-style-type: none;
 }
+a {
+	text-decoration: none;
+}
 
-a { text-decoration: none; }
-
+input[type="button"],
+input[type="submit"] {
+	width: 120rem;
+}
 /*******************************
  * ヘッダー
  *******************************/
 header {
-	background-color:#e6e6fa;
-	border-top: solid 1px black;
-	border-bottom: solid 1px black;
-	margin-bottom: 20rem;
+	background-color: #e6e6fa;
+	border-top: solid 1px #999999;
+	border-bottom: solid 1px #999999;
 	margin-top: 0.5%;
 }
-
 header ul {
 	display: table;
 	width: 100%;
 	border-spacing: 4rem;
-
 }
 header ul li {
 	display: table-cell;
@@ -68,12 +81,62 @@ header li a {
 }
 
 /*******************************
- * アーティクル
- *******************************/
-article {
-	margin: 10rem;
-}
-/*******************************
  * 共通クラス
  *******************************/
 .hidden { display: none; }
+
+.posLeft, .posCenter, .posRight, table.display_v {
+	margin-left: auto;
+	margin-right: auto;
+}
+.posLeft   { text-align: left; }
+.posCenter { text-align: center; }
+.posRight  { text-align: right; }
+
+/* テーブル */
+table.display_v,
+table.display_h {
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table.display_v input:not([type="button"]):not([type="submit"]),
+table.display_h input:not([type="button"]):not([type="submit"]) {
+	width: 100%;
+}
+table.display_v th {
+	font-weight: normal;
+	text-align: center;
+	padding: 1rem 3rem;
+}
+table.display_v th,
+table.display_v td {
+	border: solid 1px #ffffff;
+}
+table.display_v tr:nth-child(odd){
+	background: #e6e6fa;
+}
+table.display_v tr:nth-child(even){
+	background: #f0f8ff;
+}
+table.display_v tr:first-child {
+	background: #6495ed;
+	color: #ffffff;
+}
+table.display_v tr.non-line {
+	background-color: transparent;
+}
+table.display_v tr.non-line td {
+	padding: 10rem 0;
+	border: none;
+	text-align: right;
+}
+
+table.display_v input[type="button"],
+table.display_v input[type="submit"] {
+	margin-left: 30rem;
+}
+table.display_h input[type="button"],
+table.display_h input[type="submit"] {
+	margin-right: 30rem;
+}

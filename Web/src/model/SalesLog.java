@@ -12,7 +12,7 @@ import common.BaseActiveRecord;
 import common.DB_Interface;
 
 public class SalesLog extends BaseActiveRecord{
-	private final int tID;
+	private int tID;
 	private Date tDate;
 	private Time tTime;
 	private int total;
@@ -84,14 +84,13 @@ public class SalesLog extends BaseActiveRecord{
 
 		try{
 			if(false == getIsExistData()){
-				sql = "insert into SALESLOG values(?,?,?,?,?,?)";
+				sql = "insert into SALESLOG values(?,?,?,?,?)";
 				ps = con.prepareStatement(sql);
-				ps.setInt(1, tID);
-				ps.setDate(2, tDate);
-				ps.setTime(3, tTime);
-				ps.setInt(4, total);
-				ps.setInt(5, charge);
-				ps.setInt(6, cashBack);
+				ps.setDate(1, tDate);
+				ps.setTime(2, tTime);
+				ps.setInt(3, total);
+				ps.setInt(4, charge);
+				ps.setInt(5, cashBack);
 
 			}else{
 				sql = "update SALESLOG set T_DATE=?, T_TIME=?, TOTAL=?, CHARGE=?, CASHBACK=? where T_ID=?";
@@ -106,6 +105,7 @@ public class SalesLog extends BaseActiveRecord{
 			}
 
 			ps.executeUpdate();
+			tID = findByThis().getTID();
 		}catch (SQLException e){
 			e.printStackTrace();
 			return false;
@@ -212,6 +212,10 @@ public class SalesLog extends BaseActiveRecord{
 	public static ArrayList<SalesLog> findByCashBack(int cashBack){
 		return executeSelectQuery("select * from SALESLOG where CASHBACK=" + cashBack);
 	}
+	private SalesLog findByThis(){
+		return executeSelectQuery("select * from SALESLOG WHERE T_ID = (select max(t_id) as maxNo  from SALESLOG)").get(0);
+	}
+
 
 
 }
