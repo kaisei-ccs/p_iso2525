@@ -8,20 +8,17 @@ import javax.swing.JFrame;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
-import javafx.scene.web.WebEngine;
 
-public class Frame extends JFrame implements WindowListener{
-
-	public WebEngine engine;
+public class Browser_Frame extends JFrame implements WindowListener{
 
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
-		Frame frame =new Frame();
+		Browser_Frame frame =new Browser_Frame();
 		frame.addWindowListener(frame);
 		frame.setVisible(true);
 	}
 
-	private Frame(){
+	private Browser_Frame(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
