@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <%@page import ="java.util.ArrayList" %>
+    <%@page import ="model.Seller" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>出品表登録</title>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/Manager_Menu.css">
+
+
+<!--  -->
+
 
 </head>
 <body>
@@ -16,19 +22,40 @@
 </jsp:include>
 
 <%-- 出品者を出力 --%>
+<p></p>
+<div>
+	<form method = "POST" action = "/Web/EntrySheet_Insert">
+		<label>出品表番号:</label>
+		<input type="text"id = "e_id" name="e_id" size="3"value=<%=request.getAttribute("e_id") %> maxlength="3">
+		<label>出品者番号:出品者名</label>
+
+		<%
+			ArrayList<Seller> seller = (ArrayList<Seller>)request.getAttribute("seller_db");
+			int i = 0;
+		%>
+		<select name="example">
+		<%
+
+			for(i = 0;i < seller.size(); i++){
+				out.println("<option value=\" +"+ seller.get(i).getSID() +" \"> ");
+				out.println(""+seller.get(i).getSID() +":"+seller.get(i).getSellerName());
+				out.println("</option>");
+			}
+		%>
+		</select>
+
+		<input type="submit"  size="3" value = "出品者セット"><!--submit  -->
+		<a href="./Seller_Insert">出品者登録</a>
+	</form>
+</div>
+
+
+	<div id="output"></div>
+
+
 <p>
 　</p>
-<p>
-	<label>出品表番号:</label>
-	<input type="text" name="text1" size="3" maxlength="3">
-	<label>出品者番号:</label>
-	<input type="text" name="text1" size="3" maxlength="3">
-	<label>出品者名:</label>
-	<input type="text" name="text1" size="3" maxlength="3">
-	<input type="submit" name="Sellr_Insert" size="3" value = "出品者登録">
-</p>
-<p>
-　</p>
+
 <%-- 出品表登録画面を出力 --%>
 <table border="1" cellspacing="0" cellpadding="4" bgcolor="#A9A9A9" id="table1">
 <tr>
@@ -37,34 +64,28 @@
 	<th>商品名</th>
 	<th>開始価格</th>
 	<th>値札価格</th>
-	<th>有無</th>
-</tr>
+	<th>返却有</th>
 
-<%
-	int i=1;
-	int j=1;
-	String color = "";
-	for(i=1;i<11;i++){
-		if(j == 1){//モノクロトーンにするための処理
+<form method = "POST" action = "/Web/EntrySheet_Insert">
+	<%
+		int J=1;
+		String color = "";
+		for(J=1;J<11;J++){
 			out.println("<tr>");
-			j=j-1;
-		}else{
-			out.println("<tr bgcolor=\"#D8D8D8\">");
-			j=j+1;
+			out.println("<td class=\"ES_ID\"><input type=\"text\"id = \"ES_ID"+J+"\" name=\"ES_ID\" value=\""+ request.getAttribute("ES_ID") + "\" size=\"2\" maxlength=\"3\"disabled></td>");
+			out.println("<td class=\"I_NO\"><input type=\"text\"id = \"I_NO"+J+"\" name=\"I_NO\" value=\""+ J + "\" size=\"2\" maxlength=\"2\"disabled></td>");
+			out.println("<td class=\"kana\"><input type=\"text\"id = \"NAME"+J+"\" name=\"NAME\" value=\"\" size=\"35\" maxlength=\"30\"></td>");
+			out.println("<td class=\"S_PRICE\"><input type=\"text\"id = \"S_PRICE"+J+"\" name=\"S_PRICE\" value=\"\" size=\"6\" maxlength=\"5\"></td>");
+			out.println("<td class=\"PRICE_TAG\"><input type=\"text\"id = \"PRICE_TAG"+J+"\" name=\"PRICE_TAG\" value=\"\" size=\"6\" maxlength=\"5\"></td>");
+			out.println("<td class=\"RETFLG\"align=\"center\"><input type=\"checkbox\"id = \"r_chk"+J+"\"  name=\"r_chk\"size=\"3\"></td>");
+			out.println("</tr>");
 		}
-		out.println("<td class=\"ES_ID\"><input type=\"text\" name=\"ES_ID\" value=\""+ i + "\" size=\"2\" maxlength=\"3\"disabled></td>");
-		out.println("<td class=\"I_NO\"><input type=\"text\" name=\"I_NO\" value=\""+ i + "\" size=\"2\" maxlength=\"2\"disabled></td>");
-		out.println("<td class=\"kana\"><input type=\"text\" name=\"NAME\" value=\"\" size=\"35\" maxlength=\"30\"></td>");
-		out.println("<td class=\"S_PRICE\"><input type=\"text\" name=\"S_PRICE\" value=\"\" size=\"6\" maxlength=\"5\"></td>");
-		out.println("<td class=\"PRICE_TAG\"><input type=\"text\" name=\"PRICE_TAG\" value=\"\" size=\"6\" maxlength=\"5\"></td>");
-		out.println("<td class=\"RETFLG\"align=\"center\"><input type=\"checkbox\" name=\"r_chk\"size=\"3\"></td>");
-		out.println("</tr>");
-	}
-%>
+	%>
+	<p>
+		<span style="float: right"><input type="submit" value="登録" onclick="history.back()"></span>
+	</p>
+</form>
 </table>
-<p>
- <span style="float: right"><input type="button" value="登録" onclick="history.back()"></span>
-</p>
 
 
 </body>
