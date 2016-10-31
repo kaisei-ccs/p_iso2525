@@ -1,24 +1,76 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>出品者登録画面</title>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
-<link rel="stylesheet" type="text/css" href="./css/Manager_Menu.css">
 </head>
-<body>
 
+<body>
 
 <%-- タイトルバーを出力 --%>
 <jsp:include page="Title_Bar.jsp">
     <jsp:param name="caller" value="Seller_Insert" />
 </jsp:include>
 
+<article>
+<section>
+<h2 class="hidden">登録情報</h2>
+<div style="width:1220rem;"" class="posRight">
+<input type="button" value="CSV読込">
+</div>
+
+<table class="display_v">
+<tr>
+<th style="width: 100rem;">出品者番号</th>
+<th style="width: 560rem;">氏　　名</th>
+<th style="width: 560rem;">カ　　ナ</th>
+</tr>
+<tr>
+<td><input type="text" name="inputId"   value="" maxlength="8" ></td>
+<td><input type="text" name="inputName" value="" maxlength="30"></td>
+<td><input type="text" name="inputKana" value="" maxlength="30"></td>
+</tr>
+<tr class="non-line">
+<td colspan="3">
+<input type="button" value="入力クリア">
+<input type="button" value="登　録">
+</td>
+</tr>
+</table>
+</section>
+
+<section>
+<h2 class="hidden">登録済一覧</h2>
+<table class="display_v">
+<tr>
+<th style="width: 100rem;">出品者番号</th>
+<th style="width: 560rem;">氏　　名</th>
+<th style="width: 560rem;">カ　　ナ</th>
+</tr>
+<tr>
+<td>あいうえお</td>
+<td>あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお</td>
+<td>あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお</td>
+</tr>
+<tr>
+<td>あいうえお</td>
+<td>あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお</td>
+<td>あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお</td>
+</tr>
+<tr>
+<td>あいうえお</td>
+<td>あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお</td>
+<td>あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお</td>
+</tr>
+</table>
+</section>
+</article>
+
 <script type="text/javascript">
 var counter = 0;
-function AddTableRows(){
+function AddTableRows(){kou
 
 	counter++;
 
@@ -46,24 +98,6 @@ function AddTableRows(){
 }
 
 </script>
-
-<table border="1" cellspacing="0" cellpadding="4" id="table1">
-  <tr>
-    <th>出品者番号</th>
-    <th>氏名</th>
-    <th>カナ</th>
-  </tr><tr>
-    <td class="ID"><input type="text" name="ID" value="" size="10" maxlength="20" /></td>
-    <td class="name"><input type="text" name="name" value="" size="10" maxlength="20" /></td>
-    <td class="kana"><input type="text" name="kana" value="" size="10" maxlength="20" /></td>
-  </tr>
-</table>
-<form method="GET" action="#">
-  <input type="button" value="テーブルに行を追加" onClick="AddTableRows();" />
-
-<p>
- <span style="float: right"><input type="button" value="登録" onclick="history.back()"></span>
-</p>
 
 </body>
 </html>

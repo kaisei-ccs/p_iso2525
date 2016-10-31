@@ -11,46 +11,132 @@
             box-sizing: border-box;
 }
 
+/*******************************
+ * フォントサイズ
+ *******************************/
+html	{ font-size: 6.25%; }
+body,
+input	{ font-size: 18rem; }
+header	{ font-size: 24rem; }
+
+/*******************************
+ * マージン
+ *******************************/
+ header,
+ article,
+ section { margin-bottom: 20rem; }
+
+/*******************************
+ * 共通タグ
+ *******************************/
 html, body {
 	height: 100%;
 }
-html {
-	font-size: 6.25%;
-}
 
 body {
-	font-size: 24rem;
+	background-color: #ffffe0;
+}
+ul {
+	list-style-type: none;
+}
+a {
+	text-decoration: none;
 }
 
+input[type="button"],
+input[type="submit"] {
+	width: 120rem;
+}
+/*******************************
+ * ヘッダー
+ *******************************/
 header {
-	border: solid 1px black;
-	height: 52px;
+	background-color: #e6e6fa;
+	border-top: solid 1px #999999;
+	border-bottom: solid 1px #999999;
+	margin-top: 0.5%;
 }
-header dl {
-	height: 100%;
-	padding: 5px;
-	overflow: hidden;
-}
-header dt {
-	width: 85%;
-	text-align: center;
-	font-weight: bold;
-	font-size: 32rem;
-	padding: 2px 0px;
-	float: right;
-}
-header dd {
-	width: 15%;
-	height: 100%;
-	text-align: center;
-	border: solid 1px #aaaaaa;
-	background-color: #eeeeee;
-}
-header dd a {
+header ul {
+	display: table;
 	width: 100%;
-	display: block;
-	text-decoration: none;
-	color: #4169e1;
+	border-spacing: 4rem;
+}
+header ul li {
+	display: table-cell;
+	vertical-align: middle;
 	text-align: center;
 }
+header ul li:nth-child(1){
+	width: 15%;
+	background-color: #b0c4de;
+	border: solid 1px #4169e1;
+}
+header ul li:nth-child(2){
+	width: 85%;
+	font-weight: bold;
+}
+header li a {
+	display: block;
+	color: #191970;
+}
+
+/*******************************
+ * 共通クラス
+ *******************************/
 .hidden { display: none; }
+
+.posLeft, .posCenter, .posRight, table.display_v {
+	margin-left: auto;
+	margin-right: auto;
+}
+.posLeft   { text-align: left; }
+.posCenter { text-align: center; }
+.posRight  { text-align: right; }
+
+/* テーブル */
+table.display_v,
+table.display_h {
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table.display_v input:not([type="button"]):not([type="submit"]),
+table.display_h input:not([type="button"]):not([type="submit"]) {
+	width: 100%;
+}
+table.display_v th {
+	font-weight: normal;
+	text-align: center;
+	padding: 1rem 3rem;
+}
+table.display_v th,
+table.display_v td {
+	border: solid 1px #ffffff;
+}
+table.display_v tr:nth-child(odd){
+	background: #e6e6fa;
+}
+table.display_v tr:nth-child(even){
+	background: #f0f8ff;
+}
+table.display_v tr:first-child {
+	background: #6495ed;
+	color: #ffffff;
+}
+table.display_v tr.non-line {
+	background-color: transparent;
+}
+table.display_v tr.non-line td {
+	padding: 10rem 0;
+	border: none;
+	text-align: right;
+}
+
+table.display_v input[type="button"],
+table.display_v input[type="submit"] {
+	margin-left: 30rem;
+}
+table.display_h input[type="button"],
+table.display_h input[type="submit"] {
+	margin-right: 30rem;
+}

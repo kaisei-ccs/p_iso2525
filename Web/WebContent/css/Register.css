@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+
+section {
+	padding: 2%;
+	overflow: hidden;
+}
+div.left {
+	float: left;
+	width: 60%;
+}
+div.right {
+	float: right;
+	width: 38%;
+}
+
+
+table th {
+	font-weight: normal;
+	text-align: center;
+	width: 15%;
+}
+table th:nth-of-type(3) {
+	width: 55%;
+}
+

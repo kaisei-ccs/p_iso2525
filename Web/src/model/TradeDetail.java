@@ -212,4 +212,8 @@ public class TradeDetail extends BaseActiveRecord{
 		return executeSelectQuery("select * from TRADEDETAIL where QUANTITY=" + quantity);
 	}
 
+	public static TradeDetail findByMaxID(){
+		return executeSelectQuery("select * from TRADEDETAIL WHERE T_ID = (select max(t_id) as maxNo  from TRADEDETAIL)").get(0);
+	}
+
 }
