@@ -24,8 +24,10 @@
 			title="値札印刷";				break;
 		case "Manager_Menu":
 			title = "管理者メニュー";		break;
-		case "Register":
-			title="レジ";					break;
+		case "Register_0":
+			title="会計レジ";				break;
+		case "Register_1":
+			title="返品レジ";				break;
 	}
 
 	String retPath = "./Manager_Menu";

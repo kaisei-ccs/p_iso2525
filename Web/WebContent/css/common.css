@@ -43,9 +43,9 @@ a {
 	text-decoration: none;
 }
 
-input[type="button"] {
+input[type="button"],
+input[type="submit"] {
 	width: 120rem;
-	margin-left: 30rem;
 }
 /*******************************
  * ヘッダー
@@ -94,12 +94,14 @@ header li a {
 .posRight  { text-align: right; }
 
 /* テーブル */
-table.display_v {
+table.display_v,
+table.display_h {
 	border-collapse: collapse;
     border-spacing: 0;
 }
 
-table.display_v input:not([type="button"])  {
+table.display_v input:not([type="button"]):not([type="submit"]),
+table.display_h input:not([type="button"]):not([type="submit"]) {
 	width: 100%;
 }
 table.display_v th {
@@ -128,4 +130,13 @@ table.display_v tr.non-line td {
 	padding: 10rem 0;
 	border: none;
 	text-align: right;
+}
+
+table.display_v input[type="button"],
+table.display_v input[type="submit"] {
+	margin-left: 30rem;
+}
+table.display_h input[type="button"],
+table.display_h input[type="submit"] {
+	margin-right: 30rem;
 }
