@@ -1,7 +1,11 @@
-$(function(){
+
+
 
 //モーダルウィンドウを出現させるクリックイベント
-$("#popup-open").click( function(){
+function popupopen(url){
+	//jsp読み込み
+	$("#ID").prop('href')
+	$('#popup-content').load(url);
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
 	if( $( "#popup-overlay" )[0] ) return false ;	//新しくpopupを起動しない
@@ -12,6 +16,7 @@ $("#popup-open").click( function(){
 	centeringModalSyncer() ;
 	//コンテンツをフェードインする
 	$( "#popup-content" ).fadeIn( "slow" ) ;
+	//$( "#page1" ).fadeIn( "slow" ) ;
 	//popup-overlayまたはpopup-closeをクリックしたら
 	$( "#popup-close" ).unbind().click( function(){
 		//popup-contentとpopup-overlayをフェードアウトした後に
@@ -21,7 +26,7 @@ $("#popup-open").click( function(){
 			$('#popup-overlay').remove() ;
 		} ) ;
 	} ) ;
-} ) ;
+}
 
 //モーダルウィンドウを出現させるクリックイベント
 $("#dblpopup-open").dblclick( function(){
@@ -59,4 +64,3 @@ $( window ).resize( centeringModalSyncer ) ;
 		//センタリングを実行する
 		$( "#popup-content" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
 	}
-} ) ;
