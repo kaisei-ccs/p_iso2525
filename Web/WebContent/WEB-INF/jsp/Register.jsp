@@ -8,14 +8,13 @@
 <head>
 <meta charset="UTF-8">
 <title>レジ</title>
-<script type="text/javascript" src="/Web/js/Register.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/Register.css">
 </head>
 <body>
 	<%-- タイトルバーを出力 --%>
 	<jsp:include page="Title_Bar.jsp">
-	    <jsp:param name="title" value="Register" />
+	    <jsp:param name="caller" value="Register" />
 	</jsp:include>
 <%int scanIno;
   int scanEsId;
@@ -25,11 +24,8 @@
   int charge = 0;
   int cashBack = 0;
   ArrayList<Item> item;%>
-<% ArrayList<Scan> scan = Scan.fetchAll();%>
+<% ArrayList<Scan> scan = (ArrayList<Scan>) request.getAttribute("scan");%>
 
-<%scanEsId = scan.get(0).getESID();
-  scanIno = scan.get(0).getINO();
-%>
 
 
 	<section>
@@ -67,20 +63,19 @@
 			<dt>合計金額</dt>
 			<dd><input type="text"value=<%=totalPrice %> name="TotalPrice"></dd>
 			<dt>預り金</dt>
-			<dd><input type="text" name="Charge" id ="Charge" value = <%=request.getAttribute("Charge") %> ></dd>
+			<dd><input type="text" name="Charge"  value = <%=request.getAttribute("Charge") %> ></dd>
 			<dt></dt>
-			<dd><input type="submit" value="確定"></dd>
+			<dd><input type="submit" name = "Confirm" value="確定"></dd>
 			<dt>おつり</dt>
 			<dd><input type="text" name="CashBack" id="CashBack" value=<%=request.getAttribute("CashBack") %>></dd>
 		</dl>
-		</form>
-		<input type="button" name="Stop" value = "会計中止" onClick = "fauction(1)">
-		<input type="button" name="Return" value="返品" onClick = "fauction(2)">
+
+		<input type="submit" name="regiStop" value="会計中止">
+		<input type="submit" name="Return" value="返品">
+	</form>
 
 	</div>
 	</section>
-<%--日　時　合計金額　預り金額　おつり 
-	ES_ID I_NO 単価　数量
- --%>
+
 </body>
 </html>
