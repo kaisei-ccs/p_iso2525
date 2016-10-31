@@ -16,7 +16,7 @@ public class Browser extends Region {
         //apply the styles
         getStyleClass().add("browser");
         // load the web page
-        webEngine.load("http://localhost:8080/Web/Register");
+        webEngine.load("http://localhost:8080/Web/Sales_Log");
         //add the web view to the scene
         getChildren().add(browser);
     }
@@ -26,17 +26,20 @@ public class Browser extends Region {
         return spacer;
     }
 
-    @Override protected void layoutChildren() {
+    @Override
+    protected void layoutChildren() {
         double w = getWidth();
         double h = getHeight();
         layoutInArea(browser,0,0,w,h,0, HPos.CENTER, VPos.CENTER);
     }
 
-    @Override protected double computePrefWidth(double height) {
+    @Override
+    protected double computePrefWidth(double height) {
         return 900;
     }
 
-    @Override protected double computePrefHeight(double width) {
+    @Override
+    protected double computePrefHeight(double width) {
         return 600;
     }
 }
