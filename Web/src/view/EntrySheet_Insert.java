@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.EntrySheet;
+import model.Item;
 import model.Seller;
 
 /**
@@ -24,8 +26,16 @@ public class EntrySheet_Insert extends HttpServlet {
 	ArrayList<Seller> seller;
 	//出品表番号
 	int e_id = 0;
+	//出品者ID
+	int name_id = 0;
+	//変換
+	String id_name;
 	//項番
-	int I_NO[] = new int[10];
+	int i_no[] = new int[10];
+	String name[] = new String[10];
+	int s_price[] = new int[10];
+	int price_tag[] = new int[10];
+	boolean r_chk[] = new boolean[10];
 
 
     public EntrySheet_Insert() {
@@ -58,14 +68,42 @@ public class EntrySheet_Insert extends HttpServlet {
 
 		//出品表番号
 		e_id = Integer.parseInt(request.getParameter("e_id")) ;
-
+		id_name = request.getParameter("name_id");
+		//String[] fruit = id_name.split(",", 0);
+		//name_id =Integer.parseInt( fruit[0]);
 
 		int i = 0;
 		int j = 1;
+		int result_ct = 0;
+
 		for(i=0;i<10;i++){
+
+			if(request.getParameter("NAME"+ j) != null
+					|| request.getParameter("S_PRICE"+ j) != null || request.getParameter("PRICE_TAG"+ j) != null){
+
+				i_no[i] = Integer.parseInt(request.getParameter("I_NO"+ j));
+				name[i] = request.getParameter("NAME"+ j) ;
+				s_price[i] = Integer.parseInt(request.getParameter("S_PRICE"+ j)) ;
+				price_tag[i] = Integer.parseInt(request.getParameter("PRICE_TAG"+ j)) ;
+				r_chk[i] = request.getParameter("r_chk"+ j) != null;//返却有
+
+
+
+
+			}else{
+				break;
+			}
+			name_id=1;
+			if(0 == i){
+				new EntrySheet(e_id,name_id).save();
+			}
+			new Item(e_id,i_no[i],name[i],s_price[i],price_tag[i],1,r_chk[i],s_price[i],false).save();
 			j++;
-			I_NO[i] = Integer.parseInt(request.getParameter("I_NO"+ j)) ;
+
 		}
+		result_ct = j;
+
+
 
 
 		doGet(request, response);
