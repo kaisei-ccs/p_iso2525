@@ -43,8 +43,7 @@ a {
 	text-decoration: none;
 }
 
-input[type="button"],
-input[type="submit"] {
+input[type="button"], input[type="submit"], input[type="reset"], input[type="file"] {
 	width: 120rem;
 }
 /*******************************
@@ -100,8 +99,8 @@ table.display_h {
     border-spacing: 0;
 }
 
-table.display_v input:not([type="button"]):not([type="submit"]),
-table.display_h input:not([type="button"]):not([type="submit"]) {
+table.display_v input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]),
+table.display_h input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]) {
 	width: 100%;
 }
 table.display_v th {
@@ -109,20 +108,12 @@ table.display_v th {
 	text-align: center;
 	padding: 1rem 3rem;
 }
-table.display_v th,
-table.display_v td {
+table.display_v th, table.display_v td {
 	border: solid 1px #ffffff;
 }
-table.display_v tr:nth-child(odd){
-	background: #e6e6fa;
-}
-table.display_v tr:nth-child(even){
-	background: #f0f8ff;
-}
-table.display_v tr:first-child {
-	background: #6495ed;
-	color: #ffffff;
-}
+table.display_v tr:nth-child(odd)	{ background: #e6e6fa; }
+table.display_v tr:nth-child(even)	{ background: #f0f8ff; }
+table.display_v tr:first-child 	{ background: #6495ed; color: #ffffff; }
 table.display_v tr.non-line {
 	background-color: transparent;
 }
@@ -131,7 +122,9 @@ table.display_v tr.non-line td {
 	border: none;
 	text-align: right;
 }
-
+table.display_v tr.paddingTD td {
+	padding: 1rem 3rem;
+}
 table.display_v input[type="button"],
 table.display_v input[type="submit"] {
 	margin-left: 30rem;

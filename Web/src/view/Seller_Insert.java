@@ -31,4 +31,12 @@ public class Seller_Insert extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(FD_PATH);
 		dispatcher.forward(request, response);
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//request.setAttribute("Seller_Insert_ErrMsg", "更新された予定");
+		doGet(request, response);
+	}
 }
