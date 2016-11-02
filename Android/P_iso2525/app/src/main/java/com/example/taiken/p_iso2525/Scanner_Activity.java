@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
@@ -14,10 +16,14 @@ import android.media.MediaPlayer;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.Display;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BinaryBitmap;
@@ -27,12 +33,14 @@ import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 
-public class Scanner_Activity extends  Activity implements BarcodePostTask.BarcodePostCallback{
+public class Scanner_Activity extends  Activity implements BarcodePostTask.BarcodePostCallback,OnClickListener{
 
     private SurfaceView mySurfaceView;//表面図
     private Camera myCamera;//カメラ
     private Scanner_Activity sa;
     private URL url = null;
+    private static String serverIP = "";
+    private final String scanPass = "/Web/Scan";
     String text;
 
     // Activity初期値
@@ -41,16 +49,13 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
         setContentView(R.layout.activity_scanner_);
         mySurfaceView = (SurfaceView) findViewById(R.id.camera);
         mySurfaceView.setOnClickListener(onClickListener);
+        Button btn = (Button)findViewById(R.id.button);
+        TextView text = (TextView) findViewById(R.id.currentIP);
+        text.setText("接続先：" + serverIP);
+        btn.setOnClickListener(this);
 
         sa = this;
         // 接続先のURLを指定
-        try {
-            //自分の端末
-            url = new URL("http://192.168.1.127:8080/Web/Scan");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return;
-        }
 
     }
 
@@ -61,23 +66,41 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
         holder.addCallback(callback);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        try {
+            serverIP = data.getStringExtra("ipAddress");
+            TextView text = (TextView) findViewById(R.id.currentIP);
+            text.setText("接続先：" + serverIP);
+
+            //自分の端末
+            url = new URL("http://" + serverIP + scanPass);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return;
+        }
+
+
+    }
+
     //画面サイズを設定
     private void setCamera(Camera camera){
         Camera.Parameters parameters = camera.getParameters();
         List<Camera.Size> previewSizes = parameters.getSupportedPreviewSizes();
         Camera.Size previewSize = previewSizes.get(0);
-        Point point = new Point(mySurfaceView.getWidth(), mySurfaceView.getHeight());
 
-/*        for(Camera.Size size : previewSizes){
-            if(size.width > point.x || size.height > point.y){
+
+        Display display = sa.getWindowManager().getDefaultDisplay();
+        Point displayPoint = new Point();
+        display.getSize(displayPoint);
+
+        for(Camera.Size size : previewSizes){
+            if(size.width > displayPoint.x && size.height > displayPoint.y){
                 previewSize = size;
                 break;
             }
         }
-        mySurfaceView.layout(0,0,previewSize.width,previewSize.height);
-        mySurfaceView.setScaleX(previewSize.width);
-        mySurfaceView.setScaleY(previewSize.height);
-*/        // width, heightを変更する
+
+        // width, heightを変更する
         parameters.setPreviewSize(previewSize.width, previewSize.height);
         camera.setParameters(parameters);
     }
@@ -100,10 +123,29 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
 
         //表面変更
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            setCamera(myCamera);
-            //カメラ90回転
-            myCamera.setDisplayOrientation(90);
-            myCamera.startPreview();
+            Configuration config = getResources().getConfiguration();
+            if(config.orientation == Configuration.ORIENTATION_PORTRAIT){
+                setCamera(myCamera);
+                //カメラ90回転
+                myCamera.setDisplayOrientation(90);
+                myCamera.startPreview();
+            }else{
+
+                new configActivity();
+                setCamera(myCamera);
+                //ディスプレイ回転
+                Display display = getWindowManager().getDefaultDisplay();
+                switch (display.getRotation()){
+                    case Surface.ROTATION_90:
+                        myCamera.setDisplayOrientation(0);
+                        break;
+                    case Surface.ROTATION_270:
+                        myCamera.setDisplayOrientation(180);
+                }
+
+                myCamera.startPreview();
+
+            }
         }
 
         //アクティビティを破棄した時
@@ -177,7 +219,6 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
                 result = reader.decode(bitmap);
                 //QRのデータをテキストに変更
                 text = result.getText();
-                Toast.makeText(getApplicationContext(),text, Toast.LENGTH_LONG).show();
                 //標準的なビープ音
                 toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
             } catch (Exception e) {
@@ -200,5 +241,12 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
     @Override
     public void Post(String returnData) {
         Toast.makeText(getApplicationContext(),returnData, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intetnt = new Intent();
+        intetnt.setClassName("com.example.taiken.p_iso2525","com.example.taiken.p_iso2525.configActivity");
+        startActivityForResult(intetnt,0);
     }
 }

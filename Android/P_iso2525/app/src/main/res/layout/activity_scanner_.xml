@@ -19,20 +19,47 @@
 		android:id="@+id/camera"
 		/>
 
-    <FrameLayout
+	<FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="382dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="70dp"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentStart="true">
 
-        <TextView
-			android:text="TextView"
+		<RelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="99dp"
-			android:id="@+id/textView4"
-			android:layout_alignParentBottom="true"
-			android:layout_alignParentStart="true"/>
-    </FrameLayout>
+			android:layout_height="match_parent">
+
+			<TextView
+        android:text="TextView"
+        android:layout_width="281dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView4"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#ffffffff"
+                android:layout_weight="1" />
+
+			<Button
+    android:text="設定"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/button"
+				android:layout_weight="1"
+				android:layout_alignParentTop="true"
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentEnd="true"
+				android:layout_toEndOf="@+id/textView4" />
+		</RelativeLayout>
+
+	</FrameLayout>
+
+	<TextView
+		android:text="TextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentStart="true"
+		android:id="@+id/currentIP"
+		android:background="#88ffffff"/>
 
 </RelativeLayout>

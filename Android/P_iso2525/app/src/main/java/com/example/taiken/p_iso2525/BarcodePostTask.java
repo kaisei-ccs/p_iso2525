@@ -40,7 +40,7 @@ public class BarcodePostTask extends AsyncTask<String, Integer, String> {
             con.setRequestProperty("Content-Type", "text/html; charset=utf-8");
             OutputStream os = con.getOutputStream();
             PrintStream ps = new PrintStream(os);
-            ps.print(postData);
+            ps.print("scanData=" + postData);
             ps.close();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
