@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.SalesLog,model.TradeDetailItem,java.util.ArrayList" %>
+<%@ page import="model.SalesLog,model.TradeDetail,model.Item,java.util.ArrayList" %>
 <%
 SalesLog sales = (SalesLog)request.getAttribute("sales");
-ArrayList<TradeDetailItem> TDList = (ArrayList<TradeDetailItem>) request.getAttribute("TDList");
-ArrayList<TradeDetailItem> CTDList = (ArrayList<TradeDetailItem>) request.getAttribute("CTDList");
+ArrayList<TradeDetail> TDList = (ArrayList<TradeDetail>) request.getAttribute("TDList");
+ArrayList<TradeDetail> CTDList = (ArrayList<TradeDetail>) request.getAttribute("CTDList");
+ArrayList<Item> TDname = (ArrayList<Item>) request.getAttribute("TDname");
+ArrayList<Item> CTDname = (ArrayList<Item>) request.getAttribute("CTDname");
 %>
 <!DOCTYPE html>
 <html>
@@ -72,16 +74,16 @@ $(function () {
 			<th>単価</th>
 			<th>数量</th>
 		</tr>
-		<%for(TradeDetailItem trade : TDList){ %>
+		<%for(int i=0; i<TDList.size(); i++){ %>
 			<tr class="trade posRight">
-				<td><%=trade.getTNO() %></td>
-				<td><%=trade.getESID() %></td>
-				<td><%=trade.getINO() %></td>
-				<td><%=trade.getName() %></td>
-				<td><%=trade.getPrice() %></td>
-				<td><%=trade.getQuantity() %></td>
+				<td><%=TDList.get(i).getTNO() %></td>
+				<td><%=TDList.get(i).getESID() %></td>
+				<td><%=TDList.get(i).getINO() %></td>
+				<td><%=TDname.get(i).getName() %></td>
+				<td><%=TDList.get(i).getPrice() %></td>
+				<td><%=TDList.get(i).getQuantity() %></td>
 			</tr>
-			<%if(!CTDList.isEmpty() && trade.getESID() == CTDList.get(0).getESID() && trade.getINO() == CTDList.get(0).getINO()){ %>
+			<%if(!CTDList.isEmpty() && TDList.get(i).getESID() == CTDList.get(0).getESID() && TDList.get(i).getINO() == CTDList.get(0).getINO()){ %>
 			<tr>
 				<td colspan="6">
 					<table class="CTDtable display_v">
@@ -94,15 +96,15 @@ $(function () {
 							<th>単価</th>
 							<th>数量</th>
 						</tr>
-						<%for(TradeDetailItem ctrade : CTDList){ %>
+						<%for(int j=0; j<CTDList.size(); j++){ %>
 							<tr class="posRight">
-								<td><%=ctrade.getTID() %></td>
-								<td><%=ctrade.getTNO() %></td>
-								<td><%=ctrade.getESID() %></td>
-								<td><%=ctrade.getINO() %></td>
-								<td><%=trade.getName() %></td>
-								<td><%=ctrade.getPrice() %></td>
-								<td><%=ctrade.getQuantity() %></td>
+								<td><%=CTDList.get(j).getTID() %></td>
+								<td><%=CTDList.get(j).getTNO() %></td>
+								<td><%=CTDList.get(j).getESID() %></td>
+								<td><%=CTDList.get(j).getINO() %></td>
+								<td><%=CTDname.get(i).getName() %></td>
+								<td><%=CTDList.get(j).getPrice() %></td>
+								<td><%=CTDList.get(j).getQuantity() %></td>
 							</tr>
 						<%} %>
 					</table>
