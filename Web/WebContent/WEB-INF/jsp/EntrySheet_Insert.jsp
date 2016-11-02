@@ -25,9 +25,16 @@ function check_id(e_id){
 	document.getElementById("ES_ID9").value = document.getElementById(e_id).value;
 	document.getElementById("ES_ID10").value =document.getElementById(e_id).value;
 
+}
 
+function seller_Change(){
+	var wk_id_name = document.getElementById("name_id").selectedIndex ;
+	var seller_id_name = document.getElementById("name_id").options[wk_id_name].value ;
+	document.getElementById("e_idtest1").value =seller_id_name;
 
 }
+
+
 </script>
 
 </head>
@@ -44,16 +51,16 @@ function check_id(e_id){
 		<label>出品表番号:</label>
 		<input type="text"id = "e_id" name="e_id" size="3"value="0"maxlength="3">
 		<label>出品者番号:出品者名</label>
-		<select id = "name_id" name="example" >
-		<%
-		ArrayList<Seller> seller = (ArrayList<Seller>)request.getAttribute("seller_db");
-		int i = 0;
-			for(i = 0;i < seller.size(); i++){
-				out.println("<option value=\" +"+ seller.get(i).getSID() +" \"> ");
-				out.println(""+seller.get(i).getSID() +","+seller.get(i).getSellerName());
-				out.println("</option>");
-			}
-		%>
+		<select id = "name_id" name="example"  onChange="seller_Change()">
+			<%
+			ArrayList<Seller> seller = (ArrayList<Seller>)request.getAttribute("seller_db");
+			int i = 0;
+				for(i = 0;i < seller.size(); i++){
+					out.println("<option value=\""+ seller.get(i).getSID()+"\"> ");
+					out.println(""+seller.get(i).getSID() +","+seller.get(i).getSellerName());
+					out.println("</option>");
+				}
+			%>
 		</select>
 		<input type="button"  size="3" value = "出品者セット"onclick="check_id('e_id')"><!--submit  -->
 		<a href="./Seller_Insert">出品者登録へ</a>
@@ -65,7 +72,7 @@ function check_id(e_id){
 
 <%-- 出品表登録画面を出力 --%>
 <form method = "POST" action = "/Web/EntrySheet_Insert">
-<input type="hidden"id = "e_idtest1" name="e_idtest1"value="999999,l">
+<input type="hidden"id = "e_idtest1" name="e_idtest1"value="">
 <table border="1" cellspacing="0" cellpadding="4" bgcolor="#A9A9A9" id="table1">
 <tr>
 	<th>表番</th>
@@ -79,7 +86,7 @@ function check_id(e_id){
 		int J=1;
 		for(J=1;J<11;J++){
 			out.println("<tr>");
-			out.println("<td class=\"ES_ID\"><input type=\"text\"id = \"ES_ID"+J+"\" name=\"ENTRYSHEET"+J+"\" value=\" \" size=\"2\" maxlength=\"3\"disabled></td>");
+			out.println("<td class=\"ES_ID\"><input type=\"text\"id = \"ES_ID"+J+"\" name=\"ES_ID"+J+"\" value=\" \" size=\"2\" maxlength=\"3\"disabled></td>");
 			out.println("<td class=\"I_NO\"><input type=\"text\"id = \"I_NO"+J+"\" name=\"I_NO"+J+"\" value=\""+ J + "\" size=\"2\" maxlength=\"2\"disabled></td>");
 			out.println("<td class=\"kana\"><input type=\"text\"id = \"NAME"+J+"\" name=\"NAME"+J+"\" value=\"\" size=\"35\" maxlength=\"30\"></td>");
 			out.println("<td class=\"S_PRICE\"><input type=\"text\"id = \"S_PRICE"+J+"\" name=\"S_PRICE"+J+"\" value=\"\" size=\"6\" maxlength=\"5\"></td>");

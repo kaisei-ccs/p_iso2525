@@ -35,6 +35,7 @@ public class EntrySheet_Insert extends HttpServlet {
 	//項番
 	int i_no[] = new int[10];
 	String name[] = new String[10];
+	String wk_name[] = new String[10];
 	int s_price[] = new int[10];
 	int price_tag[] = new int[10];
 	boolean r_chk[] = new boolean[10];
@@ -69,13 +70,12 @@ public class EntrySheet_Insert extends HttpServlet {
 		// TODO Auto-generated method stu
 
 		//出品表番号
-		String wk_name =  request.getParameter("e_idtest1");
-		String[] fruit = wk_name.split(",", 0);
 
-		String test = request.getParameter("ENTRYSHEET"+1);//なぞのエラーがあるここまで。
-		//es =Integer.parseInt(request.getParameter("ENTRYSHEET"+1));//mull
+		wk_name[0] =  request.getParameter("e_idtest1");
+		name_id =Integer.parseInt(wk_name[0]);
+		wk_name[1] =  request.getParameter("ES_ID"+1);
+		int es_id = Integer.parseInt(wk_name[1]);
 
-		name_id =Integer.parseInt( fruit[0]);
 		int i = 0;
 		int j = 1;
 
@@ -88,15 +88,16 @@ public class EntrySheet_Insert extends HttpServlet {
 				s_price[i] = Integer.parseInt(request.getParameter("S_PRICE"+j)) ;
 				price_tag[i] = Integer.parseInt(request.getParameter("PRICE_TAG"+j)) ;
 				r_chk[i] = request.getParameter("r_chk"+ j) != null;//返却有
+
 			}else{
 				break;
 			}
 
 			if(0 == i){
-				new EntrySheet(es,name_id).save();
+				new EntrySheet(es_id,name_id).save();
 			}
 
-			new Item(es,i_no[i],name[i],s_price[i],price_tag[i],1,r_chk[i],s_price[i],false).save();
+			new Item(es_id,i_no[i],name[i],s_price[i],price_tag[i],1,r_chk[i],s_price[i],false).save();
 			j++;
 		}
 		doGet(request, response);
