@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+#popup-content {
+	width: 40% ;
+	height: 60% ;
+	overflow:auto;
+}
+
+.search{
+	float:left;
+	width:calc(100% / 3);
+	height:696px;
+	margin:0px;
+	padding: 0px;
+	border: solid;
+}
+
+.stable {
+	width:calc(100% / 3 * 2);
+	height:696px;
+	margin:0px;
+	margin-left: calc(100% / 3);
+	padding: 0px;
+	border: solid;
+	overflow:auto;
+}
+
+.salestable{
+	width:100%;
+}
+
+.tclear {
+	clear:both
+}
+
+table.salestable thead tr .header {
+	background-image: url(../img/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.salestable thead tr .headerSortUp {
+	background-image: url(../img/asc.gif);
+}
+table.salestable thead tr .headerSortDown {
+	background-image: url(../img/desc.gif);
+}
