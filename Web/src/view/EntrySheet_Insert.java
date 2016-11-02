@@ -26,6 +26,8 @@ public class EntrySheet_Insert extends HttpServlet {
 	ArrayList<Seller> seller;
 	//出品表番号
 	int e_id = 0;
+	//出品表番号
+	int es = 0;
 	//出品者ID
 	int name_id = 0;
 	//変換
@@ -38,7 +40,7 @@ public class EntrySheet_Insert extends HttpServlet {
 	boolean r_chk[] = new boolean[10];
 
 
-    public EntrySheet_Insert() {
+	public EntrySheet_Insert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,7 +53,7 @@ public class EntrySheet_Insert extends HttpServlet {
 
 		//jsp
 		request.setAttribute("ES_ID",e_id );
-		request.setAttribute("e_id",e_id );
+		//request.setAttribute("e_id",e_id );
 		//db
 		seller = Seller.fetchAll();
 		request.setAttribute("seller_db",seller);
@@ -67,45 +69,36 @@ public class EntrySheet_Insert extends HttpServlet {
 		// TODO Auto-generated method stu
 
 		//出品表番号
-		e_id = Integer.parseInt(request.getParameter("e_id")) ;
-		id_name = request.getParameter("name_id");
-		//String[] fruit = id_name.split(",", 0);
-		//name_id =Integer.parseInt( fruit[0]);
+		String wk_name =  request.getParameter("e_idtest1");
+		String[] fruit = wk_name.split(",", 0);
 
+		String test = request.getParameter("ENTRYSHEET"+1);
+		//es =Integer.parseInt(request.getParameter("ENTRYSHEET"+1));//mull
+
+		name_id =Integer.parseInt( fruit[0]);
 		int i = 0;
 		int j = 1;
-		int result_ct = 0;
 
 		for(i=0;i<10;i++){
 
-			if(request.getParameter("NAME"+ j) != null
-					|| request.getParameter("S_PRICE"+ j) != null || request.getParameter("PRICE_TAG"+ j) != null){
+			name[i] = request.getParameter("NAME"+j) ;
+			if(name[i] != null && name[i] != ""){
 
-				i_no[i] = Integer.parseInt(request.getParameter("I_NO"+ j));
-				name[i] = request.getParameter("NAME"+ j) ;
-				s_price[i] = Integer.parseInt(request.getParameter("S_PRICE"+ j)) ;
-				price_tag[i] = Integer.parseInt(request.getParameter("PRICE_TAG"+ j)) ;
+				i_no[i] = j;
+				s_price[i] = Integer.parseInt(request.getParameter("S_PRICE"+j)) ;
+				price_tag[i] = Integer.parseInt(request.getParameter("PRICE_TAG"+j)) ;
 				r_chk[i] = request.getParameter("r_chk"+ j) != null;//返却有
-
-
-
-
 			}else{
 				break;
 			}
-			name_id=1;
+
 			if(0 == i){
-				new EntrySheet(e_id,name_id).save();
+				new EntrySheet(es,name_id).save();
 			}
-			new Item(e_id,i_no[i],name[i],s_price[i],price_tag[i],1,r_chk[i],s_price[i],false).save();
+
+			new Item(es,i_no[i],name[i],s_price[i],price_tag[i],1,r_chk[i],s_price[i],false).save();
 			j++;
-
 		}
-		result_ct = j;
-
-
-
-
 		doGet(request, response);
 	}
 
