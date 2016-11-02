@@ -72,7 +72,7 @@ public class EntrySheet_Insert extends HttpServlet {
 		String wk_name =  request.getParameter("e_idtest1");
 		String[] fruit = wk_name.split(",", 0);
 
-		String test = request.getParameter("ENTRYSHEET"+1);
+		String test = request.getParameter("ENTRYSHEET"+1);//なぞのエラーがあるここまで。
 		//es =Integer.parseInt(request.getParameter("ENTRYSHEET"+1));//mull
 
 		name_id =Integer.parseInt( fruit[0]);
