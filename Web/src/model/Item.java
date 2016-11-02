@@ -259,7 +259,12 @@ public class Item extends BaseActiveRecord{
 		return executeSelectQuery("select * from ITEM where PRICE=" + price);
 	}
 	public static ArrayList<Item> findByPrintFlg(boolean printFlg){
-		return executeSelectQuery("select * from ITEM where PRINTFLG=" + printFlg);
+		int flg = 0;
+		if(true == printFlg){
+			flg = 1;
+		}
+		return executeSelectQuery("select * from ITEM where PRINTFLG=" + flg);
+		//return executeSelectQuery("select * from ITEM where PRINTFLG = false");
 	}
 	public static ArrayList<Item> findByBarcodeData(int esID,int iNO){
 		return executeSelectQuery("select * from ITEM where es_ID=" + esID + "AND I_NO =" + iNO);
