@@ -6,15 +6,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>レジ</title>
-<link rel="stylesheet" type="text/css" href="./css/common.css">
-<link rel="stylesheet" type="text/css" href="./css/Register.css">
+	<meta charset="UTF-8">
+	<title>レジ</title>
+	<script type="text/javascript" src="/Web/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src= "./js/register.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/common.css">
+	<link rel="stylesheet" type="text/css" href="./css/Register.css">
 </head>
 <body>
 	<%-- タイトルバーを出力 --%>
 	<jsp:include page="Title_Bar.jsp">
-	    <jsp:param name="caller" value="Register" />
+	    <jsp:param name="caller" value="Register_0" />
 	</jsp:include>
 <%int scanIno;
   int scanEsId;
@@ -23,15 +25,16 @@
   int totalPrice = 0;
   int charge = 0;
   int cashBack = 0;
+  int getItem = 0;
   ArrayList<Item> item;%>
 <% ArrayList<Scan> scan = (ArrayList<Scan>) request.getAttribute("scan");%>
 
 
-
+<article>
 	<section>
 
 	<div class="left">
-		<TABLE>
+		<TABLE class="display_v" id ="table_Item">
 			<tr>
 				<th>出品表番号</th>
 				<th>項番</th>
@@ -47,35 +50,58 @@
 					itemPrice = item.get(0).getPrice();
 					totalPrice += item.get(0).getPrice();
 			%>
-			<tr><td><%=scanEsId %></td><td><%=scanIno %></td><td> <%=itemName %></td><td><%=itemPrice %></td></tr>
+			<tr>
+				<td><%=scanEsId %></td>
+				<td><%=scanIno %></td>
+				<td> <%=itemName %></td>
+				<td><%=itemPrice %></td>
+			</tr>
 				<%
 				}%>
-			<tr><td><input type="text" name="CashBack" id="CashBack" style = "height:100%"></td><td></td><td></td><td></td></tr>
+			<tr>
 
+	<!-- javascriptの中身をサーブレットに送ったから、そのデータをjspに取得してjspでJavascriptのtableの値を書き換える-->
+		<script>
+			insertRow("table_Item");
+		</script>
+			</tr>
+			<tr class="non-line">
+				<td colspan="4"><input type="submit" name="regiStop" value="会計中止"></td>
+			</tr>
 
 		</TABLE>
 	</div>
 
+
 	<div class="right">
 	<form method="POST" action="/Web/Register">
-		<dl class="total">
+		<table class="display_h">
+			<tr>
+				<td>合計金額</td>
+				<td><input type="text" readonly name="TotalPrice value=<%=totalPrice %>"></td>
+			</tr>
+			<tr>
+				<td>預り金</td>
+				<td><input type="text" name="Charge"  value = <%=request.getAttribute("Charge") %> ></td>
+			</tr>
+			<tr>
+				<td><input type="submit" name = "Confirm" value="確定"></td>
+			</tr>
+			<tr>
+				<td>おつり</td>
+				<td><input type="text" name="CashBack" id="CashBack" value=<%=request.getAttribute("CashBack") %>></td>
+			</tr>
+			<tr>
+				<td><input type="submit" name="regiStop" value="会計中止"></td>
+				<td><input type="submit" name="Return" value="返品"></td>
+				<td>
+			</tr>
+		</table>
 
-			<dt>合計金額</dt>
-			<dd><input type="text"value=<%=totalPrice %> name="TotalPrice"></dd>
-			<dt>預り金</dt>
-			<dd><input type="text" name="Charge"  value = <%=request.getAttribute("Charge") %> ></dd>
-			<dt></dt>
-			<dd><input type="submit" name = "Confirm" value="確定"></dd>
-			<dt>おつり</dt>
-			<dd><input type="text" name="CashBack" id="CashBack" value=<%=request.getAttribute("CashBack") %>></dd>
-		</dl>
-
-		<input type="submit" name="regiStop" value="会計中止">
-		<input type="submit" name="Return" value="返品">
 	</form>
 
 	</div>
 	</section>
-
+</article>
 </body>
 </html>

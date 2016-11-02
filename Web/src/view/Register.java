@@ -25,12 +25,15 @@ public class Register extends HttpServlet {
 	String data = "11";
 	int width = 100;
 	int height = 100;
+
 	//預り金
 	int charge = 0;
 	//合計金額
 	int totalPrice = 0;
 	//おつり
 	int cashBack = 0;
+	//商品
+	String getItem;
 	//単価
 	int itemPrice = 0;
 	//SCANの中身を取得用変数
@@ -49,13 +52,16 @@ public class Register extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/Register.jsp");
 
 		//jspに渡す値をセット
+		req.setAttribute("GetItem", getItem);
+		req.setAttribute("ItemPrice", itemPrice);
 		req.setAttribute("Charge", charge);
 		req.setAttribute("CashBack", cashBack);
 		scan = Scan.fetchAll();
 		req.setAttribute("scan",scan);
+
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/Register.jsp");
 		dispatcher.forward(req, res);
 		//new Create_QR(data, width, height);
 	}
@@ -117,7 +123,7 @@ public class Register extends HttpServlet {
 		    }
 		}
 
-		if(req.getParameter("regiStop").equals("会計中止")){
+		if(req.getParameter("regiStop") != null && req.getParameter("regiStop").equals("会計中止")){
 			//DBのSCANの中身をすべて削除する
 				for(int i= 0;i < scan.size();i++){
 				scan.get(i).delete();
@@ -126,7 +132,18 @@ public class Register extends HttpServlet {
 			//合計金額、預り金、おつりの値を0にする
 		}
 
+		//返品処理
+		if(req.getParameter("Return") != null && req.getParameter("Return").equals("返品")){
 
+		}
+
+		if(req.getParameter("tableChange") != null){
+			item = Item.findByBarcodeData( (Integer.parseInt(req.getParameter("CheckHTML1"))),Integer.parseInt( req.getParameter("CheckHTML2")));
+			getItem = item.get(0).getName();
+			itemPrice = item.get(0).getPrice();
+System.out.println(getItem);
+System.out.println(itemPrice);
+		}
         doGet(req,res);
 	}
 
