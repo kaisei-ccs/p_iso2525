@@ -240,7 +240,8 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
 
     @Override
     public void Post(String returnData) {
-        Toast.makeText(getApplicationContext(),returnData, Toast.LENGTH_LONG).show();
+        TextView text = (TextView) findViewById(R.id.itemTextView);
+        text.setText(returnData);
     }
 
     @Override
