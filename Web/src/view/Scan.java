@@ -25,6 +25,10 @@ public class Scan extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+		String postData = request.getParameter("postData");
+		response.getWriter().append("Served fft: " + postData);
+		String[] split = postData.split("\t");
+		new model.Scan(Integer.parseInt(split[0]),Integer.parseInt(split[1])).save();
 	}
 
 }
