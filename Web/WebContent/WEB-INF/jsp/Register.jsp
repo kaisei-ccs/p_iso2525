@@ -25,6 +25,9 @@
 	<jsp:include page="Title_Bar.jsp">
 	    <jsp:param name="caller" value="Register_0" />
 	</jsp:include>
+	<script>
+		registerSub();
+	</script>
 	<%int scanIno;
 	  int scanEsId;
 	  String itemName;
@@ -49,7 +52,6 @@
 						<th>単価</th>
 					</tr>
 					<%
-			//			cells = table_Item.rows[0].
 						for(int i = 0;i<scan.size();i++){
 							scanEsId = scan.get(i).getESID();
 							scanIno = scan.get(i).getINO();
@@ -81,6 +83,11 @@
 			<div class="right">
 				<form method="POST" action="/Web/Register">
 					<table class="display_h">
+						<tr><!--  checked ="checked"-->
+							<td><input type="radio" name="Return" checked ="checked" value="1">レジ</td>
+							<td><input type="radio" name="Return" value="-1">返品</td>
+						</tr>
+
 						<tr>
 							<td>合計金額</td>
 							<td><input type="text" readonly name="TotalPrice" value="<%=totalPrice %>"></td>
@@ -98,7 +105,7 @@
 						</tr>
 						<tr>
 							<td><input type="submit" name="regiStop" value="会計中止"></td>
-							<td><input type="submit" name="Return" value="返品"></td>
+
 							<td>
 						</tr>
 					</table>
