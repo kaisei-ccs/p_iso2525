@@ -11,7 +11,7 @@ import common.DB_Interface;
 
 public class EntrySheet extends BaseActiveRecord{
 	private final int esID;
-	private final int sID;
+	private int sID;
 
 	public EntrySheet(){
 		esID	= 0;
@@ -29,6 +29,10 @@ public class EntrySheet extends BaseActiveRecord{
 
 	public int getSID(){
 		return sID;
+	}
+
+	public void setSID(int sID){
+		this.sID = sID;
 	}
 
 
