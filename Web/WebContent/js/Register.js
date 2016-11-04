@@ -25,22 +25,10 @@ function insertCheck(){
 	var checkHTML1val = document.getElementById('cell1').value;
 	var checkHTML2val = document.getElementById('cell2').value;
 
-
 	//出品表番号と項番に数字が入力されていたらそのデータをPOSTする
-
-
 	if(true == isNumber(checkHTML1val) && true == isNumber(checkHTML2val)){
 		var margeData = checkHTML1val + "\t" + checkHTML2val;
-		var form = document.createElement( "form" );
-	    /*document.body.appendChild( form );
-	    var input = document.createElement(input);
-	    input.setAttribute( 'name' ,'postData');
-	    input.setAttribute( 'value' ,'1	1');
-	    form.appendChild( input );
-	    form.setAttribute('action','http://192.168.1.126:8080/Web/Scan' );
-	    form.setAttribute('method', 'post' );
-	    form.submit();
-	    */
+
 		$.post("/Web/Scan",
 				{ postData: margeData },
 				function(data){
@@ -76,6 +64,7 @@ function pollingScanData(){
 }
 pollingScanData();
 
+//数値チェック
 function isNumber(n){
 	  if(typeof(n) != 'number' && typeof(n) != 'string'){
 	    return false;
@@ -90,4 +79,9 @@ function isNumber(n){
 	  }
 
 	  return true;
-	}
+}
+
+//お客様用画面表示
+function registerSub(){
+	window.open("/WEB-INF/jsp/Register_Sub.jsp","window1","toolbar=no, height=600, width=600");
+}

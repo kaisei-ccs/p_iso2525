@@ -31,41 +31,41 @@ ArrayList<SalesLog> SLogList = (ArrayList<SalesLog>) request.getAttribute("sales
 		<table border="1">
 			<tr>
 				<td width="150px">会計番号</td>
-				<td><input type="text" name="id"></td>
+				<td><input type="text" name="id" value="${param.id}"></td>
 			</tr>
 			<tr>
 				<td width="150px">日付</td>
-				<td><input type="text" name="date"></td>
+				<td><input type="text" name="date" value="${param.date}"></td>
 			</tr>
 			<tr>
 				<td width="150px">時間</td>
-				<td><input type="text" name="time1">～<input type="text" name="time2"></td>
+				<td><input type="text" name="time1" value="${param.time1}">～<input type="text" name="time2" value="${param.time2}"></td>
 			</tr>
 			<tr>
 				<td width="150px">合計金額</td>
-				<td><input type="text" name="total1">≦<input type="text" name="total2"></td>
+				<td><input type="text" name="total1" value="${param.total1}">≦<input type="text" name="total2" value="${param.total2}"></td>
 			</tr>
 			<tr>
 				<td width="150px">預り金額</td>
-				<td><input type="text" name="charge1">≦<input type="text" name="charge2"></td>
+				<td><input type="text" name="charge1" value="${param.charge1}">≦<input type="text" name="charge2" value="${param.charge2}"></td>
 			</tr>
 			<tr>
 				<td width="150px">おつり</td>
-				<td><input type="text" name="cashback1">≦<input type="text" name="cashback2"></td>
+				<td><input type="text" name="cashback1" value="${param.cashback1}">≦<input type="text" name="cashback2" value="${param.cashback2}"></td>
 			</tr>
 		</table>
 		<table border="1">
 			<tr>
 				<td width="150px">出品表番号</td>
-				<td><input type="text" name="es_id"></td>
+				<td><input type="text" name="es_id" value="${param.es_id}"></td>
 			</tr>
 			<tr>
 				<td width="150px">出品表項番</td>
-				<td><input type="text" name="i_no"></td>
+				<td><input type="text" name="i_no" value="${param.i_no}"></td>
 			</tr>
 		</table>
 		<input type="submit" value="検索">
-		<input type="reset" value="クリア">
+		<input type="button" onclick="Initialization()" value="クリア">
 	</form>
 	<div class="stable">
 		<table class="salestable display_v">

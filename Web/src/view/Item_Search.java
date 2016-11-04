@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.EntrySheet;
 import model.Item;
+import model.Scan;
 import model.Seller;
 
 /**
@@ -54,31 +55,41 @@ public class Item_Search extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String esid = request.getParameter("es_id");
-		check1(esid,0);
-		String ino = request.getParameter("i_no");
-		check1(ino,1);
-		String quantity = request.getParameter("quantity");
-		check1(quantity,2);
-		String retflg = request.getParameter("retflg");
-		check1(retflg,3);
-		String sid = request.getParameter("s_id");
-		check3(sid, 0);
-		String name = request.getParameter("name");
-		check3(name, 1);
-		String kana = request.getParameter("kana");
-		check3(kana, 2);
-		if(!existsstr.isEmpty()){
-			existsstr += ")";
-			wherestr += existsstr;
-		}
-		if(wherestr.isEmpty()){
-			itemlist = Item.fetchAll();
+		String submit = request.getParameter("MySubmit");
+		if(submit.equals("reference")){
+			String esid = request.getParameter("es_id");
+			check1(esid,0);
+			String ino = request.getParameter("i_no");
+			check1(ino,1);
+			String quantity = request.getParameter("quantity");
+			check1(quantity,2);
+			String retflg = request.getParameter("retflg");
+			check1(retflg,3);
+			String sid = request.getParameter("s_id");
+			check3(sid, 0);
+			String name = request.getParameter("name");
+			check3(name, 1);
+			String kana = request.getParameter("kana");
+			check3(kana, 2);
+			if(!existsstr.isEmpty()){
+				existsstr += ")";
+				wherestr += existsstr;
+			}
+			if(wherestr.isEmpty()){
+				itemlist = Item.fetchAll();
+			}else{
+				itemlist = Item.findBy(wherestr);
+			}
+			for(Item item : itemlist){
+				sellerlist.add(search(item));
+			}
 		}else{
-			itemlist = Item.findBy(wherestr);
-		}
-		for(Item item : itemlist){
-			sellerlist.add(search(item));
+			itemlist = Item.fetchAll();
+			ArrayList<Scan> scanlist = Scan.fetchAll();
+			stock(scanlist);
+			for(Item item : itemlist){
+				sellerlist.add(search(item));
+			}
 		}
 		request.setAttribute("Itemlist", itemlist);
 		request.setAttribute("Sellerlist", sellerlist);
@@ -91,53 +102,67 @@ public class Item_Search extends HttpServlet {
 	}
 
 	//T_IDとT_DATEをWHEREに追加するか判定
-		private void check1(String str, int number){
-			if(!str.isEmpty()){
-				if(!wherestr.isEmpty()){
-					wherestr += " AND ";
-				}
-				switch(number){
-					case 0:
-						wherestr += "ES_ID="+str;
-						break;
-					case 1:
-						wherestr += "I_NO="+str;
-						break;
-					case 2:
-						wherestr += "QUANTITY="+str;
-						break;
-					case 3:
-						wherestr += "RETFLG="+str;
-						break;
-					default:
-				}
+	private void check1(String str, int number){
+		if(!str.isEmpty()){
+			if(!wherestr.isEmpty()){
+				wherestr += " AND ";
+			}
+			switch(number){
+				case 0:
+					wherestr += "ES_ID="+str;
+					break;
+				case 1:
+					wherestr += "I_NO="+str;
+					break;
+				case 2:
+					wherestr += "QUANTITY="+str;
+					break;
+				case 3:
+					wherestr += "RETFLG="+str;
+					break;
+				default:
 			}
 		}
+	}
 
-		//EXISTSする時に追加
-		private void check3(String str1, int number){
-			if(!str1.isEmpty()){
-				if(!existsstr.isEmpty()){
-					existsstr += " AND ";
-				}else if(!wherestr.isEmpty()){
-					existsstr += " AND EXISTS(SELECT * FROM ENTRYSHEET, SELLER WHERE ENTRYSHEET.S_ID = SELLER.S_ID AND it.ES_ID = ENTRYSHEET.ES_ID AND ";
-				}else{
-					existsstr += "EXISTS(SELECT * FROM ENTRYSHEET, SELLER WHERE ENTRYSHEET.S_ID = SELLER.S_ID AND it.ES_ID = ENTRYSHEET.ES_ID AND ";
-				}
-				switch(number){
-					case 0:
-						existsstr += "SELLER.S_ID="+str1;
-						break;
-					case 1:
-						existsstr += "SELLER.NAME="+str1;
-						break;
-					case 2:
-						existsstr += "SELLER.KANA="+str1;
-						break;
-					default:
-				}
+	//EXISTSする時に追加
+	private void check3(String str1, int number){
+		if(!str1.isEmpty()){
+			if(!existsstr.isEmpty()){
+				existsstr += " AND ";
+			}else if(!wherestr.isEmpty()){
+				existsstr += " AND EXISTS(SELECT * FROM ENTRYSHEET, SELLER WHERE ENTRYSHEET.S_ID = SELLER.S_ID AND it.ES_ID = ENTRYSHEET.ES_ID AND ";
+			}else{
+				existsstr += "EXISTS(SELECT * FROM ENTRYSHEET, SELLER WHERE ENTRYSHEET.S_ID = SELLER.S_ID AND it.ES_ID = ENTRYSHEET.ES_ID AND ";
+			}
+			switch(number){
+				case 0:
+					existsstr += "SELLER.S_ID="+str1;
+					break;
+				case 1:
+					existsstr += "SELLER.NAME="+str1;
+					break;
+				case 2:
+					existsstr += "SELLER.KANA="+str1;
+					break;
+				default:
 			}
 		}
+	}
+
+	private void stock(ArrayList<Scan> scanlist){
+
+		for(Scan scan : scanlist){
+			int index = 0;
+			for(Item item : itemlist){
+				if(item.getESID() == scan.getESID() && item.getINO() == scan.getINO()){
+					itemlist.remove(index);
+					break;
+				}
+				index++;
+			}
+		}
+	}
 
 	private Seller search(Item item){
 		ArrayList<EntrySheet> ESList = EntrySheet.findByESID(item.getESID());

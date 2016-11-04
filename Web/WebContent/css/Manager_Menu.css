@@ -6,7 +6,7 @@ article {
 }
 
 article section {
-	font-size: 32rem;
+	font-size: 3.2rem;
 	width: calc(100% / 3);
 	display: inline-block;
 	vertical-align: top;
