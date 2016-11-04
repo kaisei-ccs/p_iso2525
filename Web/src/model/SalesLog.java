@@ -200,17 +200,24 @@ public class SalesLog extends BaseActiveRecord{
 	public static ArrayList<SalesLog> findByTDate(Date tDate){
 		return executeSelectQuery("select * from SALESLOG where T_DATE=" + tDate);
 	}
-	public static ArrayList<SalesLog> findByTTime(Time tTime){
-		return executeSelectQuery("select * from SALESLOG where T_TIME=" + tTime);
+	public static ArrayList<SalesLog> findByTTime(Time tTime1, Time tTime2){
+		return executeSelectQuery("select * from SALESLOG where T_TIME BETWEEN" + tTime1 + "AND" + tTime2);
 	}
-	public static ArrayList<SalesLog> findByTotal(int total){
-		return executeSelectQuery("select * from SALESLOG where TOTAL=" + total);
+	public static ArrayList<SalesLog> findByTotal(int total1, int total2){
+		return executeSelectQuery("select * from SALESLOG where TOTAL BETWEEN" + total1 + "AND" + total2);
 	}
-	public static ArrayList<SalesLog> findByChsrge(int chsrge){
-		return executeSelectQuery("select * from SALESLOG where CHSRGE=" + chsrge);
+	public static ArrayList<SalesLog> findByChsrge(int charge1, int charge2){
+		return executeSelectQuery("select * from SALESLOG where CHSRGE BETWEEN" + charge1 + "AND" + charge2);
 	}
-	public static ArrayList<SalesLog> findByCashBack(int cashBack){
-		return executeSelectQuery("select * from SALESLOG where CASHBACK=" + cashBack);
+	public static ArrayList<SalesLog> findByCashBack(int cashBack1, int cashBack2){
+		String sql = "select *" +
+	                  " from SALESLOG" +
+				     " where CASHBACK BETWEEN" + cashBack1 + "AND" + cashBack2 +
+				     " ORDER BY ";
+		return executeSelectQuery(sql);
+	}
+	public static ArrayList<SalesLog> findBy(String str){
+		return executeSelectQuery("select * from SALESLOG as slog where "+str);
 	}
 	private SalesLog findByThis(){
 		return executeSelectQuery("select * from SALESLOG WHERE T_ID = (select max(t_id) as maxNo  from SALESLOG)").get(0);

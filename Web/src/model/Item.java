@@ -269,5 +269,8 @@ public class Item extends BaseActiveRecord{
 	public static ArrayList<Item> findByBarcodeData(int esID,int iNO){
 		return executeSelectQuery("select * from ITEM where es_ID=" + esID + "AND I_NO =" + iNO);
 	}
+	public static ArrayList<Item> findBy(String str){
+		return executeSelectQuery("select * from ITEM as it where "+str);
+	}
 
 }
