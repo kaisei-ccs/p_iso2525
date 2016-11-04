@@ -45,13 +45,37 @@ function insertCheck(){
 				{ postData: margeData },
 				function(data){
 					//document.location.reload(false);
-					location.replace(location.href);
+					//location.replace(location.href);
+					insertScanData();
 				}
 		);
 	}
 
 
 }
+
+//スキャンデータ取得
+function insertScanData(){
+	//データ数取得
+	$.get("/Web/Register",
+			function(data){
+				if($("#table_Item").html().is($(data).find('#table_Item').html())){
+					$("#table_Item").html($(data).find('#table_Item').html());
+				}
+			}
+	);
+}
+//Scanデータをポーリング
+function pollingScanData(){
+
+	insertScanData();
+
+	setTimeout(function(){
+		pollingScanData();
+	},500);
+}
+pollingScanData();
+
 function isNumber(n){
 	  if(typeof(n) != 'number' && typeof(n) != 'string'){
 	    return false;
