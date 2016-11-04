@@ -20,7 +20,6 @@
 <h2 class="hidden">マスタメンテナンス</h2>
 <ul>
 <li><a href="./Seller_Insert">出品者登録</a></li>
-<li><a href="./Seller_Edit">出品者変更・削除</a></li>
 <li><a href="./EntrySheet_Insert">出品表登録</a></li>
 <li><a href="./EntrySheet_Edit">出品表変更・削除</a></li>
 </ul>
