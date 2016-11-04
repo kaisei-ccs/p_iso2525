@@ -12,6 +12,15 @@ ArrayList<Item> CTDname = (ArrayList<Item>) request.getAttribute("CTDname");
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- スタイルシートの読み込み -->
+<link rel="stylesheet" type="text/css" href="./css/common.css">
+<link rel="stylesheet" type="text/css" href="./css/Manager_Menu.css">
+<link href="./css/Popup.css" rel="stylesheet" type="text/css">
+<link href="./css/Print.css" rel="stylesheet" type="text/css">
+<!-- JavaScriptの読み込み -->
+<script src="./js/jquery-3.1.1.min.js"></script>
+<script src="./js/Popup.js"></script>
+<script src="./js/Print.js"></script>
 <!-- スタイルシート読み込み -->
 <link rel="stylesheet" type="text/css" href="./css/Trade_Detail.css">
 
