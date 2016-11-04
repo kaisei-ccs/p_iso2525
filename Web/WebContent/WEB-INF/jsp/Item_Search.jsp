@@ -9,9 +9,16 @@ ArrayList<Seller> SellerList = (ArrayList<Seller>) request.getAttribute("Sellerl
 <html>
 <head>
 <meta charset="UTF-8">
-<title>出品者登録画面</title>
+<title>在庫一覧画面</title>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/Item_Search.css">
+
+<script type="text/javascript">
+	function MyClick(MyCommand){
+		document.forms.search.elements.MySubmit.value=MyCommand;
+		document.forms.search.submit();
+	}
+</script>
 </head>
 <body>
 	<%-- タイトルバーを出力 --%>
@@ -19,28 +26,28 @@ ArrayList<Seller> SellerList = (ArrayList<Seller>) request.getAttribute("Sellerl
    	<jsp:param name="caller" value="Item_Search" />
 	</jsp:include>
 	<article>
-	<form class="search" action="./Item_Search" method="post">
+	<form class="search" name="search" action="./Item_Search" method="post">
 		<h1>検索</h1>
 		<table border="1">
 			<tr>
 				<td width="150px">出品表番号</td>
-				<td><input type="text" name="es_id"></td>
+				<td><input type="text" name="es_id" value="${param.es_id}"></td>
 			</tr>
 			<tr>
 				<td width="150px">出品表項番</td>
-				<td><input type="text" name="i_no"></td>
+				<td><input type="text" name="i_no" value="${param.i_no}"></td>
 			</tr>
 			<tr>
 				<td width="150px">出品者番号</td>
-				<td><input type="text" name="s_id"></td>
+				<td><input type="text" name="s_id" value="${param.s_id}"></td>
 			</tr>
 			<tr>
 				<td width="150px">出品者名</td>
-				<td><input type="text" name="name"></td>
+				<td><input type="text" name="name" value="${param.name}"></td>
 			</tr>
 			<tr>
 				<td width="150px">カナ</td>
-				<td><input type="text" name="kana"></td>
+				<td><input type="text" name="kana" value="${param.kana}"></td>
 			</tr>
 			<tr>
 				<td width="150px">在庫の有無</td>
@@ -54,13 +61,15 @@ ArrayList<Seller> SellerList = (ArrayList<Seller>) request.getAttribute("Sellerl
 				<td width="150px">返却の有無</td>
 				<td><select name="retflg">
 					<option value=""> </option>
-					<option value="true">有</option>
-					<option value="false">無</option>
+					<option value="1">有</option>
+					<option value="0">無</option>
 				</select></td>
 			</tr>
 		</table>
-		<input type="submit" value="検索">
-		<input type="reset" value="クリア">
+		<input type="button" onclick="MyClick('reference')" value="検索">
+		<input type="reset" value="クリア"><br>
+		<input type="button" onclick="MyClick('stock')" value="在庫確認">
+		<input type="hidden" name="MySubmit">
 	</form>
 	<div class="IStable">
 	<h2 class="posRight">検索のヒット数：<%=ItemList.size() %>件</h2>
