@@ -113,7 +113,8 @@ function seller_Change(){
 		}
 	%>
 </table>
-<input type="submit" value="登録">
+<%-- <input type="submit" value="登録">--%>
+<button type="button"accesskey="b" onclick="submit();">(Alt+B)登録</button>
 </form>
 
 
