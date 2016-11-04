@@ -14,23 +14,23 @@
 /*******************************
  * フォントサイズ
  *******************************/
-html	{ font-size: 6.25%; }
-body,
-input	{ font-size: 18rem; }
-header	{ font-size: 24rem; }
+html	{ font-size: 62.5%; }
+body	{ font-size: 1.8em; }
+header	{ font-size: 2.4rem;}
+input 	{ font-size: 1.8rem;}
 
 /*******************************
  * マージン
  *******************************/
  header,
  article,
- section { margin-bottom: 20rem; }
+ section { margin-bottom: 2.0rem; }
 
 /*******************************
  * 共通タグ
  *******************************/
 html, body {
-	height: 100%;
+	height: 90%;
 }
 
 body {
@@ -44,7 +44,7 @@ a {
 }
 
 input[type="button"], input[type="submit"], input[type="reset"], input[type="file"] {
-	width: 120rem;
+	width: 12rem;
 }
 /*******************************
  * ヘッダー
@@ -58,7 +58,7 @@ header {
 header ul {
 	display: table;
 	width: 100%;
-	border-spacing: 4rem;
+	border-spacing: 0.4rem;
 }
 header ul li {
 	display: table-cell;
@@ -84,10 +84,11 @@ header li a {
  *******************************/
 .hidden { display: none; }
 
-.posLeft, .posCenter, .posRight, table.display_v {
+.err, .posLeft, .posCenter, .posRight, table.display_v {
 	margin-left: auto;
 	margin-right: auto;
 }
+.err { color: red; }
 .posLeft   { text-align: left; }
 .posCenter { text-align: center; }
 .posRight  { text-align: right; }
@@ -99,37 +100,58 @@ table.display_h {
     border-spacing: 0;
 }
 
-table.display_v input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]),
-table.display_h input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]) {
+table.display_v input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]):not([type="checkbox"]),
+table.display_h input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]):not([type="checkbox"]) {
 	width: 100%;
 }
 table.display_v th {
 	font-weight: normal;
 	text-align: center;
-	padding: 1rem 3rem;
+	padding: 0.1rem 0.3rem;
 }
 table.display_v th, table.display_v td {
 	border: solid 1px #ffffff;
 }
 table.display_v tr:nth-child(odd)	{ background: #e6e6fa; }
 table.display_v tr:nth-child(even)	{ background: #f0f8ff; }
-table.display_v tr:first-child 	{ background: #6495ed; color: #ffffff; }
+table.display_v th 	{ background: #6495ed; color: #ffffff; }
 table.display_v tr.non-line {
 	background-color: transparent;
 }
 table.display_v tr.non-line td {
-	padding: 10rem 0;
+	padding: 1.0rem 0;
 	border: none;
 	text-align: right;
 }
 table.display_v tr.paddingTD td {
-	padding: 1rem 3rem;
+	padding: 0.1rem 0.3rem;
 }
 table.display_v input[type="button"],
 table.display_v input[type="submit"] {
-	margin-left: 30rem;
+	margin-left: 3.0rem;
 }
 table.display_h input[type="button"],
 table.display_h input[type="submit"] {
-	margin-right: 30rem;
+	margin-right: 3.0rem;
+}
+
+table.display_v dl.checkRight {
+	display: table;
+	width: 100%;
+}
+table.display_v dl.checkRight dt {
+	display: table-cell;
+}
+table.display_v dl.checkRight dd {
+	display: table-cell;
+	width: 90%;
+	text-align: right;
+}
+
+.scrollBody thead, .scrollBody tbody, .scrollBody tfoot {
+	display: block;
+}
+.scrollBody tbody{
+	overflow-y: scroll;
+	height: 31.0rem;
 }
