@@ -5,7 +5,7 @@ $(function () {
 		popupopen(url);
 	});
 	$(document).ready(function() {
-		$(".salestable").tablesorter();
+		$(".display_v").tablesorter();
 	});
 });
 

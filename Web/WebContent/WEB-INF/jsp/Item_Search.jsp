@@ -10,9 +10,11 @@ ArrayList<Seller> SellerList = (ArrayList<Seller>) request.getAttribute("Sellerl
 <head>
 <meta charset="UTF-8">
 <title>在庫一覧画面</title>
+<!-- スタイルシート読み込み -->
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/Item_Search.css">
 
+<!-- javascript読み込み -->
 <script type="text/javascript">
 	function MyClick(MyCommand){
 		document.forms.search.elements.MySubmit.value=MyCommand;
@@ -25,32 +27,35 @@ ArrayList<Seller> SellerList = (ArrayList<Seller>) request.getAttribute("Sellerl
 	<jsp:include page="Title_Bar.jsp">
    	<jsp:param name="caller" value="Item_Search" />
 	</jsp:include>
-	<article>
-	<form class="search" name="search" action="./Item_Search" method="post">
-		<h1>検索</h1>
-		<table border="1">
+	<article class="posCenter">
+	<section class="search">
+	<form name="search" action="./Item_Search" method="post">
+		<table class="display_h">
 			<tr>
-				<td width="150px">出品表番号</td>
+				<th colspan="2">検索</th>
+			</tr>
+			<tr>
+				<td>出品表番号</td>
 				<td><input type="text" name="es_id" value="${param.es_id}"></td>
 			</tr>
 			<tr>
-				<td width="150px">出品表項番</td>
+				<td>出品表項番</td>
 				<td><input type="text" name="i_no" value="${param.i_no}"></td>
 			</tr>
 			<tr>
-				<td width="150px">出品者番号</td>
+				<td>出品者番号</td>
 				<td><input type="text" name="s_id" value="${param.s_id}"></td>
 			</tr>
 			<tr>
-				<td width="150px">出品者名</td>
+				<td>出品者名</td>
 				<td><input type="text" name="name" value="${param.name}"></td>
 			</tr>
 			<tr>
-				<td width="150px">カナ</td>
+				<td>カナ</td>
 				<td><input type="text" name="kana" value="${param.kana}"></td>
 			</tr>
 			<tr>
-				<td width="150px">在庫の有無</td>
+				<td>在庫の有無</td>
 				<td><select name="quantity">
 					<option value=""> </option>
 					<option value="1">有</option>
@@ -58,53 +63,69 @@ ArrayList<Seller> SellerList = (ArrayList<Seller>) request.getAttribute("Sellerl
 				</select></td>
 			</tr>
 			<tr>
-				<td width="150px">返却の有無</td>
+				<td>返却の有無</td>
 				<td><select name="retflg">
 					<option value=""> </option>
 					<option value="1">有</option>
 					<option value="0">無</option>
 				</select></td>
 			</tr>
+			<tr>
+				<td><input type="button" onclick="MyClick('reference')" value="検索"></td>
+				<td><input type="reset" value="クリア"></td>
+			</tr>
+			<tr>
+				<td><input type="button" onclick="MyClick('stock')" value="在庫確認"></td>
+				<td><input type="hidden" name="MySubmit"></td>
+			</tr>
+
 		</table>
-		<input type="button" onclick="MyClick('reference')" value="検索">
-		<input type="reset" value="クリア"><br>
-		<input type="button" onclick="MyClick('stock')" value="在庫確認">
-		<input type="hidden" name="MySubmit">
+
 	</form>
-	<div class="IStable">
-	<h2 class="posRight">検索のヒット数：<%=ItemList.size() %>件</h2>
-		<table class="itemtable display_v">
+	</section>
+
+	<section class="IStable">
+	<h3 class="posRight" style="width: 120rem;">検索のヒット数：<%=ItemList.size() %>件</h3>
+		<table class="display_v scrollBody">
+		<thead>
 			<tr>
 				<th>出品表番号</th>
 				<th>出品表項番</th>
 				<th>出品者番号</th>
 				<th>出品者名</th>
 				<th>カナ</th>
-				<th>在庫の有無</th>
-				<th>返却の有無</th>
+				<th>在庫有無</th>
+				<th>返却有無</th>
 			</tr>
-			<%for(int i=0; i<ItemList.size(); i++){ %>
-				<tr class="posRight">
-					<td><%=ItemList.get(i).getESID() %></td>
-					<td><%=ItemList.get(i).getINO() %></td>
-					<td><%=SellerList.get(i).getSID() %></td>
-					<td><%=SellerList.get(i).getSellerName() %></td>
-					<td><%=SellerList.get(i).getSellerKana() %></td>
-					<%if(ItemList.get(i).getQuantity() > 0){ %>
-						<td><%="有" %></td>
-					<%}else{ %>
-						<td><%="無" %></td>
-					<%} %>
+		</thead>
+		<tbody style="height: 500px;">
+<%
+for(int i=0; i<ItemList.size(); i++) {
+	String quantity = "無";
+	String retFlg = "無";
+	if(ItemList.get(i).getQuantity() > 0){
+		quantity = "有";
+	}
+	if(true == ItemList.get(i).getRetFlg()) {
+		retFlg = "有";
+	}
 
-					<%if(true == ItemList.get(i).getRetFlg()){ %>
-						<td><%="有" %></td>
-					<%}else{ %>
-						<td><%="無" %></td>
-					<%} %>
+%>
+				<tr class="paddingTD">
+					<td class="posRight"><%=ItemList.get(i).getESID() %></td>
+					<td class="posRight"><%=ItemList.get(i).getINO() %></td>
+					<td class="posRight"><%=SellerList.get(i).getSID() %></td>
+					<td class="posLeft"><%=SellerList.get(i).getSellerName() %></td>
+					<td class="posLeft"><%=SellerList.get(i).getSellerKana() %></td>
+					<td><%=quantity %></td>
+					<td><%=retFlg %></td>
 				</tr>
-			<%} %>
+<%
+}
+%>
+		</tbody>
 		</table>
-	</div>
+	</section>
 	<div class="tclear"></div>
 	</article>
 </body>
