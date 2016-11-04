@@ -24,6 +24,10 @@ public class configActivity extends Activity implements View.OnClickListener {
         Button btn = (Button)findViewById(R.id.configButton);
         btn.setOnClickListener(this);
 
+        Intent intent = getIntent();
+        EditText editText = (EditText) findViewById(R.id.ipEditText);
+        String ip = intent.getStringExtra("ipAddress");
+        editText.setText(ip);
     }
     public void onClick(View view) {
         Intent intent = new Intent();

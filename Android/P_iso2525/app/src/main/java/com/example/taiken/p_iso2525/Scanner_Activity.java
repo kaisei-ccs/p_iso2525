@@ -37,12 +37,12 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
 
     private SurfaceView mySurfaceView;//表面図
     private Camera myCamera;//カメラ
-    private Scanner_Activity sa;
-    private URL url = null;
+    private Scanner_Activity parentActivity;
+    private static URL url = null;
     private static String serverIP = "";
     private final String scanPass = "/Web/Scan";
-    String text;
-
+    private String barcodeData = "";
+    private static String itemData = "商品名が表示されます";
     // Activity初期値
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +54,7 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
         text.setText("接続先：" + serverIP);
         btn.setOnClickListener(this);
 
-        sa = this;
+        parentActivity = this;
         // 接続先のURLを指定
 
     }
@@ -64,6 +64,9 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
         super.onResume();
         SurfaceHolder holder = mySurfaceView.getHolder();
         holder.addCallback(callback);
+        TextView text = (TextView) findViewById(R.id.itemTextView);
+        text.setText(itemData);
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -89,7 +92,7 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
         Camera.Size previewSize = previewSizes.get(0);
 
 
-        Display display = sa.getWindowManager().getDefaultDisplay();
+        Display display = parentActivity.getWindowManager().getDefaultDisplay();
         Point displayPoint = new Point();
         display.getSize(displayPoint);
 
@@ -218,7 +221,7 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
             try {
                 result = reader.decode(bitmap);
                 //QRのデータをテキストに変更
-                text = result.getText();
+                barcodeData = result.getText();
                 //標準的なビープ音
                 toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
             } catch (Exception e) {
@@ -232,7 +235,7 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
 
 
             //serverのデータを表示
-            new BarcodePostTask(url,text,sa).execute();
+            new BarcodePostTask(url, barcodeData, parentActivity).execute();
 
         }
     };
@@ -240,13 +243,15 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
 
     @Override
     public void Post(String returnData) {
+        itemData = returnData;
         TextView text = (TextView) findViewById(R.id.itemTextView);
-        text.setText(returnData);
+        text.setText(itemData);
     }
 
     @Override
     public void onClick(View view) {
         Intent intetnt = new Intent();
+        intetnt.putExtra("ipAddress",serverIP);
         intetnt.setClassName("com.example.taiken.p_iso2525","com.example.taiken.p_iso2525.configActivity");
         startActivityForResult(intetnt,0);
     }
