@@ -1,12 +1,105 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <%@page import ="java.util.ArrayList" %>
+    <%@page import ="model.Seller" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title></title>
+<link rel="stylesheet" type="text/css" href="./css/common.css">
+<link rel="stylesheet" type="text/css" href="./css/Manager_Menu.css">
+
+
+<!--  -->
+<script>
+function check_id(e_id){
+	document.getElementById("ES_ID1").value = document.getElementById(e_id).value;
+	document.getElementById("ES_ID2").value = document.getElementById(e_id).value;
+	document.getElementById("ES_ID3").value = document.getElementById(e_id).value;
+	document.getElementById("ES_ID4").value = document.getElementById(e_id).value;
+	document.getElementById("ES_ID5").value = document.getElementById(e_id).value;
+	document.getElementById("ES_ID6").value = document.getElementById(e_id).value;
+	document.getElementById("ES_ID7").value = document.getElementById(e_id).value;
+	document.getElementById("ES_ID8").value = document.getElementById(e_id).value;
+	document.getElementById("ES_ID9").value = document.getElementById(e_id).value;
+	document.getElementById("ES_ID10").value =document.getElementById(e_id).value;
+
+}
+
+function seller_Change(){
+	var wk_id_name = document.getElementById("name_id").selectedIndex ;
+	var seller_id_name = document.getElementById("name_id").options[wk_id_name].value ;
+	document.getElementById("e_idtest1").value =seller_id_name;
+
+}
+
+
+</script>
+
 </head>
 <body>
+<%-- タイトルバーを出力 --%>
+<jsp:include page="Title_Bar.jsp">
+    <jsp:param name="caller" value="EntrySheet_Insert" />
+</jsp:include>
+
+<%-- 出品者を出力 --%>
+<p></p>
+<div>
+	<form method = "POST" action = "/Web/EntrySheet_Insert">
+		<label>出品表番号:</label>
+		<input type="text"id = "e_id" name="e_id" size="3"value="0"maxlength="3">
+		<label>出品者番号:出品者名</label>
+		<select id = "name_id" name="example"  onChange="seller_Change()">
+			<%
+			ArrayList<Seller> seller = (ArrayList<Seller>)request.getAttribute("seller_db");
+			int i = 0;
+				for(i = 0;i < seller.size(); i++){
+					out.println("<option value=\""+ seller.get(i).getSID()+"\"> ");
+					out.println(""+seller.get(i).getSID() +","+seller.get(i).getSellerName());
+					out.println("</option>");
+				}
+			%>
+		</select>
+		<input type="button"  size="3" value = "出品者セット"onclick="check_id('e_id')"><!--submit  -->
+		<a href="./Seller_Insert">出品者登録へ</a>
+	</form>
+</div>
+	<div id="output"></div>
+<p>
+
+
+<%-- 出品表登録画面を出力 --%>
+<form method = "POST" action = "/Web/EntrySheet_Insert">
+<input type="hidden"id = "e_idtest1" name="e_idtest1"value="">
+<table border="1" cellspacing="0" cellpadding="4" bgcolor="#A9A9A9" id="table1">
+<tr>
+	<th>表番</th>
+	<th>項番</th>
+	<th>商品名</th>
+	<th>開始価格</th>
+	<th>値札価格</th>
+	<th>返却有</th>
+
+	<%
+		int J=1;
+		for(J=1;J<11;J++){
+			out.println("<tr>");
+			out.println("<td class=\"ES_ID\"><input type=\"text\"id = \"ES_ID"+J+"\" name=\"ES_ID"+J+"\" value=\" \" size=\"2\" maxlength=\"3\"disabled></td>");
+			out.println("<td class=\"I_NO\"><input type=\"text\"id = \"I_NO"+J+"\" name=\"I_NO"+J+"\" value=\""+ J + "\" size=\"2\" maxlength=\"2\"disabled></td>");
+			out.println("<td class=\"kana\"><input type=\"text\"id = \"NAME"+J+"\" name=\"NAME"+J+"\" value=\"\" size=\"35\" maxlength=\"30\"></td>");
+			out.println("<td class=\"S_PRICE\"><input type=\"text\"id = \"S_PRICE"+J+"\" name=\"S_PRICE"+J+"\" value=\"\" size=\"6\" maxlength=\"5\"></td>");
+			out.println("<td class=\"PRICE_TAG\"><input type=\"text\"id = \"PRICE_TAG"+J+"\" name=\"PRICE_TAG"+J+"\" value=\"\" size=\"6\" maxlength=\"5\"></td>");
+			out.println("<td class=\"RETFLG\"align=\"center\"><input type=\"checkbox\"id = \"r_chk"+J+"\"  name=\"r_chk"+J+"\"size=\"3\"></td>");
+			out.println("</tr>");
+		}
+	%>
+</table>
+<input type="submit" value="登録">
+</form>
+
+
 
 </body>
 </html>

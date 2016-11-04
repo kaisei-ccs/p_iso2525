@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+.search{
+	float:left;
+	width:calc(100% / 3);
+	height:696px;
+	margin:0px;
+	padding: 0px;
+	border: solid;
+}
+
+.IStable {
+	width:calc(100% / 3 * 2);
+	height:696px;
+	margin:0px;
+	margin-left: calc(100% / 3);
+	padding: 0px;
+	border: solid;
+	overflow:auto;
+}
+
+.itemtable{
+	width:100%;
+}
+
+.tclear {
+	clear:both
+}
