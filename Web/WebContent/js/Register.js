@@ -41,11 +41,11 @@ function insertCheck(){
 	    form.setAttribute('method', 'post' );
 	    form.submit();
 	    */
-		$.post("http://192.168.1.126:8080/Web/Scan",
+		$.post("/Web/Scan",
 				{ postData: margeData },
 				function(data){
-					document.location.reload(true);
-					alert("Data Loaded: " + data);
+					//document.location.reload(false);
+					location.replace(location.href);
 				}
 		);
 	}
