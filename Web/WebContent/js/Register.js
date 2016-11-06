@@ -47,7 +47,7 @@ function insertScanData(){
 	//データ数取得
 	$.get("/Web/Register",
 			function(data){
-				if($("#table_Item").html().is($(data).find('#table_Item').html())){
+				if(!$("#table_Item").html().is($(data).find('#table_Item').html())){
 					$("#table_Item").html($(data).find('#table_Item').html());
 				}
 			}
@@ -63,6 +63,7 @@ function pollingScanData(){
 	},500);
 }
 pollingScanData();
+
 
 //数値チェック
 function isNumber(n){
