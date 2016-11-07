@@ -42,17 +42,19 @@ public class Print_PriceTag extends HttpServlet {
 		//印刷ボタンでPrint/Print_PriceTag.jspを呼び出す
 		if(request.getParameter("print") != null && request.getParameter("print").equals("印刷")){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Print/Print_PriceTag.jsp");
+			ArrayList<Item> priceList = Item.findByPrintFlg(false);
+			request.setAttribute("priceList", priceList);
 			dispatcher.forward(request, response);
 		}
 		//印刷終了時にPRINTFLGをTRUEに変える処理（※印刷キャンセル時にも実行される）
 		if(request.getParameter("Confirm") != null && request.getParameter("Confirm").equals("確定")){
 			ArrayList<Item> ItemList = Item.findByPrintFlg(false);
 			Item printFlg;
-			for(Item item : ItemList){
-				printFlg = Item.findByBarcodeData(item.getESID(), item.getINO()).get(0);
-				printFlg.setPrintFlg(true);
-				printFlg.save();
-			}
+			//for(Item item : ItemList){
+			//	printFlg = Item.findByBarcodeData(item.getESID(), item.getINO()).get(0);
+			//	printFlg.setPrintFlg(true);
+			//	printFlg.save();
+			//}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Print_PriceTag.jsp");
 			dispatcher.forward(request, response);
 		}

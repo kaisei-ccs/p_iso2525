@@ -1,12 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Item" %>
-
-<!DOCTYPE html">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>値札印刷画面</title>
+<meta charset=UTF-8">
+<title>値札用紙印刷</title>
+<style type="text/css">
+.table1 {
+  border-collapse: collapse;
+  width: 300px;
+}
+.table1 th {
+
+}
+h2{
+	text-align:center;
+}
+</style>
 <!-- スタイルシートの読み込み -->
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/Manager_Menu.css">
@@ -17,30 +28,32 @@
 <script src="./js/Popup.js"></script>
 <script src="./js/Print.js"></script>
 </head>
-<body>
 
-<table>
-<caption>
-<strong>
-値札印刷フォーマット
-</strong>
-</caption>
-<tr>
-<th>商品名</th>
-<th width="150">開始価格</th>
-<th width="200">最終価格</th>
-</tr>
-	<%
-		ArrayList<Item> ItemList = Item.findByPrintFlg(false);
-		for (Item item : ItemList ) {
-			out.write("<tr class=\"paddingTD\">\n");
-			out.write("<td class=\"posRight\">" + item.getESID() + "</td>");
-			out.write("<td>" + item.getINO() + "</td>");
-			out.write("<td>" + item.getName() + "</td>\n");
-			out.write("</tr>\n");
-		}
-	%>
-</table>
+<body>
+<%
+int count = 0;
+ArrayList<Item> priceList = (ArrayList<Item>)request.getAttribute("priceList");
+//for(int i = 0; i > (priceList.size() / 10); i++){
+for(Item item : priceList){
+	if(0 == (count % 6)){
+		out.write("</div>\n");
+		out.write("<div style=\"page-break-before:always;\">\n");
+	}
+		out.write("<table class=\"table1\" border=1 style=\"float:left; margin-right:20px;\">\n");
+		out.write("<tr><td colspan=3><center>商品名</center></td></tr>\n");
+		out.write("<tr><td colspan=3 height=40px>" + item.getName() + "</td></tr>\n");
+		out.write("<tr><td rowspan=3>　　　</td><td colspan=2><center>価格</center></td></tr>\n");
+		out.write("<tr><td>" + item.getSPrice() + "</td></tr>\n");
+		out.write("<tr><td>　</td></tr>\n");
+		out.write("<tr><td><center>" + item.getESID() + "‐" + item.getINO() + "</center></td><td>　　　</td></tr>\n");
+		out.write("<tr><td colspan=3><center>商品名</center></td></tr>\n");
+		out.write("<tr><td colspan=3 height=40px>" + item.getName() + "</td></tr>\n");
+		out.write("<tr><td><center>" + item.getESID() + "‐" + item.getINO() + "</center></td><td>　　　</td></tr>\n");
+		out.write("</table>\n");
+	count = count + 1;
+}
+out.write("</div>\n");
+%>
 
 <div id="page">
 上記の内容を印刷します。
@@ -49,4 +62,5 @@
 </form>
 </div>
 </body>
+
 </html>
