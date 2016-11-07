@@ -97,7 +97,9 @@ public class EntrySheet_Insert extends HttpServlet {
 			}
 
 			if(0 == i){
-				new EntrySheet(es_id,name_id).save();
+				EntrySheet es = new EntrySheet(es_id,name_id);
+				es.setIsExistData();
+				es.save();
 			}
 
 			new Item(es_id,item_no[i],item_name[i],start_price[i],sale_price[i],1,r_chk[i],start_price[i],false).save();
