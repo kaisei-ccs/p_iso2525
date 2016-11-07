@@ -49,7 +49,10 @@ public class EntrySheet extends BaseActiveRecord{
 				ps.setInt(1, esID);
 				ps.setInt(2, sID);
 			}else{
-				return false;
+				sql = "update ENTRYSHEET set S_ID=? where ES_ID=?";
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, sID);
+				ps.setInt(2, esID);
 			}
 
 			ps.executeUpdate();

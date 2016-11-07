@@ -10,47 +10,66 @@
 <link rel="stylesheet" type="text/css" href="./css/Manager_Menu.css">
 <link href="./css/Popup.css" rel="stylesheet" type="text/css">
 <link href="./css/Print.css" rel="stylesheet" type="text/css">
+<link href="./css/Print_EntrySheet.css" rel="stylesheet" type="text/css">
 <!-- JavaScriptの読み込み -->
 <script src="./js/jquery-3.1.1.min.js"></script>
 <script src="./js/Popup.js"></script>
 <script src="./js/Print.js"></script>
 </head>
 <body>
+
 <%
 int Sheet = Integer.valueOf(request.getAttribute("Sheet").toString());
 int SheetSize = Integer.valueOf(request.getAttribute("SheetSize").toString());
 for (int i = SheetSize; (SheetSize+Sheet) > i; i++) {
-	out.write("<div style=\"page-break-before:always;\">\n");
-	out.write("<table>\n");
-	out.write("<caption>\n");
-	out.write("<strong>出品表</strong>\n");
-	out.write("</caption>\n");
+	out.write("<section class=\"pageBreak\">\n");
+	out.write("<h2 class=\"posCenter\" style=\"width: 100rem;\">出品表</h2>\n");
+
+	out.write("<table class=\"display_v top posCenter\" >\n");
 	out.write("<tr>\n");
-	out.write("<th width=\"200\">出品表番号</th>\n");
-	out.write("<th width=\"200\">学籍番号</th>\n");
-	out.write("<th width=\"200\">名前</th>\n");
+	out.write("<th>出品表番号</th>\n");
+	out.write("<th>学籍番号</th>\n");
+	out.write("<th>名前</th>\n");
 	out.write("</tr>\n");
 	out.write("<tr>\n");
-	out.write("<td>&nbsp;</td>");
+	out.write("<td class=\"posCenter\">" + i + "</td>");
 	out.write("<td>&nbsp;</td>");
 	out.write("<td>&nbsp;</td>\n");
 	out.write("</tr>\n");
-	out.write("</table>\n<br>");
+	out.write("</table>\n");
 
-	out.write("例<br>");
-
-	out.write("<table>\n");
+	out.write("<div class=\"posLeft\" style=\"width: 100rem;\">例</div>");
+	out.write("<table class=\"display_v middle posCenter\">\n");
 	out.write("<tr>\n");
-	out.write("<th width=\"50\">項番</th>\n");
-	out.write("<th width=\"300\">商品名</th>\n");
-	out.write("<th width=\"100\">開始価格</th>\n");
-	out.write("<th width=\"100\">終了価格</th>\n");
-	out.write("<th width=\"100\">個数</th>\n");
-	out.write("<th width=\"100\">返却の有無</th>\n");
+	out.write("<th>項番</th>\n");
+	out.write("<th>商品名</th>\n");
+	out.write("<th>開始価格</th>\n");
+	out.write("<th>終了価格</th>\n");
+	out.write("<th>個数</th>\n");
+	out.write("<th>返却有無</th>\n");
 	out.write("</tr>\n");
-	for (int j = 0; 10 > j; j++) {
+	out.write("<tr class=\"posCenter\">\n");
+	out.write("<td>" + 1 + "</td>\n");
+	out.write("<td>タオル</td>\n");
+	out.write("<td>１００円</td>\n");
+	out.write("<td>５０円</td>\n");
+	out.write("<td>３個</td>\n");
+	out.write("<td>×</td>\n");
+	out.write("</tr>\n");
+	out.write("</table>\n");
+
+	out.write("<table class=\"display_v middle posCenter\">\n");
+	out.write("<tr>\n");
+	out.write("<th>項番</th>\n");
+	out.write("<th>商品名</th>\n");
+	out.write("<th>開始価格</th>\n");
+	out.write("<th>終了価格</th>\n");
+	out.write("<th>個数</th>\n");
+	out.write("<th>返却有無</th>\n");
+	out.write("</tr>\n");
+	for (int j = 1; j <= 10; j++) {
 		out.write("<tr>\n");
-		out.write("<td>&nbsp;</td>\n");
+		out.write("<td class=\"posCenter\">" + j + "</td>\n");
 		out.write("<td>&nbsp;</td>\n");
 		out.write("<td>&nbsp;</td>\n");
 		out.write("<td>&nbsp;</td>\n");
@@ -58,68 +77,43 @@ for (int i = SheetSize; (SheetSize+Sheet) > i; i++) {
 		out.write("<td>&nbsp;</td>\n");
 		out.write("</tr>\n");
 	}
-	out.write("</table>\n<br>");
+	out.write("</table>\n");
 
-	out.write("<table>\n");
+
+	out.write("<table class=\"display_v bottom posCenter\">\n");
 	out.write("<tr>\n");
-	out.write("<th>出品表番号</th>\n");
-	out.write("<th>出品表番号</th>\n");
-	out.write("<th>出品表番号</th>\n");
-	out.write("<th>出品表番号</th>\n");
-	out.write("<th>出品表番号</th>\n");
-	out.write("<th>出品表番号</th>\n");
-	out.write("<th>出品表番号</th>\n");
-	out.write("<th>出品表番号</th>\n");
-	out.write("<th>出品表番号</th>\n");
-	out.write("<th>出品表番号</th>\n");
+	for (int k=0; k < 10; k++) {
+		out.write("<th>出品表番号</th>\n");
+	}
 	out.write("</tr>\n");
 	out.write("<tr>\n");
-	out.write("<td>" + i + "</td>\n");
-	out.write("<td>" + i + "</td>\n");
-	out.write("<td>" + i + "</td>\n");
-	out.write("<td>" + i + "</td>\n");
-	out.write("<td>" + i + "</td>\n");
-	out.write("<td>" + i + "</td>\n");
-	out.write("<td>" + i + "</td>\n");
-	out.write("<td>" + i + "</td>\n");
-	out.write("<td>" + i + "</td>\n");
-	out.write("<td>" + i + "</td>\n");
+	for (int k=0; k < 10; k++) {
+		out.write("<td class=\"posCenter\">" + i + "</td>\n");
+	}
 	out.write("</tr>\n");
 	out.write("<tr>\n");
-	out.write("<td>項番</td>\n");
-	out.write("<td>項番</td>\n");
-	out.write("<td>項番</td>\n");
-	out.write("<td>項番</td>\n");
-	out.write("<td>項番</td>\n");
-	out.write("<td>項番</td>\n");
-	out.write("<td>項番</td>\n");
-	out.write("<td>項番</td>\n");
-	out.write("<td>項番</td>\n");
-	out.write("<td>項番</td>\n");
+	for (int k=0; k < 10; k++) {
+		out.write("<th>項　番</th>\n");
+	}
 	out.write("</tr>\n");
 	out.write("<tr>\n");
-	out.write("<td>" + 1 + "</td>\n");
-	out.write("<td>" + 2 + "</td>\n");
-	out.write("<td>" + 3 + "</td>\n");
-	out.write("<td>" + 4 + "</td>\n");
-	out.write("<td>" + 5 + "</td>\n");
-	out.write("<td>" + 6 + "</td>\n");
-	out.write("<td>" + 7 + "</td>\n");
-	out.write("<td>" + 8 + "</td>\n");
-	out.write("<td>" + 9 + "</td>\n");
-	out.write("<td>" + 10 + "</td>\n");
+	for (int k=0; k < 10; k++) {
+		out.write("<td class=\"posCenter\">" + (k + 1) + "</td>\n");
+	}
 	out.write("</tr>\n");
 	out.write("</table>\n");
 	out.write("</div>\n");
+	out.write("</section>");
 }
 %>
 
 
-<div id="page">
+<div id="page" class="posLeft" style="width: 100rem;">
 上記の内容を印刷します。
 <form name="form" method="post" action="">
 	<p><input type="submit" name="Confirm" value="確定" style="width:100px;" onClick="Print_open()"></p>
 </form>
 </div>
+
 </body>
 </html>
