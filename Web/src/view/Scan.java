@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Item;
+
 /**
  * Servlet implementation class Scan
  */
@@ -26,16 +28,16 @@ public class Scan extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 		String postData = request.getParameter("postData");
-		response.getWriter().append("Served fft: " + postData);
 		String[] split = postData.split("\t");
 		postData1 = Integer.parseInt(split[0]);
 		postData2 = Integer.parseInt(split[1]);
+
+		//utf8にする
+		response.setContentType("text/html; charset=UTF-8");
 
 		//読み込まれたデータがDBのscanの中に既にある場合追加しないようにする
 		boolean collationFrg = false;
@@ -49,7 +51,13 @@ public class Scan extends HttpServlet {
 		}
 		if(collationFrg == false){
 			new model.Scan(postData1,postData2).save();
+		}else{
+			response.getWriter().append("重複スキャンです::");
 		}
+
+		//商品名取得
+		Item item = Item.findByBarcodeData(postData1, postData2).get(0);
+		response.getWriter().append(item.getName());
 	}
 
 }
