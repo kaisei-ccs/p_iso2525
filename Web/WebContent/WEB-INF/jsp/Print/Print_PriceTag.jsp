@@ -36,23 +36,24 @@ ArrayList<Item> priceList = (ArrayList<Item>)request.getAttribute("priceList");
 //for(int i = 0; i > (priceList.size() / 10); i++){
 for(Item item : priceList){
 	if(0 == (count % 6)){
-		out.write("</div>\n");
-		out.write("<div style=\"page-break-before:always;\">\n");
+		//out.write("</div>\n");
+		//out.write("<div style=\"page-break-before:always;\">\n");
+		out.write("<div style=page-break-before:always;font-size:1;margin:0;border:0;><span style=visibility: hidden;>&nbsp;</span></div>");
 	}
 		out.write("<table class=\"table1\" border=1 style=\"float:left; margin-right:20px;\">\n");
 		out.write("<tr><td colspan=3><center>商品名</center></td></tr>\n");
-		out.write("<tr><td colspan=3 height=40px>" + item.getName() + "</td></tr>\n");
-		out.write("<tr><td rowspan=3>　　　</td><td colspan=2><center>価格</center></td></tr>\n");
+		out.write("<tr><td colspan=3 height=40px style=font-size:15px;>" + item.getName() + "</td></tr>\n");
+		out.write("<tr><td rowspan=3 class=posCenter><img src=img/"+ String.valueOf(item.getESID()) + String.valueOf(item.getINO()) +".png></td><td colspan=2><center>価格</center></td></tr>\n");
 		out.write("<tr><td>" + item.getSPrice() + "</td></tr>\n");
 		out.write("<tr><td>　</td></tr>\n");
 		out.write("<tr><td><center>" + item.getESID() + "‐" + item.getINO() + "</center></td><td>　　　</td></tr>\n");
 		out.write("<tr><td colspan=3><center>商品名</center></td></tr>\n");
-		out.write("<tr><td colspan=3 height=40px>" + item.getName() + "</td></tr>\n");
+		out.write("<tr><td colspan=3 height=40px style=font-size:15px;>" + item.getName() + "</td></tr>\n");
 		out.write("<tr><td><center>" + item.getESID() + "‐" + item.getINO() + "</center></td><td>　　　</td></tr>\n");
 		out.write("</table>\n");
 	count = count + 1;
 }
-out.write("</div>\n");
+//out.write("</div>\n");
 %>
 
 <div id="page">

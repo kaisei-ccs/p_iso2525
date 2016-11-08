@@ -1,6 +1,7 @@
 package view;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,18 +12,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.Create_QR;
 import model.Item;
 
 @WebServlet("/Print_PriceTag")
 public class Print_PriceTag extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String FD_PATH = "/WEB-INF/jsp/Print_PriceTag.jsp";
+	private String path;
 
     public Print_PriceTag() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		path = getServletContext().getRealPath("/");
 		RequestDispatcher dispatcher = request.getRequestDispatcher(FD_PATH);
 		dispatcher.forward(request, response);
 	}
@@ -43,6 +47,10 @@ public class Print_PriceTag extends HttpServlet {
 		if(request.getParameter("print") != null && request.getParameter("print").equals("印刷")){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Print/Print_PriceTag.jsp");
 			ArrayList<Item> priceList = Item.findByPrintFlg(false);
+			for(Item item: priceList){
+				String contents = String.valueOf(item.getESID()) + "\t" + String.valueOf(item.getINO());
+				new Create_QR(contents, 100, 100, path);
+			}
 			request.setAttribute("priceList", priceList);
 			dispatcher.forward(request, response);
 		}
@@ -50,11 +58,17 @@ public class Print_PriceTag extends HttpServlet {
 		if(request.getParameter("Confirm") != null && request.getParameter("Confirm").equals("確定")){
 			ArrayList<Item> ItemList = Item.findByPrintFlg(false);
 			Item printFlg;
-			//for(Item item : ItemList){
-			//	printFlg = Item.findByBarcodeData(item.getESID(), item.getINO()).get(0);
-			//	printFlg.setPrintFlg(true);
-			//	printFlg.save();
-			//}
+
+			File filedir = new File(path+"img");
+			File[] files = filedir.listFiles();
+			for(File file : files){
+				file.delete();
+			}
+			for(Item item : ItemList){
+				printFlg = Item.findByBarcodeData(item.getESID(), item.getINO()).get(0);
+				printFlg.setPrintFlg(true);
+				printFlg.save();
+			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Print_PriceTag.jsp");
 			dispatcher.forward(request, response);
 		}
