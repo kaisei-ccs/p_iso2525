@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.Item,model.Seller,java.util.ArrayList" %>
+<%@ page import="model.Item,java.util.ArrayList" %>
 <%
 ArrayList<Item> ItemList = (ArrayList<Item>) request.getAttribute("Itemlist");
-ArrayList<Seller> SellerList = (ArrayList<Seller>) request.getAttribute("Sellerlist");
 %>
 <!DOCTYPE html>
 <html>
@@ -85,15 +84,13 @@ ArrayList<Seller> SellerList = (ArrayList<Seller>) request.getAttribute("Sellerl
 	</section>
 
 	<section class="IStable">
-	<h3 class="posRight" style="width: 120rem;">検索のヒット数：<%=ItemList.size() %>件</h3>
+	<h3 class="posRight" style="width: 70rem;">検索のヒット数：<%=ItemList.size() %>件</h3>
 		<table class="display_v scrollBody">
 		<thead>
 			<tr>
 				<th>出品表番号</th>
 				<th>出品表項番</th>
-				<th>出品者番号</th>
-				<th>出品者名</th>
-				<th>カナ</th>
+				<th>商品名</th>
 				<th>在庫有無</th>
 				<th>返却有無</th>
 			</tr>
@@ -114,9 +111,7 @@ for(int i=0; i<ItemList.size(); i++) {
 				<tr class="paddingTD">
 					<td class="posRight"><%=ItemList.get(i).getESID() %></td>
 					<td class="posRight"><%=ItemList.get(i).getINO() %></td>
-					<td class="posRight"><%=SellerList.get(i).getSID() %></td>
-					<td class="posLeft"><%=SellerList.get(i).getSellerName() %></td>
-					<td class="posLeft"><%=SellerList.get(i).getSellerKana() %></td>
+					<td class="posLeft"><%=ItemList.get(i).getName() %></td>
 					<td><%=quantity %></td>
 					<td><%=retFlg %></td>
 				</tr>

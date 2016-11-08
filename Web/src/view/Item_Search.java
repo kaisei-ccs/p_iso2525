@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.EntrySheet;
 import model.Item;
 import model.Scan;
 import model.Seller;
@@ -39,9 +38,6 @@ public class Item_Search extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		itemlist = Item.fetchAll();
-		for(Item item : itemlist){
-			sellerlist.add(search(item));
-		}
 		request.setAttribute("Itemlist", itemlist);
 		request.setAttribute("Sellerlist", sellerlist);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(FD_PATH);
@@ -80,16 +76,10 @@ public class Item_Search extends HttpServlet {
 			}else{
 				itemlist = Item.findBy(wherestr);
 			}
-			for(Item item : itemlist){
-				sellerlist.add(search(item));
-			}
 		}else{
 			itemlist = Item.fetchAll();
 			ArrayList<Scan> scanlist = Scan.fetchAll();
 			stock(scanlist);
-			for(Item item : itemlist){
-				sellerlist.add(search(item));
-			}
 		}
 		request.setAttribute("Itemlist", itemlist);
 		request.setAttribute("Sellerlist", sellerlist);
@@ -162,15 +152,6 @@ public class Item_Search extends HttpServlet {
 				index++;
 			}
 		}
-	}
-
-	private Seller search(Item item){
-		ArrayList<EntrySheet> ESList = EntrySheet.findByESID(item.getESID());
-		Seller seller = new Seller();
-		if(!ESList.isEmpty()){
-			seller = Seller.findBySID(ESList.get(0).getSID()).get(0);
-		}
-		return seller;
 	}
 
 }
