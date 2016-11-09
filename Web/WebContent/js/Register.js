@@ -51,11 +51,24 @@ function insertScanData(){
 				//テーブル確認
 				var newTable = $(html).find('#table_Item').html();
 				var oldTable = $('#table_Item').html();
-				if(newTable.indexOf(oldTable) == -1){
+
+				var newTotalPrice = $(html).find('#TotalPrice').val();
+				var newCharge = $(html).find('#Charge').val();
+				var newCashBack = $(html).find('#CashBack').val();
+
+				var oldTotalPrice = $('#TotalPrice').html();
+				var oldCharge = $('#Charge').html();
+				var oldCashBack = $('#CashBack').html();
+
+				if(newTable.indexOf(oldTable) == -1 ||
+						newTotalPrice.indexOf(oldTotalPrice) == -1 ||
+						newCharge.indexOf(oldCharge) == -1 ||
+						newCashBack.indexOf(oldCashBack) == -1){
 					$('#table_Item').html(newTable);
 
-					var newTotalPrice = $(html).find('#TotalPrice').val();
 					$('#TotalPrice').val(newTotalPrice);
+					$('#Charge').val(newCharge);
+					$('#CashBack').val(newCashBack);
 				}
 	}
 	);
@@ -90,5 +103,5 @@ function isNumber(n){
 
 //お客様用画面表示
 function registerSub(){
-	window.open("/WEB-INF/jsp/Register_Sub.jsp","window1","toolbar=no, height=600, width=600");
+	window.open("./Register_Sub","window1","toolbar=no, height=600, width=600");
 }
