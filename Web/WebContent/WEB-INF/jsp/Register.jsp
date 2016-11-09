@@ -94,7 +94,7 @@
 
 						<tr>
 							<td>合計金額</td>
-							<td><input type="text" readonly name="TotalPrice" value="<%=totalPrice %>"></td>
+							<td><input type="text" readonly id="TotalPrice" name="TotalPrice" value="<%=totalPrice %>"></td>
 						</tr>
 						<tr>
 							<td>預り金</td>

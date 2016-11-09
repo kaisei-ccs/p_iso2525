@@ -48,13 +48,15 @@ function insertScanData(){
 	$.get("/Web/Register",
 			function(data){
 				html = data.substr(8);
-				var a = $(html).find('#table_Item').html();
-				var b = $('#table_Item').html();
+				//テーブル確認
+				var newTable = $(html).find('#table_Item').html();
+				var oldTable = $('#table_Item').html();
+				if(newTable.indexOf(oldTable) == -1){
+					$('#table_Item').html(newTable);
 
-				if(a.indexOf(b) == -1){
-					$('#table_Item').html(a);
+					var newTotalPrice = $(html).find('#TotalPrice').val();
+					$('#TotalPrice').val(newTotalPrice);
 				}
-
 	}
 	);
 }
