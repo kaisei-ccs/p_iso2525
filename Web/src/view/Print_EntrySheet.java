@@ -44,7 +44,7 @@ public class Print_EntrySheet extends HttpServlet {
 		if(request.getParameter("Confirm") != null && request.getParameter("Confirm").equals("確定")){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Print_EntrySheet.jsp");
 			for(int i = 0; Sheet > i; i++){
-				new EntrySheet(EntrySheetSize.size() + i + 1, 0).save();
+				new EntrySheet(EntrySheetSize.size() + i, 0).save();
 			}
 			dispatcher.forward(request, response);
 		}
