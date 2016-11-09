@@ -19,6 +19,13 @@ ArrayList<Item> ItemList = (ArrayList<Item>) request.getAttribute("Itemlist");
 		document.forms.search.elements.MySubmit.value=MyCommand;
 		document.forms.search.submit();
 	}
+	function Initialization(){
+		var form = document.getElementsByName("search");
+		//var childs = form.childNodes;
+		for(i=0; i<form.search.length-4; i++){
+			form.search[i].value="";
+		}
+	}
 </script>
 </head>
 <body>
@@ -71,7 +78,7 @@ ArrayList<Item> ItemList = (ArrayList<Item>) request.getAttribute("Itemlist");
 			</tr>
 			<tr>
 				<td><input type="button" onclick="MyClick('reference')" value="検索"></td>
-				<td><input type="reset" value="クリア"></td>
+				<td><input type="button" onclick="Initialization()" value="クリア"></td>
 			</tr>
 			<tr>
 				<td><input type="button" onclick="MyClick('stock')" value="在庫確認"></td>
