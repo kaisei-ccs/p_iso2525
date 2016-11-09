@@ -22,8 +22,8 @@ ArrayList<Item> ItemList = (ArrayList<Item>) request.getAttribute("Itemlist");
 	function Initialization(){
 		var form = document.getElementsByName("search");
 		//var childs = form.childNodes;
-		for(i=0; i<form.search.length-4; i++){
-			form.search[i].value="";
+		for(i=0; i<form[0].length-5; i++){
+			form[0][i].value="";
 		}
 	}
 </script>
@@ -82,6 +82,7 @@ ArrayList<Item> ItemList = (ArrayList<Item>) request.getAttribute("Itemlist");
 			</tr>
 			<tr>
 				<td><input type="button" onclick="MyClick('stock')" value="在庫確認"></td>
+				<td><input type="button" onclick="MyClick('change')" value="価格変更"></td>
 				<td><input type="hidden" name="MySubmit"></td>
 			</tr>
 
@@ -98,27 +99,29 @@ ArrayList<Item> ItemList = (ArrayList<Item>) request.getAttribute("Itemlist");
 				<th>出品表番号</th>
 				<th>出品表項番</th>
 				<th>商品名</th>
+				<th>現在価格</th>
 				<th>在庫有無</th>
 				<th>返却有無</th>
 			</tr>
 		</thead>
 		<tbody style="height: 500px;">
 <%
-for(int i=0; i<ItemList.size(); i++) {
+for(Item item : ItemList) {
 	String quantity = "無";
 	String retFlg = "無";
-	if(ItemList.get(i).getQuantity() > 0){
+	if(item.getQuantity() > 0){
 		quantity = "有";
 	}
-	if(true == ItemList.get(i).getRetFlg()) {
+	if(true == item.getRetFlg()) {
 		retFlg = "有";
 	}
 
 %>
 				<tr class="paddingTD">
-					<td class="posRight"><%=ItemList.get(i).getESID() %></td>
-					<td class="posRight"><%=ItemList.get(i).getINO() %></td>
-					<td class="posLeft"><%=ItemList.get(i).getName() %></td>
+					<td class="posRight"><%=item.getESID() %></td>
+					<td class="posRight"><%=item.getINO() %></td>
+					<td class="posLeft"><%=item.getName() %></td>
+					<td class="posRight"><%=item.getPrice() %>円</td>
 					<td><%=quantity %></td>
 					<td><%=retFlg %></td>
 				</tr>

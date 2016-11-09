@@ -76,10 +76,17 @@ public class Item_Search extends HttpServlet {
 			}else{
 				itemlist = Item.findBy(wherestr);
 			}
-		}else{
+		}else if(submit.equals("stock")){
 			itemlist = Item.fetchAll();
 			ArrayList<Scan> scanlist = Scan.fetchAll();
 			stock(scanlist);
+		}else{
+			itemlist = Item.findByQuantity(1);
+			for(Item item : itemlist){
+				item.setPrice(item.getEPrice());
+				item.save();
+			}
+			itemlist = Item.fetchAll();
 		}
 		request.setAttribute("Itemlist", itemlist);
 		request.setAttribute("Sellerlist", sellerlist);
