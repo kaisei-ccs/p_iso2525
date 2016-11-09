@@ -47,10 +47,15 @@ function insertScanData(){
 	//データ数取得
 	$.get("/Web/Register",
 			function(data){
-				if(!$("#table_Item").html().is($(data).find('#table_Item').html())){
-					$("#table_Item").html($(data).find('#table_Item').html());
+				html = data.substr(8);
+				var a = $(html).find('#table_Item').html();
+				var b = $('#table_Item').html();
+
+				if(a.indexOf(b) == -1){
+					$('#table_Item').html(a);
 				}
-			}
+
+	}
 	);
 }
 //Scanデータをポーリング
@@ -63,7 +68,6 @@ function pollingScanData(){
 	},500);
 }
 pollingScanData();
-
 
 //数値チェック
 function isNumber(n){
