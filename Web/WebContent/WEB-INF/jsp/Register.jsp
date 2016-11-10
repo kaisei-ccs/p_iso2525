@@ -43,13 +43,16 @@
 	<article>
 		<section>
 			<div class="left">
-				<TABLE class="display_v" id ="table_Item">
+				<TABLE class="display_v scrollBody" id ="table_Item">
+				<thead>
 					<tr>
 						<th>出品表番号</th>
 						<th>項番</th>
 						<th>商品名</th>
 						<th>単価</th>
 					</tr>
+				</thead>
+				<tbody style="height: 500px;">
 					<%
 						for(int i = 0;i<scan.size();i++){
 							scanEsId = scan.get(i).getESID();
@@ -69,7 +72,7 @@
 						}%>
 					<tr>
 						<td>
-							<input type="text" id="cell1" onblur="insertCheck()" value="" />
+							<input type="text" id="cell1" onblur="insertCheck()" value="" autofocus />
 						</td>
 						<td>
 							<input type="text" id="cell2" onblur="insertCheck()" value="" />
@@ -80,7 +83,7 @@
 					<tr class="non-line">
 				<!--  	<td colspan="4"><input type="submit" name="regiStop" value="会計中止"></td>-->
 					</tr>
-
+				</tbody>
 				</TABLE>
 			</div>
 			<div class="right">

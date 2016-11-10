@@ -38,8 +38,6 @@ function insertCheck(){
 				}
 		);
 	}
-
-
 }
 
 //スキャンデータ取得
@@ -69,9 +67,16 @@ function insertScanData(){
 					$('#TotalPrice').val(newTotalPrice);
 					$('#Charge').val(newCharge);
 					$('#CashBack').val(newCashBack);
+					goScrollTop();
 				}
 	}
 	);
+}
+//スクロールバーを下にする
+function goScrollTop() {
+    var obj = document.getElementById("cell1");
+    if(!obj) return;
+    obj.focus();
 }
 //Scanデータをポーリング
 function pollingScanData(){
