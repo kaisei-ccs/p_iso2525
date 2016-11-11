@@ -23,6 +23,8 @@ public class Scan extends HttpServlet {
 	private int i_Id;
 	private static final long serialVersionUID = 1L;
 
+	private static boolean confirm = false;
+
     public Scan() {
         super();
     }
@@ -31,33 +33,46 @@ public class Scan extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String postData = request.getParameter("postData");
-		String[] split = postData.split("\t");
-		postData1 = Integer.parseInt(split[0]);
-		postData2 = Integer.parseInt(split[1]);
 
-		//utf8にする
-		response.setContentType("text/html; charset=UTF-8");
-
-		//読み込まれたデータがDBのscanの中に既にある場合追加しないようにする
-		boolean collationFrg = false;
-		scan = model.Scan.fetchAll();
-		for(int i = 0 ; i < scan.size(); i++){
-			es_Id = scan.get(i).getESID();
-			i_Id = scan.get(i).getINO();
-			if(postData1 == es_Id && postData2 == i_Id){
-				collationFrg = true;
-			}
-		}
-		if(collationFrg == false){
-			new model.Scan(postData1,postData2).save();
+		if(null != request.getParameter("Confirm")){
+			confirm = true;
 		}else{
-			response.getWriter().append("重複スキャンです::");
-		}
+			if(true == confirm){
+				confirm = false;
+				ArrayList<model.Scan> allData = model.Scan.fetchAll();
 
-		//商品名取得
-		Item item = Item.findByBarcodeData(postData1, postData2).get(0);
-		response.getWriter().append(item.getName());
+				for(model.Scan scan : allData){
+					scan.delete();
+				}
+			}
+			String postData = request.getParameter("postData");
+			String[] split = postData.split("\t");
+			postData1 = Integer.parseInt(split[0]);
+			postData2 = Integer.parseInt(split[1]);
+
+			//utf8にする
+			response.setContentType("text/html; charset=UTF-8");
+
+			//読み込まれたデータがDBのscanの中に既にある場合追加しないようにする
+			boolean collationFrg = false;
+			scan = model.Scan.fetchAll();
+			for(int i = 0 ; i < scan.size(); i++){
+				es_Id = scan.get(i).getESID();
+				i_Id = scan.get(i).getINO();
+				if(postData1 == es_Id && postData2 == i_Id){
+					collationFrg = true;
+				}
+			}
+			if(collationFrg == false){
+				new model.Scan(postData1,postData2).save();
+			}else{
+				response.getWriter().append("重複スキャンです::");
+			}
+
+			//商品名取得
+			Item item = Item.findByBarcodeData(postData1, postData2).get(0);
+			response.getWriter().append(item.getName());
+		}
 	}
 
 }
