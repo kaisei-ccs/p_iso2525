@@ -1,8 +1,3 @@
-function submitpost(){
-	var form = document.getElementById('Accounting');
-	form.submit();
-	$.post("./Scan",{"Confirm":"確定"});
-}
 function insertRow(id) {
     // テーブル取得
     var table = document.getElementById(id);

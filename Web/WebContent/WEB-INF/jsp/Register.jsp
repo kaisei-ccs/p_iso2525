@@ -87,7 +87,7 @@
 				</TABLE>
 			</div>
 			<div class="right">
-				<form id="Accounting" method="POST" action="/Web/Register">
+				<form method="POST" action="/Web/Register">
 					<table class="display_h">
 						<tr><!--  checked ="checked"-->
 							<td><input type="radio" name="Return" checked ="checked" value="1">レジ</td>
@@ -103,7 +103,7 @@
 							<td><input type="text" name="Charge" id="Charge"  value = <%=request.getAttribute("Charge") %> ></td>
 						</tr>
 						<tr>
-							<td><input type="button" name = "Confirm" value="確定" onclick="submitpost()"></td>
+							<td><input type="submit" name = "Confirm" value="確定"></td>
 						</tr>
 						<tr>
 							<td>おつり</td>
