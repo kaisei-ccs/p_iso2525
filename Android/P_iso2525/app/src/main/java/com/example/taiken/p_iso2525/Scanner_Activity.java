@@ -228,7 +228,7 @@ public class Scanner_Activity extends  Activity implements BarcodePostTask.Barco
                 //Android デバイスを振動させる
                 Vibrator v = (Vibrator)getSystemService(VIBRATOR_SERVICE);
                 v.vibrate(300);
-                Toast.makeText(getApplicationContext(), "読み取り失敗", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "読み取り失敗", Toast.LENGTH_SHORT).show();
 
             }
 
