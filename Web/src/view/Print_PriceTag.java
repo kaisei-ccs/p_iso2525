@@ -36,8 +36,6 @@ public class Print_PriceTag extends HttpServlet {
 		//追加ボタンでPRINTFLGをFALSEに変える処理
 		if(request.getParameter("addition") != null && request.getParameter("addition").equals("追加")){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Print_PriceTag.jsp");
-			System.out.println("出品表番号" + request.getParameter("ESID_text"));
-			System.out.println("項番" + request.getParameter("INO_text"));
 			Item printFlg = Item.findByBarcodeData(Integer.parseInt(request.getParameter("ESID_text")), Integer.parseInt(request.getParameter("INO_text"))).get(0);
 			printFlg.setPrintFlg(false);
 			printFlg.save();
