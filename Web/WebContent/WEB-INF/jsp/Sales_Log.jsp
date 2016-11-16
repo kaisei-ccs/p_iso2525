@@ -72,12 +72,10 @@ ArrayList<SalesLog> SLogList = (ArrayList<SalesLog>) request.getAttribute("sales
 				<td>出品表項番</td>
 				<td><input type="text" name="i_no" value="${param.i_no}"></td>
 			</tr>
-			<tr>
-				<td><input type="submit" value="検索"></td>
-				<td><input type="button" onclick="Initialization()" value="クリア"></td>
-			</tr>
-		</table>
 
+		</table>
+		<input type="submit" value="検索">
+		<input type="button" onclick="Initialization()" value="クリア">
 	</form>
 	</section>
 
@@ -93,9 +91,9 @@ ArrayList<SalesLog> SLogList = (ArrayList<SalesLog>) request.getAttribute("sales
 				<th>おつり</th>
 			</tr>
 		</thead>
-		<tbody style="height: 500px;">
+		<tbody class="salestable" style="height: 500px;">
 			<%for(SalesLog saleslog : SLogList){ %>
-				<tr class="paddingTD posRight"">
+				<tr class="paddingTD posRight">
 					<td><%=saleslog.getTID() %></td>
 					<td><%=saleslog.getTDate() %></td>
 					<td><%=saleslog.getTTime() %></td>
@@ -110,7 +108,6 @@ ArrayList<SalesLog> SLogList = (ArrayList<SalesLog>) request.getAttribute("sales
 	<div class="tclear"></div>
 	</article>
 	<div id="popup-content">
-		<button id="popup-close">baka</button>
 	</div>
 </body>
 </html>
