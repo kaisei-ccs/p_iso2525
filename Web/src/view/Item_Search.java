@@ -137,10 +137,10 @@ public class Item_Search extends HttpServlet {
 					existsstr += "SELLER.S_ID="+str1;
 					break;
 				case 1:
-					existsstr += "SELLER.NAME="+str1;
+					existsstr += "SELLER.SELLERNAME='"+str1+"'";
 					break;
 				case 2:
-					existsstr += "SELLER.KANA="+str1;
+					existsstr += "SELLER.SELLERKANA='"+str1+"'";
 					break;
 				default:
 			}

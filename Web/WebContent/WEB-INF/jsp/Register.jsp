@@ -104,6 +104,7 @@
 						</tr>
 						<tr>
 							<td><input type="submit" name = "Confirm" value="確定"></td>
+							<%--<td><input type="submit" name = "Confirm" value="確定"></td> --%>
 						</tr>
 						<tr>
 							<td>おつり</td>
@@ -111,11 +112,22 @@
 						</tr>
 						<tr>
 							<td><input type="submit" name="regiStop" value="会計中止"></td>
-
+							<%-- <td><input type="submit" name="regiStop" value="会計中止"></td> --%>
 							<td>
 						</tr>
 					</table>
 				</form>
+				<script>
+				$(function(){
+					$("input").on("keydown", function(e) {
+						if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+							return false;
+							} else {
+								return true;
+								}
+						});
+					});
+				</script>
 			</div>
 		</section>
 	</article>

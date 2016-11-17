@@ -3,7 +3,6 @@
 article {
 	overflow: hidden;
 	width: 95%;
-
 }
 
 section {
@@ -11,8 +10,8 @@ section {
 }
 
 #popup-content {
-	width: 40% ;
-	height: 60% ;
+	width: 60% ;
+	height: 80% ;
 	overflow:auto;
 }
 
@@ -41,11 +40,13 @@ table.display_h th {
 }
 
 thead th:nth-child(1), tbody td:nth-child(1), tfoot td:nth-child(1){ width: 12.0rem; }
-thead th:nth-child(2), tbody td:nth-child(2), tfoot td:nth-child(2){ width: 20.0rem; }
-thead th:nth-child(3), tbody td:nth-child(3), tfoot td:nth-child(3){ width: 20.0rem; }
-thead th:nth-child(4), tbody td:nth-child(4), tfoot td:nth-child(4){ width: 20.0rem; }
-thead th:nth-child(5), tbody td:nth-child(5), tfoot td:nth-child(5){ width: 20.0rem; }
-thead th:nth-child(6), tbody td:nth-child(6), tfoot td:nth-child(6){ width: 20.0rem; }
+thead th:nth-child(2), tbody td:nth-child(2), tfoot td:nth-child(2){ width: 15.0rem; }
+thead th:nth-child(3), tbody td:nth-child(3), tfoot td:nth-child(3){ width: 15.0rem; }
+thead th:nth-child(4), tbody td:nth-child(4), tfoot td:nth-child(4){ width: 12.0rem; }
+thead th:nth-child(5), tbody td:nth-child(5), tfoot td:nth-child(5){ width: 12.0rem; }
+thead th:nth-child(6), tbody td:nth-child(6), tfoot td:nth-child(6){ width: 12.0rem; }
+
+table.display_h td {width: 12.0rem;}
 
 table.display_v thead tr .header {
 	background-image: url(../img/bg.gif);
@@ -59,3 +60,33 @@ table.display_v thead tr .headerSortUp {
 table.display_v thead tr .headerSortDown {
 	background-image: url(../img/desc.gif);
 }
+
+table.display_v .trade:hover{
+	background-color:red;
+}
+
+table.display_v{
+	margin-left: 0px;
+}
+
+.table {
+	width:95%;
+	height: 100%;
+}
+
+.TDtable{
+	width:100%;
+}
+
+table.CTDtable{
+	width:90%;
+	margin-left: auto;
+	margin-right: 0px;
+}
+
+table.TDtable thead th:nth-child(1), table.TDtable tbody td:nth-child(1){ width: 10.0rem; }
+table.TDtable thead th:nth-child(2), table.TDtable tbody td:nth-child(2){ width: 12.0rem; }
+table.TDtable thead th:nth-child(3), table.TDtable tbody td:nth-child(3){ width: 8.0rem; }
+table.TDtable thead th:nth-child(4), table.TDtable tbody td:nth-child(4){ width: 40.0rem; }
+table.TDtable thead th:nth-child(5), table.TDtable tbody td:nth-child(5){ width: 12.0rem; }
+table.TDtable thead th:nth-child(6), table.TDtable tbody td:nth-child(6){ width: 12.0rem; }
