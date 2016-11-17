@@ -9,12 +9,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>出品表変更・削除</title>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
+<link rel="stylesheet" type="text/css" href="./css/Popup.css">
 <style>
 thead th:nth-child(1), tbody td:nth-child(1), tfoot td:nth-child(1){ width: 12.0rem; }
 thead th:nth-child(2), tbody td:nth-child(2), tfoot td:nth-child(2){ width: 56.0rem; }
 thead th:nth-child(3), tbody td:nth-child(3), tfoot td:nth-child(3){ width: 56.0rem; }
 </style>
 <script type="text/javascript" src="./js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="./js/Popup.js"></script>
+<script type="text/javascript" src="./js/EntrySheet_Edit.js"></script>
 </head>
 <body>
 
@@ -58,7 +61,7 @@ thead th:nth-child(3), tbody td:nth-child(3), tfoot td:nth-child(3){ width: 56.0
 </tr>
 </thead>
 
-<tbody style="height: 31.5rem;">
+<tbody class="salestable" style="height: 31.5rem;">
 <%
 
 //ArrayList<EntrySheet> ESID = (ArrayList<EntrySheet>)request.getAttribute("ESID");
@@ -66,7 +69,7 @@ thead th:nth-child(3), tbody td:nth-child(3), tfoot td:nth-child(3){ width: 56.0
 for (EntrySheet e : (ArrayList<EntrySheet>)request.getAttribute("ESID")) {
 	ArrayList<Item> ItemList = Item.findByESID(e.getESID());
 	for (Item i : ItemList ) {
-		out.write("<tr class=\"paddingTD\">\n");
+		out.write("<tr class=\"paddingTD posRight\">\n");
 		out.write("<td>" + e.getESID() + "</td>");
 		out.write("<td>" + i.getINO() + "</td>");
 		out.write("<td>" + e.getSID() + "</td>\n");
@@ -80,6 +83,7 @@ for (EntrySheet e : (ArrayList<EntrySheet>)request.getAttribute("ESID")) {
 </section>
 </form>
 </article>
-
+<div id="popup-content">
+</div>
 </body>
 </html>
