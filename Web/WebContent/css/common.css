@@ -154,3 +154,7 @@ table.display_v dl.checkRight dd {
 .scrollBody tbody{
 	overflow-y: scroll;
 }
+.scrollBody tfoot tr.totalLine {
+	background-color: #aaaaaa;
+	color: #ffffff;
+}
