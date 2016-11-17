@@ -67,7 +67,7 @@ $(function () {
 	<thead>
 		<tr>
 			<th>会計項番</th>
-			<th>出品者番号</th>
+			<th>出品表番号</th>
 			<th>項番</th>
 			<th>商品名</th>
 			<th>単価</th>

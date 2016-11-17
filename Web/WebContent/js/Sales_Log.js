@@ -12,7 +12,7 @@ $(function () {
 function Initialization(){
 	var form = document.getElementsByName("search");
 	//var childs = form.childNodes;
-	for(i=0; i<form[0].length-3; i++){
+	for(i=0; i<form[0].length-2; i++){
 		form[0][i].value="";
 	}
 }

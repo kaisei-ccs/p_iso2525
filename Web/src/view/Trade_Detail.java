@@ -29,6 +29,7 @@ public class Trade_Detail extends HttpServlet {
 		int index = Integer.valueOf(request.getParameter("list"));
 		slogList = SalesLog.findByTID(index);
 		TDList = TradeDetail.findByTID(index);
+		TDIList.clear();
 		for(int i=0; i<TDList.size(); i++){
 			TDIList.add(addItem(TDList.get(i)));
 		}
