@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +36,8 @@ public class Sell_Result extends HttpServlet {
 
 		ArrayList<ArrayList<String>> SellResultList = getSellResultData();
 		request.setAttribute("Sell_Result_Data", SellResultList);
-
+		ServletContext sc = getServletContext();
+		sc.setAttribute("Sell_Result_Data", SellResultList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(FD_PATH);
 		dispatcher.forward(request, response);
 	}
