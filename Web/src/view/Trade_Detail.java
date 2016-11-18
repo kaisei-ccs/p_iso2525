@@ -21,7 +21,7 @@ public class Trade_Detail extends HttpServlet {
 	private ArrayList<TradeDetail> CTDList = new ArrayList<TradeDetail>();
 	private ArrayList<Item> TDIList = new ArrayList<Item>();
 	private ArrayList<Item> CTDIList = new ArrayList<Item>();
-	private int bool = 2;
+	private boolean bool = true;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,11 +47,14 @@ public class Trade_Detail extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int esID = Integer.valueOf(request.getParameter("esID"));
 		int iNo = Integer.valueOf(request.getParameter("iNo"));
-		if(0 == bool%2){
+		if(true == bool){
 			CTDList = set_list(esID,iNo);
 			for(int i=0; i<CTDList.size(); i++){
 				CTDIList.add(addItem(CTDList.get(i)));
 			}
+			bool = false;
+		}else{
+			bool = true;
 		}
 		request.setAttribute("sales", slogList.get(0));
 		request.setAttribute("TDList", TDList);
@@ -62,7 +65,6 @@ public class Trade_Detail extends HttpServlet {
 		dispatcher.forward(request, response);
 		CTDList.clear();
 		CTDIList.clear();
-		bool++;
 	}
 
 	private ArrayList<TradeDetail> set_list(int esID, int INo){
