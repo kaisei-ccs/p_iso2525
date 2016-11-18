@@ -36,7 +36,7 @@ thead th:nth-child(6), tbody td:nth-child(6), tfoot td:nth-child(6){ width: 12.0
 
 <article>
 <section>
-<form method="post" action="./Print_Sell_Result">
+<form id="form" method="post" action="./Print_Sell_Result">
 <h2 class="hidden">販売情報</h2>
 
 <table class="display_v scrollBody">
@@ -121,6 +121,23 @@ function changeDisabled(){
 		$("#btnPrint").attr('disabled', "disabled");
 	}
 }
+
+$(function () {
+		var cnt = $("input[name='selId']:checked").length;
+		if( cnt > 0) {
+			$("#btnPrint").removeAttr("disabled");
+		} else {
+			$("#btnPrint").attr('disabled', "disabled");
+		}
+	$(".paddingTD").dblclick( function(){
+		var td = $(this).children().eq(0).children().eq(0);
+		var input = td.children().eq(0).children().eq(0);
+		input[0].checked = true;
+		$("#form").submit();
+	});
+});
+
+
 </script>
 
 </form>
