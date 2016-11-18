@@ -64,13 +64,10 @@
 //ArrayList<EntrySheet> ESID = (ArrayList<EntrySheet>)request.getAttribute("ESID");
 //ArrayList<EntrySheet> EntrySheetList = EntrySheet.fetchAll();
 for (EntrySheet e : (ArrayList<EntrySheet>)request.getAttribute("ESID")) {
-	ArrayList<Item> ItemList = Item.findByESID(e.getESID());
-	for (Item i : ItemList ) {
-		out.write("<tr class=\"paddingTD posRight\">\n");
-		out.write("<td>" + e.getESID() + "</td>");
-		out.write("<td>" + e.getSID() + "</td>\n");
-		out.write("</tr>\n");
-	}
+	out.write("<tr class=\"paddingTD posRight\">\n");
+	out.write("<td>" + e.getESID() + "</td>");
+	out.write("<td>" + e.getSID() + "</td>\n");
+	out.write("</tr>\n");
 }
 %>
 </tbody>
