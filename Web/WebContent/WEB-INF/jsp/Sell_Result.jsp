@@ -104,6 +104,11 @@ for (int i=0; i<4; i++) {
 </table>
 
 <script>
+$('tbody td').dblclick( function(){
+
+	$(".checkRight input[name='selId']").prop("checked", false);
+	var $cur_tr = $(this).parent();
+});
 $("input[name='selId']").on('change', function(){
 	changeDisabled();
 });
