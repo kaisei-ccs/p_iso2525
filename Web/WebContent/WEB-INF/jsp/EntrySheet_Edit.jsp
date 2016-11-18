@@ -11,9 +11,9 @@
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/Popup.css">
 <style>
-thead th:nth-child(1), tbody td:nth-child(1), tfoot td:nth-child(1){ width: 12.0rem; }
-thead th:nth-child(2), tbody td:nth-child(2), tfoot td:nth-child(2){ width: 56.0rem; }
-thead th:nth-child(3), tbody td:nth-child(3), tfoot td:nth-child(3){ width: 56.0rem; }
+#dispSeller thead th:nth-child(1), tbody td:nth-child(1), tfoot td:nth-child(1){ width: 12.0rem; }
+#dispSeller thead th:nth-child(2), tbody td:nth-child(2), tfoot td:nth-child(2){ width: 56.0rem; }
+#dispSeller thead th:nth-child(3), tbody td:nth-child(3), tfoot td:nth-child(3){ width: 56.0rem; }
 </style>
 <script type="text/javascript" src="./js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="./js/Popup.js"></script>

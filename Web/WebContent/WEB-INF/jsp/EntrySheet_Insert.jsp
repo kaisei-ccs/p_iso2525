@@ -52,11 +52,17 @@ function seller_Change(){
 </jsp:include>
 
 <%-- 出品者を出力 --%>
-<p></p>
+
+<%
+	if(request.getAttribute("ErrorMessage") != null){
+		out.println("<p style=\"background-color: #ff0000;\">" + request.getAttribute("ErrorMessage") + "</p>");
+	}
+%>
+
 <div>
 	<form method = "POST" action = "/Web/EntrySheet_Insert">
 		<label>出品表番号:</label>
-		<input type="text"id = "e_id" name="e_id" size="3"value="0"maxlength="3">
+		<input type="text"id = "e_id" name="e_id" size="3"value="0"maxlength="3" onInput="check_id('e_id')">
 		<label>出品者番号,出品者名</label>
 		<select id = "name_id" name="example"  onChange="seller_Change()">
 			<%

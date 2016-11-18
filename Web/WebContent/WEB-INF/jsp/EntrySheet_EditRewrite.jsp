@@ -11,6 +11,14 @@
 <title>出品表変更・削除</title>
 </head>
 <body>
+
+<style>
+#popup-content{
+    width: 95%;
+    height: 95%;
+}
+</style>
+
 <input type="button" class="close" onclick=popup_close() value="✕">
 <form method="post" action="EntrySheet_EditRewrite">
 <section>
@@ -37,9 +45,9 @@ ArrayList<Item> ItemList = Item.findByESID(ESid);
 int count = 1;
 for (Item i : ItemList ) {
 	out.write("<tr>\n");
-	out.write("<td><input type=\"text\" maxlength=\"6\" name=\"ESID" + count + "\" value=\"" + i.getESID() + "\" readonly=\"readonly\"></td>");
-	out.write("<td>" + i.getINO() + "</td>");
-	out.write("<td>" + e.getSID() + "</td>");
+	out.write("<td><input type=\"text\" style=\"width: 10rem;\" maxlength=\"6\" name=\"ESID" + count + "\" value=\"" + i.getESID() + "\" readonly=\"readonly\"></td>");
+	out.write("<td><input type=\"text\" style=\"width: 10rem;\" value=\"" +i.getINO() + "\"></td>");
+	out.write("<td><input type=\"text\" style=\"width: 10rem;\" value=\"" +e.getSID() + "\"></td>");
 
 	out.write("<td><input type=\"text\" maxlength=\"30\" name=\"Name" + count + "\" value=\"" + i.getName() + "\"></td>");
 	out.write("<td><input type=\"text\" maxlength=\"5\" name=\"SPrice" + count + "\" value=\"" + i.getSPrice() + "\"></td>");

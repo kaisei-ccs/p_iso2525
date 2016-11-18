@@ -104,6 +104,17 @@ public class EntrySheet_Insert extends HttpServlet {
 
 			if(EntrySheet.findByESID(es_id).size() != 0 && Item.findByESID(es_id).size() == 0){
 				new Item(es_id,item_no[i],item_name[i],start_price[i],sale_price[i],1,r_chk[i],start_price[i],false).save();
+			}else{
+				String message = "登録に失敗しました：";
+
+				if(EntrySheet.findByESID(es_id).size() == 0){
+					message += "[エントリーシートが存在しません]";
+				}
+				if(Item.findByESID(es_id).size() != 0){
+					message += "[すでにアイテムが登録されています]";
+				}
+
+				request.setAttribute("ErrorMessage", message);
 			}
 
 
