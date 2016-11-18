@@ -102,7 +102,11 @@ public class EntrySheet_Insert extends HttpServlet {
 				es.save();
 			}
 
-			new Item(es_id,item_no[i],item_name[i],start_price[i],sale_price[i],1,r_chk[i],start_price[i],false).save();
+			if(EntrySheet.findByESID(es_id).size() != 0){
+				new Item(es_id,item_no[i],item_name[i],start_price[i],sale_price[i],1,r_chk[i],start_price[i],false).save();
+			}
+
+
 			j++;
 		}
 		doGet(request, response);
