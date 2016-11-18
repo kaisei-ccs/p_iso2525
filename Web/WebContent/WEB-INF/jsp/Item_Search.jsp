@@ -104,7 +104,7 @@ ArrayList<Item> ItemList = (ArrayList<Item>) request.getAttribute("Itemlist");
 				<th>返却有無</th>
 			</tr>
 		</thead>
-		<tbody style="height: 500px;">
+		<tbody style="height: 450px;">
 <%
 for(Item item : ItemList) {
 	String quantity = "無";

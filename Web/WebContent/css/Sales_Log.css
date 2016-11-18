@@ -10,7 +10,7 @@ section {
 }
 
 #popup-content {
-	width: 60% ;
+	width: 70% ;
 	height: 80% ;
 	overflow:auto;
 }
@@ -79,14 +79,22 @@ table.display_v{
 }
 
 table.CTDtable{
-	width:90%;
+	width:95%;
 	margin-left: auto;
 	margin-right: 0px;
 }
 
-table.TDtable thead th:nth-child(1), table.TDtable tbody td:nth-child(1){ width: 10.0rem; }
-table.TDtable thead th:nth-child(2), table.TDtable tbody td:nth-child(2){ width: 12.0rem; }
-table.TDtable thead th:nth-child(3), table.TDtable tbody td:nth-child(3){ width: 8.0rem; }
+table.TDtable thead th:nth-child(1), table.TDtable tbody td:nth-child(1){ width: 5.0rem; }
+table.TDtable thead th:nth-child(2), table.TDtable tbody td:nth-child(2){ width: 8.0rem; }
+table.TDtable thead th:nth-child(3), table.TDtable tbody td:nth-child(3){ width: 5.0rem; }
 table.TDtable thead th:nth-child(4), table.TDtable tbody td:nth-child(4){ width: 40.0rem; }
-table.TDtable thead th:nth-child(5), table.TDtable tbody td:nth-child(5){ width: 12.0rem; }
-table.TDtable thead th:nth-child(6), table.TDtable tbody td:nth-child(6){ width: 12.0rem; }
+table.TDtable thead th:nth-child(5), table.TDtable tbody td:nth-child(5){ width: 8.0rem; }
+table.TDtable thead th:nth-child(6), table.TDtable tbody td:nth-child(6){ width: 5.0rem; }
+
+table.CTDtable thead th:nth-child(1), table.CTDtable tbody td:nth-child(1){ width: 5.0rem; }
+table.CTDtable thead th:nth-child(2), table.CTDtable tbody td:nth-child(2){ width: 5.0rem; }
+table.CTDtable thead th:nth-child(3), table.CTDtable tbody td:nth-child(3){ width: 8.0rem; }
+table.CTDtable thead th:nth-child(4), table.CTDtable tbody td:nth-child(4){ width: 5.0rem; }
+table.CTDtable thead th:nth-child(5), table.CTDtable tbody td:nth-child(5){ width: 40.0rem; }
+table.CTDtable thead th:nth-child(6), table.CTDtable tbody td:nth-child(6){ width: 8.0rem; }
+table.CTDtable thead th:nth-child(7), table.CTDtable tbody td:nth-child(7){ width: 5.0rem; }
