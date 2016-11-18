@@ -23,9 +23,9 @@
 <jsp:include page="Title_Bar.jsp">
     <jsp:param name="caller" value="/Web/Print_PriceTag" />
 </jsp:include>
-<div style="float: left">
+<div style="float: left; width: 70rem; margin-left: 4rem;">
 	<p>未印刷一覧</p>
-	<table class="display_v">
+	<table class="display_v" style="width:100%;">
 	<tr>
 	<th>出品表番号</th>
 	<th>項番</th>
@@ -36,7 +36,7 @@
 		for (Item item : ItemList ) {
 			out.write("<tr class=\"paddingTD\">\n");
 			out.write("<td class=\"posRight\">" + item.getESID() + "</td>");
-			out.write("<td>" + item.getINO() + "</td>");
+			out.write("<td class=\"posRight\">" + item.getINO() + "</td>");
 			out.write("<td>" + item.getName() + "</td>\n");
 			out.write("</tr>\n");
 		}
@@ -44,25 +44,28 @@
 	</table>
 </div>
 
-<div style="float: right">
+<div style="float: right; margin-right: 4rem;">
 	<form name="form" method="post" action="">
 	<p>
-	出　　　　　　　　　　　　　　　　項
+	出品表番号
 	</p>
+	<p><input type="text" name="ESID_text" size="25" maxlength="20"></p>
 	<p>
-		<input type="text" name="ESID_text" size="25" maxlength="20">
-		<input type="text" name="INO_text" size="25" maxlength="20">
+	項番
 	</p>
-	<p><input type="submit" name="addition" value="追加" style="width:200px;"></p>
-	<p><input type="submit" name="print" value="印刷" style="width:200px;"></p>
+	<p><input type="text" name="INO_text" size="25" maxlength="20"></p>
+	<p><input type="submit" name="addition" value="追加" style="width:48%;">
+	<input type="submit" name="print" value="印刷" style="width:48%;">
+	</p>
 
 	</form>
 
+	<div>
+		<p>　　<%= ItemList.size() %>件印刷予定(A4　<%= ItemList.size() / 6 + 1 %>枚必要)</p>
+	</div>
+
 </div>
 
-<div>
-	<p>　　○○件印刷予定(A4○○枚必要)</p>
-</div>
 
 </body>
 </html>
