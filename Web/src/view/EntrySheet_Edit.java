@@ -46,10 +46,20 @@ public class EntrySheet_Edit extends HttpServlet {
 
 		if(request.getParameter("btnSea") != null && request.getParameter("btnSea").equals("検　索")){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/EntrySheet_Edit.jsp");
-			//if( == data[0])){
+			//if(data[0] != null && data[2] != null){
+				//ArrayList<EntrySheet> ESID = EntrySheet.findByESID(Integer.parseInt(data[0]));
+				//request.setAttribute("ESID", ESID);
+			//}else if(data[0] != null){
+			if(data[0] != ""){
 				ArrayList<EntrySheet> ESID = EntrySheet.findByESID(Integer.parseInt(data[0]));
 				request.setAttribute("ESID", ESID);
-			//}
+			}else if(data[2] != ""){
+				ArrayList<EntrySheet> ESID = EntrySheet.findBySID(Integer.parseInt(data[2]));
+				request.setAttribute("ESID", ESID);
+			}else{
+				ArrayList<EntrySheet> ESID = EntrySheet.findByESID(Integer.parseInt(data[0]));
+				request.setAttribute("ESID", ESID);
+			}
 			dispatcher.forward(request, response);
 		}
 
