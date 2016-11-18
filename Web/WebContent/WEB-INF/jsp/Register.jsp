@@ -28,32 +28,33 @@
 	<%int scanIno;
 	  int scanEsId;
 	  String itemName;
+
 	  int itemPrice;
 	  int totalPrice = 0;
 	  int charge = 0;
 	  int cashBack = 0;
 	  int getItem = 0;
+
 	  int cells;
-	  boolean frag = true;
+	  //サブ画面が2枚上でないようにする
+	  boolean subFrag = true;
 	  ArrayList<Item> item;%>
 	<% ArrayList<Scan> scan = (ArrayList<Scan>) request.getAttribute("scan");%>
-<%if(true == frag){%>
-<script>registerSub();</script>
-<%frag = false; }%>
+	<%if(true == subFrag){%>
+	<script>registerSub();</script>
+	<%subFrag = false; }%>
 	<article>
 		<section>
 			<div class="left">
-				<TABLE class="display_v scrollBody" id ="table_Item">
-				<thead>
+				<TABLE class="display_v" id ="table_Item">
 					<tr>
 						<th>出品表番号</th>
 						<th>項番</th>
 						<th>商品名</th>
 						<th>単価</th>
 					</tr>
-				</thead>
-				<tbody style="height: 500px;">
 					<%
+
 						for(int i = 0;i<scan.size();i++){
 							scanEsId = scan.get(i).getESID();
 							scanIno = scan.get(i).getINO();
@@ -72,7 +73,7 @@
 						}%>
 					<tr>
 						<td>
-							<input type="text" id="cell1" onblur="insertCheck()" value="" autofocus />
+							<input type="text" id="cell1" onblur="insertCheck()" value="" />
 						</td>
 						<td>
 							<input type="text" id="cell2" onblur="insertCheck()" value="" />
@@ -83,11 +84,11 @@
 					<tr class="non-line">
 				<!--  	<td colspan="4"><input type="submit" name="regiStop" value="会計中止"></td>-->
 					</tr>
-				</tbody>
+
 				</TABLE>
 			</div>
 			<div class="right">
-				<form method="POST" action="/Web/Register">
+				<form method="POST" id = "form" name ="form" action="/Web/Register">
 					<table class="display_h">
 						<tr><!--  checked ="checked"-->
 							<td><input type="radio" name="Return" checked ="checked" value="1">レジ</td>
@@ -104,7 +105,6 @@
 						</tr>
 						<tr>
 							<td><input type="submit" name = "Confirm" value="確定"></td>
-							<%--<td><input type="submit" name = "Confirm" value="確定"></td> --%>
 						</tr>
 						<tr>
 							<td>おつり</td>
@@ -112,22 +112,22 @@
 						</tr>
 						<tr>
 							<td><input type="submit" name="regiStop" value="会計中止"></td>
-							<%-- <td><input type="submit" name="regiStop" value="会計中止"></td> --%>
+
 							<td>
 						</tr>
 					</table>
 				</form>
-				<script>
-				$(function(){
-					$("input").on("keydown", function(e) {
-						if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
-							return false;
-							} else {
-								return true;
-								}
-						});
-					});
-				</script>
+				 <script>
+			        $(function(){
+			          $("input").on("keydown", function(e) {
+			            if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+			              return false;
+			              } else {
+			                return true;
+			                }
+			            });
+			          });
+        </script>
 			</div>
 		</section>
 	</article>

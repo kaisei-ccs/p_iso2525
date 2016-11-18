@@ -71,7 +71,7 @@ public class Sales_Log extends HttpServlet {
 		String es_id = request.getParameter("es_id");
 		check3(es_id,true);
 		String i_no = request.getParameter("i_no");
-		check3(i_no,true);
+		check3(i_no,false);
 		if(!existsstr.isEmpty()){
 			existsstr += ")";
 			wherestr += existsstr;

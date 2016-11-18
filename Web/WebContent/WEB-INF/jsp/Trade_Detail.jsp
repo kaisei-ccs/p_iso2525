@@ -32,7 +32,6 @@ $(".display_v tr td table .posRight td:last-child").each(function () {
 });
 $(function () {
 	$(".display_v .trade").dblclick( function(){
-		console.log("bbbbbbb");
 		var esID = $(this).children().eq(1).text();
 		var iNo = $(this).children().eq(2).text();
 		$("#popup-content").load("./Trade_Detail", { esID:esID,iNo:iNo});
