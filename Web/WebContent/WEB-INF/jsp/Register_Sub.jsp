@@ -10,6 +10,8 @@
 	<title>レジ</title>
 	<script type="text/javascript" src="/Web/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src= "./js/Register_Sub.js"></script>
+	<script type="text/javascript" src="./js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src= "./js/Register.js"></script>
 
 	<!-- 戻るボタンで前のページに戻らないようにする -->
 	<script type="text/javascript">
@@ -21,6 +23,18 @@
 	<link rel="stylesheet" type="text/css" href="./css/Register.css">
 </head>
 <body>
+
+	<%int scanIno;
+	  int scanEsId;
+	  String itemName;
+	  int itemPrice;
+	  int totalPrice = 0;
+	  int charge = 0;
+	  int cashBack = 0;
+	  int getItem = 0;
+	  int cells;
+	  ArrayList<Item> item;%>
+
 	<article>
 		<section>
 			<div class="left">

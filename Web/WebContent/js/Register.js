@@ -22,8 +22,8 @@ function insertRow(id) {
 }
 //出品表番号と項番に数字が入力されているか
 function insertCheck(){
-	var checkHTML1val = document.getElementById('cell1').value;
-	var checkHTML2val = document.getElementById('cell2').value;
+	var checkHTML1val = toHalfWidth(document.getElementById('cell1').value);
+	var checkHTML2val = toHalfWidth(document.getElementById('cell2').value);
 
 	//出品表番号と項番に数字が入力されていたらそのデータをPOSTする
 	if(true == isNumber(checkHTML1val) && true == isNumber(checkHTML2val)){
@@ -32,12 +32,28 @@ function insertCheck(){
 		$.post("/Web/Scan",
 				{ postData: margeData },
 				function(data){
-					//document.location.reload(false);
-					//location.replace(location.href);
 					insertScanData();
 				}
 		);
 	}
+}
+//全角入力を半角に変換
+function toHalfWidth(strVal){
+	  // 半角変換
+	  var halfVal = strVal.replace(/[！-～]/g,
+	    function( tmpStr ) {
+	      // 文字コードをシフト
+	      return String.fromCharCode( tmpStr.charCodeAt(0) - 0xFEE0 );
+	    }
+	  );
+
+	  // 文字コードシフトで対応できない文字の変換
+	  return halfVal.replace(/”/g, "\"")
+	    .replace(/’/g, "'")
+	    .replace(/‘/g, "`")
+	    .replace(/￥/g, "\\")
+	    .replace(/　/g, " ")
+	    .replace(/〜/g, "~");
 }
 
 //スキャンデータ取得
