@@ -211,5 +211,11 @@ public class TradeDetail extends BaseActiveRecord{
 	public static ArrayList<TradeDetail> findByQuantity(int quantity){
 		return executeSelectQuery("select * from TRADEDETAIL where QUANTITY=" + quantity);
 	}
+	public static ArrayList<TradeDetail> findByESIDINO(int esID, int iNo){
+		return executeSelectQuery("select * from TRADEDETAIL where ES_ID=" + esID+ " AND I_NO="+iNo);
+	}
+	public static TradeDetail findByMaxID(){
+		return executeSelectQuery("select * from TRADEDETAIL WHERE T_ID = (select max(t_id) as maxNo  from TRADEDETAIL)").get(0);
+	}
 
 }

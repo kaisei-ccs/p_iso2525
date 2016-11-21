@@ -1,10 +1,8 @@
 @CHARSET "UTF-8";
 
 #popup-content {
-	width: 50% ;
-	height: 50% ;
-	width: 400px ;
-	height: 400px ;
+	width: 80% ;
+	height: 80% ;
 	padding: 10px 20px ;
 	border: 2px solid #aaaaaa ;
 	background: #ffffff ;

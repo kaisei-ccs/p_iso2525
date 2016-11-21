@@ -12,7 +12,7 @@ import common.BaseActiveRecord;
 import common.DB_Interface;
 
 public class SalesLog extends BaseActiveRecord{
-	private final int tID;
+	private int tID;
 	private Date tDate;
 	private Time tTime;
 	private int total;
@@ -28,12 +28,12 @@ public class SalesLog extends BaseActiveRecord{
 		cashBack	= 0;
 	}
 
-	public SalesLog(int tID,Date tDate,Time tTime,int total,int chsrge,int cashBack){
+	public SalesLog(int tID,Date tDate,Time tTime,int total,int charge,int cashBack){
 		this.tID		= tID;
 		this.tDate		= tDate;
 		this.tTime		= tTime;
 		this.total		= total;
-		this.charge		= chsrge;
+		this.charge		= charge;
 		this.cashBack	= cashBack;
 	}
 
@@ -84,14 +84,13 @@ public class SalesLog extends BaseActiveRecord{
 
 		try{
 			if(false == getIsExistData()){
-				sql = "insert into SALESLOG values(?,?,?,?,?,?)";
+				sql = "insert into SALESLOG values(?,?,?,?,?)";
 				ps = con.prepareStatement(sql);
-				ps.setInt(1, tID);
-				ps.setDate(2, tDate);
-				ps.setTime(3, tTime);
-				ps.setInt(4, total);
-				ps.setInt(5, charge);
-				ps.setInt(6, cashBack);
+				ps.setDate(1, tDate);
+				ps.setTime(2, tTime);
+				ps.setInt(3, total);
+				ps.setInt(4, charge);
+				ps.setInt(5, cashBack);
 
 			}else{
 				sql = "update SALESLOG set T_DATE=?, T_TIME=?, TOTAL=?, CHARGE=?, CASHBACK=? where T_ID=?";
@@ -106,6 +105,7 @@ public class SalesLog extends BaseActiveRecord{
 			}
 
 			ps.executeUpdate();
+			tID = findByThis().getTID();
 		}catch (SQLException e){
 			e.printStackTrace();
 			return false;
@@ -200,18 +200,29 @@ public class SalesLog extends BaseActiveRecord{
 	public static ArrayList<SalesLog> findByTDate(Date tDate){
 		return executeSelectQuery("select * from SALESLOG where T_DATE=" + tDate);
 	}
-	public static ArrayList<SalesLog> findByTTime(Time tTime){
-		return executeSelectQuery("select * from SALESLOG where T_TIME=" + tTime);
+	public static ArrayList<SalesLog> findByTTime(Time tTime1, Time tTime2){
+		return executeSelectQuery("select * from SALESLOG where T_TIME BETWEEN" + tTime1 + "AND" + tTime2);
 	}
-	public static ArrayList<SalesLog> findByTotal(int total){
-		return executeSelectQuery("select * from SALESLOG where TOTAL=" + total);
+	public static ArrayList<SalesLog> findByTotal(int total1, int total2){
+		return executeSelectQuery("select * from SALESLOG where TOTAL BETWEEN" + total1 + "AND" + total2);
 	}
-	public static ArrayList<SalesLog> findByChsrge(int chsrge){
-		return executeSelectQuery("select * from SALESLOG where CHSRGE=" + chsrge);
+	public static ArrayList<SalesLog> findByChsrge(int charge1, int charge2){
+		return executeSelectQuery("select * from SALESLOG where CHSRGE BETWEEN" + charge1 + "AND" + charge2);
 	}
-	public static ArrayList<SalesLog> findByCashBack(int cashBack){
-		return executeSelectQuery("select * from SALESLOG where CASHBACK=" + cashBack);
+	public static ArrayList<SalesLog> findByCashBack(int cashBack1, int cashBack2){
+		String sql = "select *" +
+	                  " from SALESLOG" +
+				     " where CASHBACK BETWEEN" + cashBack1 + "AND" + cashBack2 +
+				     " ORDER BY ";
+		return executeSelectQuery(sql);
 	}
+	public static ArrayList<SalesLog> findBy(String str){
+		return executeSelectQuery("select * from SALESLOG as slog where "+str);
+	}
+	private SalesLog findByThis(){
+		return executeSelectQuery("select * from SALESLOG WHERE T_ID = (select max(t_id) as maxNo  from SALESLOG)").get(0);
+	}
+
 
 
 }

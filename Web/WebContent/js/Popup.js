@@ -1,7 +1,7 @@
-$(function(){
-
 //モーダルウィンドウを出現させるクリックイベント
-$("#popup-open").click( function(){
+function popupopen(url){
+	//jsp読み込み
+	$('#popup-content').load(url)
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
 	if( $( "#popup-overlay" )[0] ) return false ;	//新しくpopupを起動しない
@@ -12,16 +12,15 @@ $("#popup-open").click( function(){
 	centeringModalSyncer() ;
 	//コンテンツをフェードインする
 	$( "#popup-content" ).fadeIn( "slow" ) ;
-	//popup-overlayまたはpopup-closeをクリックしたら
-	$( "#popup-close" ).unbind().click( function(){
-		//popup-contentとpopup-overlayをフェードアウトした後に
-		//$( "#popup-content" ).fadeOut( "slow" , function(){
-		$( "#popup-content,#popup-overlay" ).fadeOut( "slow" , function(){
-			//popup-overlayを削除する
-			$('#popup-overlay').remove() ;
-		} ) ;
+}
+
+//モーダルウィンドウを閉じる処理
+function popup_close(){
+	$( "#popup-content,#popup-overlay" ).fadeOut( "slow" , function(){
+		//popup-overlayを削除する
+		$('#popup-overlay').remove() ;
 	} ) ;
-} ) ;
+}
 
 //リサイズされたら、センタリングをする関数[centeringModalSyncer()]を実行する
 $( window ).resize( centeringModalSyncer ) ;
@@ -36,4 +35,3 @@ $( window ).resize( centeringModalSyncer ) ;
 		//センタリングを実行する
 		$( "#popup-content" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
 	}
-} ) ;

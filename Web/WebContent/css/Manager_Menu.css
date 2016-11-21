@@ -6,34 +6,28 @@ article {
 }
 
 article section {
-	font-size: 32rem;
+	font-size: 3.2rem;
 	width: calc(100% / 3);
 	display: inline-block;
 	vertical-align: top;
 }
 
-ul {
-	list-style-type: none;
-
-}
-
-li {
+section li {
 	text-align: center;
 	border: solid 1px #aaaaaa;
-	margin: 4% 2%;
+	margin: 6% 2%;
 	background-color: #eeeeee;
 }
 
-li:hover {
+section li:hover {
 	background-color: #87cefa;
 }
 
-li a {
+section li a {
 	display: block;
-	text-decoration: none;
 	color: #4169e1;
 }
-li a:hover {
+section li a:hover {
 	color: white;
 }
 }

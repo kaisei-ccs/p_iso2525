@@ -1,0 +1,100 @@
+@CHARSET "UTF-8";
+
+article {
+	overflow: hidden;
+	width: 95%;
+}
+
+section {
+	float: left;
+}
+
+#popup-content {
+	width: 70% ;
+	height: 80% ;
+	overflow:auto;
+}
+
+table.display_h tr td:nth-child(3){
+	width: 3.0rem;
+}
+
+.search{
+	width:calc(100% / 3);
+	height:537px;
+}
+
+.stable {
+	width:calc(100% / 3 * 2);
+}
+
+.tclear {
+	clear:both
+}
+
+table.display_h th {
+	border-top: solid 1px black;
+	border-bottom: solid 1px black;
+	line-height: 3.5rem;
+	background-color: rgba(255,255,255,0.5);
+}
+
+thead th:nth-child(1), tbody td:nth-child(1), tfoot td:nth-child(1){ width: 12.0rem; }
+thead th:nth-child(2), tbody td:nth-child(2), tfoot td:nth-child(2){ width: 15.0rem; }
+thead th:nth-child(3), tbody td:nth-child(3), tfoot td:nth-child(3){ width: 15.0rem; }
+thead th:nth-child(4), tbody td:nth-child(4), tfoot td:nth-child(4){ width: 12.0rem; }
+thead th:nth-child(5), tbody td:nth-child(5), tfoot td:nth-child(5){ width: 12.0rem; }
+thead th:nth-child(6), tbody td:nth-child(6), tfoot td:nth-child(6){ width: 12.0rem; }
+
+table.display_h td {width: 12.0rem;}
+
+table.display_v thead tr .header {
+	background-image: url(../img/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.display_v thead tr .headerSortUp {
+	background-image: url(../img/asc.gif);
+}
+table.display_v thead tr .headerSortDown {
+	background-image: url(../img/desc.gif);
+}
+
+table.display_v .trade:hover{
+	background-color:red;
+}
+
+table.display_v{
+	margin-left: 0px;
+}
+
+.table {
+	width:95%;
+	height: 100%;
+}
+
+.TDtable{
+	width:100%;
+}
+
+table.CTDtable{
+	width:95%;
+	margin-left: auto;
+	margin-right: 0px;
+}
+
+table.TDtable thead th:nth-child(1), table.TDtable tbody td:nth-child(1){ width: 5.0rem; }
+table.TDtable thead th:nth-child(2), table.TDtable tbody td:nth-child(2){ width: 8.0rem; }
+table.TDtable thead th:nth-child(3), table.TDtable tbody td:nth-child(3){ width: 5.0rem; }
+table.TDtable thead th:nth-child(4), table.TDtable tbody td:nth-child(4){ width: 40.0rem; }
+table.TDtable thead th:nth-child(5), table.TDtable tbody td:nth-child(5){ width: 8.0rem; }
+table.TDtable thead th:nth-child(6), table.TDtable tbody td:nth-child(6){ width: 5.0rem; }
+
+table.CTDtable thead th:nth-child(1), table.CTDtable tbody td:nth-child(1){ width: 5.0rem; }
+table.CTDtable thead th:nth-child(2), table.CTDtable tbody td:nth-child(2){ width: 5.0rem; }
+table.CTDtable thead th:nth-child(3), table.CTDtable tbody td:nth-child(3){ width: 8.0rem; }
+table.CTDtable thead th:nth-child(4), table.CTDtable tbody td:nth-child(4){ width: 5.0rem; }
+table.CTDtable thead th:nth-child(5), table.CTDtable tbody td:nth-child(5){ width: 40.0rem; }
+table.CTDtable thead th:nth-child(6), table.CTDtable tbody td:nth-child(6){ width: 8.0rem; }
+table.CTDtable thead th:nth-child(7), table.CTDtable tbody td:nth-child(7){ width: 5.0rem; }

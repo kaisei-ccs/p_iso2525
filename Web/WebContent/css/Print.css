@@ -7,8 +7,11 @@
 
 /* 印刷範囲の設定 */
 @media print{
-	.noprint{
-		display:none;
+	.area {
+		width: 100%;
+	}
+	.print-btn,.print-all {
+		display: none;
 	}
 }
 
@@ -25,5 +28,34 @@
 		background: white; /* 背景を白く */
 		box-shadow: 0 .5mm 2mm rgba(0,0,0,.3); /* ドロップシャドウ */
 		margin: 5mm;
-  }
+	}
+}
+
+.area {
+    width: 100%;
+  	border: 1px solid #999;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+.print-btn {
+    margin: 20px auto;
+    padding: 10px;
+    color: #FFF;
+    font-size: 12px;
+    text-align: center;
+    background-color: #666;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    cursor: pointer;
+}
+
+.print-btn {
+	width: 80%;
+}
+
+.print-off {
+    display: none;
 }

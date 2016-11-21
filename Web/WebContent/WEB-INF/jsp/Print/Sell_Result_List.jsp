@@ -16,6 +16,8 @@
 <title>精算画面</title>
 <!-- スタイルシート読み込み -->
 <link rel="stylesheet" type="text/css" href="./css/common.css">
+<link href="./css/Popup.css" rel="stylesheet" type="text/css">
+<link href="./css/Print.css" rel="stylesheet" type="text/css">
 <style>
 thead th:nth-child(1), tbody td:nth-child(1), tfoot td:nth-child(1){ width: 12.0rem; }
 thead th:nth-child(2), tbody td:nth-child(2), tfoot td:nth-child(2){ width: 56.0rem; }
@@ -25,21 +27,15 @@ thead th:nth-child(5), tbody td:nth-child(5), tfoot td:nth-child(5){ width: 12.0
 thead th:nth-child(6), tbody td:nth-child(6), tfoot td:nth-child(6){ width: 12.0rem; }
 </style>
 <script type="text/javascript" src="./js/jquery-3.1.1.min.js"></script>
+<script src="./js/Popup.js"></script>
+<script src="./js/Print.js"></script>
 </head>
 
 <body>
 
-<%-- タイトルバーを出力 --%>
-<jsp:include page="Title_Bar.jsp">
-    <jsp:param name="caller" value="Sell_Result" />
-</jsp:include>
-
 <article>
 <section>
-<form id="form" method="post" action="./Print_Sell_Result">
-<h2 class="hidden">販売情報</h2>
-
-<table class="display_v scrollBody">
+<table class="display_v">
 
 <thead>
 <tr>
@@ -52,7 +48,7 @@ thead th:nth-child(6), tbody td:nth-child(6), tfoot td:nth-child(6){ width: 12.0
 </tr>
 </thead>
 
-<tbody style="height: 43.5rem;">
+<tbody>
 <%
 ArrayList<ArrayList<String>> SellResultList = (ArrayList<ArrayList<String>>)request.getAttribute("Sell_Result_Data");
 ArrayList<Integer> total = new ArrayList<Integer>();
@@ -62,12 +58,7 @@ for (int i=0; i<4; i++) {
 
 for (ArrayList<String> Sell_Result : SellResultList ) {
 	out.write("<tr class=\"paddingTD\">\n");
-	out.write("<td>" +
-				"<dl class=\"checkRight\">" +
-				"<dt><input type=\"checkbox\" id=\"selId\" name=\"selId\" value=\"" + Sell_Result.get(0) + "\"></dt>" +
-				"<dd>" + Sell_Result.get(0) + "</dd>" +
-				"</dl>" +
-			  "</td>");
+	out.write("<td>" + Sell_Result.get(0) + "</td>");
 	out.write("<td>" + Sell_Result.get(1) + "</td>");
 	for (int i=0; i<4; i++) {
 		out.write("<td class=\"posRight\">" + makeSeparatData(Sell_Result.get(i + 2)) + "</td>");
@@ -83,12 +74,7 @@ for (ArrayList<String> Sell_Result : SellResultList ) {
 
 <tfoot>
 <tr class="paddingTD totalLine">
-<td>
-<dl class="checkRight">
-<dt><input type="checkbox" id="allCheck"></dt>
-<dd>全選択</dd>
-</dl>
-</td>
+<td></td>
 <td class="posCenter">合　計</td>
 <%
 for (int i=0; i<4; i++) {
@@ -96,19 +82,10 @@ for (int i=0; i<4; i++) {
 }
 %>
 </tr>
-<tr class="non-line">
-<td colspan="6"><input type="submit" value="印　刷" id="btnPrint" name="btnPrint" disabled="disabled"></td>
-</tr>
 </tfoot>
-
 </table>
 
 <script>
-$('tbody td').dblclick( function(){
-
-	$(".checkRight input[name='selId']").prop("checked", false);
-	var $cur_tr = $(this).parent();
-});
 $("input[name='selId']").on('change', function(){
 	changeDisabled();
 });
@@ -126,27 +103,15 @@ function changeDisabled(){
 		$("#btnPrint").attr('disabled', "disabled");
 	}
 }
-
-$(function () {
-		var cnt = $("input[name='selId']:checked").length;
-		if( cnt > 0) {
-			$("#btnPrint").removeAttr("disabled");
-		} else {
-			$("#btnPrint").attr('disabled', "disabled");
-		}
-	$(".paddingTD").dblclick( function(){
-		var td = $(this).children().eq(0).children().eq(0);
-		var input = td.children().eq(0).children().eq(0);
-		input[0].checked = true;
-		$("#form").submit();
-	});
-});
-
-
 </script>
 
-</form>
 </section>
+<div id="page" class="posLeft" style="width: 100rem;">
+上記の内容を印刷します。
+<form name="form" method="post" action="./Sell_Result">
+	<p><input type="submit" name="Confirm" value="確定" style="width:100px;" onClick="Print_open()"></p>
+</form>
+</div>
 </article>
 </body>
 </html>

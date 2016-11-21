@@ -11,7 +11,7 @@ import common.DB_Interface;
 
 public class EntrySheet extends BaseActiveRecord{
 	private final int esID;
-	private final int sID;
+	private int sID;
 
 	public EntrySheet(){
 		esID	= 0;
@@ -31,6 +31,10 @@ public class EntrySheet extends BaseActiveRecord{
 		return sID;
 	}
 
+	public void setSID(int sID){
+		this.sID = sID;
+	}
+
 
 	//保存処理
 	public boolean save(){
@@ -45,7 +49,10 @@ public class EntrySheet extends BaseActiveRecord{
 				ps.setInt(1, esID);
 				ps.setInt(2, sID);
 			}else{
-				return false;
+				sql = "update ENTRYSHEET set S_ID=? where ES_ID=?";
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, sID);
+				ps.setInt(2, esID);
 			}
 
 			ps.executeUpdate();

@@ -51,6 +51,11 @@ public class Seller extends BaseActiveRecord{
 		PreparedStatement ps = null;
 		String sql;
 
+		ArrayList<Seller> s = findBySID(sID);
+		if (0 != s.size()) {
+			setIsExistData();
+		}
+
 		try{
 			if(false == getIsExistData()){
 				sql = "insert into SELLER values(?,?,?)";
@@ -94,7 +99,7 @@ public class Seller extends BaseActiveRecord{
 
 
 		try{
-			sql = "delete from SELLER where ES_ID=?";
+			sql = "delete from SELLER where S_ID=?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, sID);
 

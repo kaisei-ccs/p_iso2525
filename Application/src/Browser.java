@@ -10,33 +10,36 @@ import javafx.scene.web.WebView;
 public class Browser extends Region {
 
 	final WebView browser = new WebView();
-    final WebEngine webEngine = browser.getEngine();
+	final WebEngine webEngine = browser.getEngine();
 
-    public Browser() {
-        //apply the styles
-        getStyleClass().add("browser");
-        // load the web page
-        webEngine.load("http://localhost:8080/Web/Register");
-        //add the web view to the scene
-        getChildren().add(browser);
-    }
-    private Node createSpacer() {
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        return spacer;
-    }
+	public Browser() {
+		//apply the styles
+		getStyleClass().add("browser");
+		// load the web page
+		webEngine.load("http://localhost:8080/Web/Register");
+		//add the web view to the scene
+		getChildren().add(browser);
+	}
+	private Node createSpacer() {
+		Region spacer = new Region();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+		return spacer;
+	}
 
-    @Override protected void layoutChildren() {
-        double w = getWidth();
-        double h = getHeight();
-        layoutInArea(browser,0,0,w,h,0, HPos.CENTER, VPos.CENTER);
-    }
+	@Override
+	protected void layoutChildren() {
+		double w = getWidth();
+		double h = getHeight();
+		layoutInArea(browser,0,0,w,h,0, HPos.CENTER, VPos.CENTER);
+	}
 
-    @Override protected double computePrefWidth(double height) {
-        return 900;
-    }
+	@Override
+	protected double computePrefWidth(double height) {
+		return 900;
+	}
 
-    @Override protected double computePrefHeight(double width) {
-        return 600;
-    }
+	@Override
+	protected double computePrefHeight(double width) {
+	return 600;
+	}
 }
